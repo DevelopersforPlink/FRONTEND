@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+import { LandingHeader } from "./landing/landingHeader";
+
 export const metadata: Metadata = {
   title: "Plink",
   description: "플링크",
@@ -18,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <LandingHeader>디자인 시스템 테스트</LandingHeader>
         {children}
       </body>
     </html>
