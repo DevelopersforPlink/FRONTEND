@@ -1,4 +1,4 @@
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import exp from "constants";
 
 export const Headline1=styled.p`
