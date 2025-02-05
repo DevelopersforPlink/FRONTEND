@@ -1,6 +1,20 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  font-family: 'Pretendard Variable', sans-serif;;
+  font-synthesis: none; /* 폰트 합성 방지 */
+  text-rendering: optimizeLegibility; /* 텍스트 렌더링 최적화 */
+  -webkit-font-smoothing: antialiased; /* 웹킷 브라우저 폰트 부드럽게 */
+  -moz-osx-font-smoothing: grayscale; /* 모질라 브라우저 폰트 부드럽게 */
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/assets/fonts/PretendardVariable.woff2') format('woff2');
+  font-weight: 100 900; /* 100~900까지 가변 */
+  font-display: swap; /* 렌더링 최적화 추가 (웹폰트 로딩 시 가시성을 유지) */
+  font-style: normal;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -12,8 +26,50 @@
 
 html,
 body {
-  max-width: 100vw;
+  min-width : 1140px;
+  min-height : 1024px;
   overflow-x: hidden;
+
+  /* 컬러 선언 */
+  /* Primary Color : 블루 계열 */
+  --primary-color-10:#E6F3FF;
+  --primary-color-20:#ABD5FF;
+  --primary-color-30:#83BCFF;
+  --primary-color-40:#59A1FF;
+  --primary-color-50:#2E7DF2;
+  --primary-color-60:#0759E6;
+  --primary-color-70:#0040BF;
+  --primary-color-80:#002E99;
+  --primary-color-90:#001F73;
+  --primary-color-100:#00124D;
+
+  /* Gray Scale : 무채색 계열 */
+  --gray-scale-10:#F1F2F4;
+  --gray-scale-20:#D8DBDF;
+  --gray-scale-30:#C7CCD1;
+  --gray-scale-40:#B3BAC1;
+  --gray-scale-50:#9DA6AF;
+  --gray-scale-60:#848F9A;
+  --gray-scale-70:#6A7581;
+  --gray-scale-80:#4E575F;
+  --gray-scale-90:#2E3338;
+  --gray-scale-100:#171A1C;
+
+  /* Sementic Color : 상황별 색상*/
+  --sementic-color-negative:#FC3C3C;
+  --sementic-color-notice:#FC5B25;
+  --sementic-color-positive:#4DED68;
+  --sementic-color-information:#3AAEFB;
+
+  /* Common : 블랙 앤 화이트 */
+  --common-white:#ffffff;
+  --common-black:#000000;
+
+  /* 크기 선언 */
+  --icon-small : 16px;
+  --icon-middle : 24px;
+  --icon-large : 32px;
+  --icon-category : 24px;
 }
 
 body {
