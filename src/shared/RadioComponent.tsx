@@ -27,7 +27,7 @@ const Radio = styled.input<{ checked: boolean; hovered: boolean; disabled: boole
       : 'var(--common-white)'};
   appearance: none;
   position: relative;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
 
   /* 선택된 상태 */
   &:checked {
@@ -51,7 +51,7 @@ const Radio = styled.input<{ checked: boolean; hovered: boolean; disabled: boole
     cursor: not-allowed;
   }
 
-  &:hover {
+  &:hover::before {
     background-color: ${(props) =>
       props.checked ? 'var(--primary-color-40)' : 'var(--primary-color-40)'};
   }
@@ -71,10 +71,19 @@ interface RadioComponentProps {
   label?: string;
   checked: boolean;
   disabled?: boolean;
+  value: string;
+  name: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const RadioComponent: React.FC<RadioComponentProps> = ({ label, checked, disabled = false, onChange }) => {
+const RadioComponent: React.FC<RadioComponentProps> = ({
+  label,
+  checked,
+  disabled = false,
+  value,
+  name,
+  onChange
+}) => {
   const [hovered, setHovered] = React.useState(false);
 
   return (
@@ -83,6 +92,8 @@ const RadioComponent: React.FC<RadioComponentProps> = ({ label, checked, disable
         type="radio"
         checked={checked}
         disabled={disabled}
+        value={value}
+        name={name} 
         onChange={onChange}
         hovered={hovered}
         onMouseEnter={() => setHovered(true)}
