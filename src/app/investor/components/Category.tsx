@@ -62,7 +62,7 @@ const filedList:Array<{icon:string;tag:string;}> = [
 
 ]
 
-const FiledNavigationBar=()=>{
+const Category=()=>{
 
     return(
         <Container>
@@ -73,7 +73,7 @@ const FiledNavigationBar=()=>{
     )
 }
 
-export default FiledNavigationBar;
+export default Category;
 
 const Container=styled.div`
     display: flex;
