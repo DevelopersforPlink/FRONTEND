@@ -1,11 +1,24 @@
 // p.4
 
-import React from 'react'
+"use client";
+
+import React from 'react';
+import styled from '@emotion/styled';
+import FiledNavigationBar from './components/fieldNavigationBar';
 
 export default function InvestorMain() {
   return (
     <div>
-      투자자 메인 페이지
+      <Container>
+        <FiledNavigationBar />
+      </Container>
     </div>
   )
 }
+
+const Container=styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
