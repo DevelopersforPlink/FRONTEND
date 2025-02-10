@@ -20,7 +20,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <LandingHeader>디자인 시스템 테스트</LandingHeader>
         {children}
       </body>
     </html>
