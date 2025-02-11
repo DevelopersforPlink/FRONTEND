@@ -16,11 +16,12 @@
     "@tanstack/react-query": "^5.66.0",
     "@tanstack/react-query-devtools": "^5.66.0",
     "axios": "^1.7.9",
+    "core-js": "^3.40.0",
     "next": "15.1.6",
-    "package.json": "^2.0.1",
+    "pdfjs-dist": "^2.16.105",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-pdf": "^9.2.1"
+    "react-pdf": "^6.2.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
