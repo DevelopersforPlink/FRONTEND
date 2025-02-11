@@ -5,10 +5,11 @@
 
 "use client";
 
-import React from 'react';
+import React,{useState} from 'react';
 import styled from '@emotion/styled';
 import BoxComponent from './components/BoxComponent';
 import OutlinedButtonComponent from '@/shared/Button/OutlinedButtonComponent';
+import Modal from './components/Modal';
 
 const TestData:{name : string, summation : string, companyName : string, serviceName : string} = {
   name : '테스트01-플링크',
@@ -18,6 +19,10 @@ const TestData:{name : string, summation : string, companyName : string, service
 }
 
 export default function PtPage() {
+  const [isModalOpen,setIsModalOpen] = useState(false);
+  const pdfTestUrl = '/modalTest.pdf';
+
+
   return (
     <Container>
       <BoxComponent 
@@ -32,8 +37,14 @@ export default function PtPage() {
           state='default'
           children='원페이퍼 사업기획서'
           iconSrc='/icons/Folder.svg'
+          onClick={()=>setIsModalOpen(true)}
         />
       </ButtonsWrapper>
+      <Modal 
+        isOpen={isModalOpen}
+        onClose={()=>setIsModalOpen(false)}
+        pdfUrl={pdfTestUrl}
+      />
     </Container>
   )
 };
