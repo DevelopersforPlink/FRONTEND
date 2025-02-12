@@ -13,14 +13,15 @@ interface InvestorMainBoxProps {
     name : string;
     companyName : string;
     serviceName : string;
+    onClick:React.MouseEventHandler<HTMLButtonElement>;
 }
 
 /* 추후 아래 주석으로 변경 */
-const InvestorMainBox:React.FC<InvestorMainBoxProps> = ({thumbnailSrc, profileSrc, name, companyName, serviceName}) =>{
+const InvestorMainBox:React.FC<InvestorMainBoxProps> = ({thumbnailSrc, profileSrc, name, companyName, serviceName,onClick}) =>{
 // const InvestorMainBox = () =>{
 
     return(
-        <Container>
+        <Container onClick={onClick}>
             <Thumbnail src={thumbnailSrc} type="investormain"/>
             <Wrapper>
                 <Profile src={profileSrc}/>
@@ -37,7 +38,9 @@ const InvestorMainBox:React.FC<InvestorMainBoxProps> = ({thumbnailSrc, profileSr
 
 export default InvestorMainBox;
 
-const Container = styled.div`
+const Container = styled.button`
+    cursor: pointer;
+
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -49,6 +52,7 @@ const Container = styled.div`
     padding: 0.3125rem;
     gap: 0.75rem;
 
+    border: none;
     border-radius: 0.625rem;
     background: var(--common-white, #FFF);
 
