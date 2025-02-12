@@ -2,6 +2,7 @@
 
 "use client";
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import UploadList from './components/UploadList';
 import { Headline1 } from '../typography';
 import OutlinedButtonComponent from '@/shared/Button/OutlinedButtonComponent';
@@ -84,6 +85,8 @@ const Test = [
 ]
 
 const FounderMain=()=>{
+  const router = useRouter();
+
   return (
     <>
       <Container>
@@ -93,6 +96,7 @@ const FounderMain=()=>{
           state='default'
           children='등록하기'
           iconSrc='/icons/Pluscircle.svg'
+          onClick={()=>{router.push('/founder/upload')}}
         />
         <UploadList data={Test}/>
       </Container>
