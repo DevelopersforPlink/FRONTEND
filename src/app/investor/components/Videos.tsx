@@ -25,6 +25,7 @@ const boxList:Array<{thumbnailSrc ?:string; profileSrc ?:string; name : string; 
         serviceName : 'test-03'
     },
     {
+        profileSrc:'https://i.pinimg.com/736x/2c/ea/36/2cea3612832722e2094f48630dc81a40.jpg',
         name : '테스트 4입니다',
         companyName : '테스트 4',
         serviceName : 'test-04'
