@@ -92,7 +92,7 @@ const FounderMain=()=>{
           scale='xs'
           state='default'
           children='등록하기'
-          iconSrc='/icons/Pluscicle.svg'
+          iconSrc='/icons/Pluscircle.svg'
         />
         <UploadList data={Test}/>
       </Container>

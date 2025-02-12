@@ -29,11 +29,11 @@ const UploadComponent:React.FC<UploadComponentProps> = ({thumbnailSrc,name,compa
                 />
                 <ButtonsWrapper>
                     <EditButton>
-                        <img src="/icon/Pencil.svg"/>
+                        <img src="/icons/Pencil.svg"/>
                         {/* <PencilIcon /> */}
                     </EditButton>
                     <DeleteButton>
-                        <img src="/icon/Trash.svg"/>
+                        <img src="/icons/Trash.svg"/>
                         {/* <TrashIcon /> */}
                     </DeleteButton>
                 </ButtonsWrapper>
@@ -66,6 +66,10 @@ const Container = styled.div`
         background-color: var(--gray-scale-20);
     }
 
+    img {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
 `;
 
 const Wrapper = styled.div`
@@ -81,12 +85,22 @@ const ButtonsWrapper = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+
+    gap: 1.5rem;
 `;
 
 const EditButton = styled.button`
+    /* width: 1.5rem;
+    height: 1.5rem; */
+    
     border: none;
+    background-color: transparent;
 `;
 
 const DeleteButton = styled.button`
+    /* width: 1.5rem;
+    height: 1.5rem; */
+    
     border: none;
+    background-color: transparent;
 `;
