@@ -30,7 +30,7 @@ const BoxComponent: React.FC<BoxProps> = ({name, summation, companyName, service
 
             <VideoWrapper>
                 {/* 왜 src test가 안될깡..? */}
-                <Video src={videoTest}/>
+                <Video src={videoTest} type="investormain"/>
                 <FilledButton scale="l" state="default" children='재생하기'/>
             </VideoWrapper>
         </Container>
