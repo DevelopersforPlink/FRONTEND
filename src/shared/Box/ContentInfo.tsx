@@ -1,6 +1,6 @@
 "use client";
 
-import { Title6,Caption5 } from "@/app/typography";
+import { Title4, Title6, Caption3, Caption5 } from "@/app/typography";
 import styled from "@emotion/styled";
 
 /* 확장성 고려해서 interface로 선언 */
@@ -8,17 +8,32 @@ interface ContentInfoProps {
     name : string;
     companyName : string;
     serviceName : string;
+    type:'investormain' | 'upload'
 }
 
-const ContentInfo:React.FC<ContentInfoProps> = ({name, companyName, serviceName}) =>{
+const typograpyMap = {
+    investormain:{
+        name:Title6,
+        caption:Caption5,
+    },
+    upload:{
+        name:Title4,
+        caption:Caption3,
+    },
+    // 박스 요소 더 만들어지면 그거에 맞게 추가하기
+};
+
+const ContentInfo:React.FC<ContentInfoProps> = ({name, companyName, serviceName, type}) =>{
+    const NameComponent = typograpyMap[type].name;
+    const CaptionComponent = typograpyMap[type].caption;
 
     return(
         <Container>
-            <Title6>{name}</Title6>
+            <NameComponent>{name}</NameComponent>
             <CaptionsWrapper>
-                <Caption5>{companyName}</Caption5>
+                <CaptionComponent>{companyName}</CaptionComponent>
                 <CaptionSeparator />
-                <Caption5>{serviceName}</Caption5>
+                <CaptionComponent>{serviceName}</CaptionComponent>
             </CaptionsWrapper>
         </Container>
     )

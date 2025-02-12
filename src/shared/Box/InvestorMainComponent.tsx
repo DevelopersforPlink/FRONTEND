@@ -21,13 +21,15 @@ const InvestorMainBox:React.FC<InvestorMainBoxProps> = ({thumbnailSrc, profileSr
 
     return(
         <Container>
-            <Thumbnail src={thumbnailSrc}/>
+            <Thumbnail src={thumbnailSrc} type="investormain"/>
             <Wrapper>
                 <Profile src={profileSrc}/>
                 <ContentInfo 
                     name={name}
                     companyName={companyName}
-                    serviceName={serviceName}/>
+                    serviceName={serviceName}
+                    type='investormain'
+                    />
             </Wrapper>
         </Container>
     )
@@ -52,10 +54,12 @@ const Container = styled.div`
 
     :hover{
         background-color: var(--gray-scale-10);
+        transition: all 0.2s;
     }
 
     :active{
         background-color: var(--primary-color-10);
+        transition: all 0.2s;
     }
 `;
 
