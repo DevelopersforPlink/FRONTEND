@@ -59,9 +59,9 @@ export const Title6 = styled.p`
 
 export const Title7 = styled.p`
     font-family: Pretendard;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     line-height: normal;
 `;
 
