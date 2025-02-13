@@ -1,14 +1,33 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import styled from "@emotion/styled";
 import { Button2 } from "@/app/typography";
+import { MouseEventHandler } from "react";
 
-const DropDown = () => {
+interface DropDownProps {
+    state:'login'|'logout';
+    onClick:MouseEventHandler<HTMLButtonElement>;
+}
+
+const DropDown:React.FC<DropDownProps> = ({state,onClick}) => {
+    const router = useRouter()
 
     return(
         <Container>
-            <Button><Typo>내 정보</Typo></Button>
-            <Button><Typo>로그아웃</Typo></Button>
+            <Button onClick={()=>router.push('/mypage')}><Typo>내 정보</Typo></Button>
+            
+            {state === 'login' ?(
+                <Button 
+                    onClick={(e) => {
+                        onClick(e), // gotoLogout 핸들러 실행
+                        router.push('/') // 로그인 페이지로 이동
+                    }}><Typo>로그아웃</Typo></Button>
+            ):(
+                <Button onClick={()=>router.push('/auth/login')}>
+                    <Typo>로그인</Typo>
+                </Button>
+            )}
         </Container>
     )
 };

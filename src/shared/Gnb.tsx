@@ -1,25 +1,35 @@
 "use client";
 
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import { useRouter } from "next/navigation";
+import useAuthStore from "@/store/useAuthStore";
+
 import styled from "@emotion/styled";
 import { Button2 } from "@/app/typography";
+
 import DropDown from "./Dropdown";
 import Alert from "./Modal/Alert";
 
 const Gnb = () => {
-    const [isModalOepn, setIsModalOpen] = useState(false);
-    const [isBellClick, setIsBellClick] = useState(false);
-    const [isUserClick, setIsUserClick] = useState(false);
     const router = useRouter();
 
-    const handleBellIcon = () => {
-        setIsBellClick((prev)=>!prev)
+    const { state, gotoLogout } = useAuthStore();
+    const [activeModal, setActiveModal] =  useState<'bell'|'user'|null>(null);
+
+    // zustand 테스트용 로컬스토리지 저장 -> GNB에서 관리.
+    const testStore = ()=>{
+        if(localStorage.getItem('accessToken')=='login'){
+            localStorage.setItem('zustand_state',state);
+        }
     }
 
-    const handleUserIcon = () => {
-        setIsUserClick((prev)=>!prev)
-    }
+    const handleIconClick=(modalType:'bell'|'user')=>{
+        setActiveModal(prev=>(prev === modalType ? null : modalType))
+    };
+
+    useEffect(()=>{
+        testStore()
+    },[])
 
     return(
         <Container>
@@ -41,24 +51,16 @@ const Gnb = () => {
                 {/* <Button><img src="/icons/Chat.svg" alt="채팅"/></Button> */}
 
                 {/* 알림 버튼과 클릭시 모달창 */}
-                <Button
-                    onClick={()=>{
-                        handleBellIcon();
-                    }}
-                >
+                <Button onClick={()=>handleIconClick('bell')}>
                     <img src="/icons/Bell.svg" alt="알림"/>
                 </Button>
-                {isBellClick && <Alert />}
+                {activeModal === 'bell' && <Alert />}
 
                 {/* 마이 페이지 버튼과 클릭시 모달창 */}
-                <Button
-                    onClick={()=>{
-                        handleUserIcon();
-                    }}
-                >
+                <Button onClick={()=>handleIconClick('user')}>
                     <img src="/icons/User.svg" alt="마이페이지"/>
                 </Button>
-                {isUserClick && <DropDown />}
+                {activeModal === 'user' && <DropDown state={state} onClick={gotoLogout}/>}
             </IconArea>
         </Container>
     )
