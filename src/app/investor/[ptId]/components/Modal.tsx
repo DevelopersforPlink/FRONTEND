@@ -53,12 +53,7 @@ const Modal:React.FC<ModalProps> = ({isOpen, onClose, pdfUrl}) => {
         setPageNumber(1);
     }
     
-    const IconUrl = '/icons/Cross.svg';
     if (!isOpen ) return null;
-
-    // create new plugin instance
-    // const defaultLayoutPluginInstance = defaultLayoutPlugin();
-
 
     const handleOutsideClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if(event.target === event.currentTarget){
@@ -70,7 +65,17 @@ const Modal:React.FC<ModalProps> = ({isOpen, onClose, pdfUrl}) => {
         <Container onClick={handleOutsideClick}>
             <Wrapper>
                 <CrossButton onClick={onClose}>
-                    <img src={IconUrl} alt="close" />
+                    {/* SVG를 직접 JSX로 추가 (색상 적용 문제 해결) */}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="currentColor">
+                        <g clipPath="url(#clip0_667_9317)">
+                            <path d="M31.609 0.390382C31.359 0.140421 31.0199 0 30.6664 0C30.3128 0 29.9737 0.140421 29.7237 0.390382L15.9997 14.1144L2.27572 0.390382C2.02568 0.140421 1.6866 0 1.33305 0C0.979496 0 0.640419 0.140421 0.390382 0.390382C0.140421 0.640419 0 0.979496 0 1.33305C0 1.6866 0.140421 2.02568 0.390382 2.27572L14.1144 15.9997L0.390382 29.7237C0.140421 29.9737 0 30.3128 0 30.6664C0 31.0199 0.140421 31.359 0.390382 31.609C0.640419 31.859 0.979496 31.9994 1.33305 31.9994C1.6866 31.9994 2.02568 31.859 2.27572 31.609L15.9997 17.885L29.7237 31.609C29.9737 31.859 30.3128 31.9994 30.6664 31.9994C31.0199 31.9994 31.359 31.859 31.609 31.609C31.859 31.359 31.9994 31.0199 31.9994 30.6664C31.9994 30.3128 31.859 29.9737 31.609 29.7237L17.885 15.9997L31.609 2.27572C31.859 2.02568 31.9994 1.6866 31.9994 1.33305C31.9994 0.979496 31.859 0.640419 31.609 0.390382Z" fill="currentColor"/>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_667_9317">
+                                <rect width="32" height="32" fill="currentColor"/>
+                            </clipPath>
+                        </defs>
+                    </svg>
                 </CrossButton>
                 <PdfViewer>
                     {/* <Document
@@ -121,8 +126,6 @@ const Container = styled.div`
 
     background: rgba(23, 26, 28, 0.50);
     backdrop-filter: blur(10px);
-
-    color: var(--common-white);
 `;
 
 const Wrapper = styled.div`
@@ -144,6 +147,9 @@ const CrossButton = styled.button`
         width: 2rem;
         height: 2rem;
     }
+
+    color: var(--common-white);
+    background-color: transparent;
 `;
 
 const PdfViewer = styled.div`
