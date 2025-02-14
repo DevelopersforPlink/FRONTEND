@@ -1,7 +1,7 @@
 "use client";
 
 import React, {useState,useEffect} from "react";
-import { useRouter } from "next/navigation";
+import { useRouter,usePathname } from "next/navigation";
 import useAuthStore from "@/store/useAuthStore";
 
 import styled from "@emotion/styled";
@@ -12,8 +12,9 @@ import Alert from "./Modal/Alert";
 
 const Gnb = () => {
     const router = useRouter();
+    const pathname = usePathname();
 
-    const { state, gotoLogout } = useAuthStore();
+    const { state, type, gotoLogout } = useAuthStore();
     const [activeModal, setActiveModal] =  useState<'bell'|'user'|null>(null);
 
     // zustand 테스트용 로컬스토리지 저장 -> GNB에서 관리.
@@ -29,6 +30,13 @@ const Gnb = () => {
 
     useEffect(()=>{
         testStore()
+        if(type === 'investor' && pathname.startsWith('/founder')){
+            alert('투자자는 창업자 페이지에 접근할 수 없습니다.');
+            // router.push('/investor');
+        } else if ( type === 'founder' && pathname.startsWith('/investor')){
+            alert('창업자는 투자자 페이지에 접근할 수 없습니다.');
+            // router.push('/founder');
+        }
     },[])
 
     return(

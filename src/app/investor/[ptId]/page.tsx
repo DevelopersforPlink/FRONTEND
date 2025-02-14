@@ -7,6 +7,7 @@
 
 import React,{useState} from 'react';
 import styled from '@emotion/styled';
+import Gnb from '@/shared/Gnb';
 import BoxComponent from './components/BoxComponent';
 import OutlinedButtonComponent from '@/shared/Button/OutlinedButtonComponent';
 import Modal from './components/Modal';
@@ -25,6 +26,7 @@ export default function PtPage() {
 
   return (
     <Container>
+      <Gnb />
       <BoxComponent 
         name={TestData.name}
         summation={TestData.summation}
