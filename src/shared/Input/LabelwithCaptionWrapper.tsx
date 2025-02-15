@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "@emotion/styled";
 import { Title5, Caption6 } from "@/app/typography";
 
@@ -30,7 +30,7 @@ const Caption = styled(Caption6)<{ error?: boolean }>`
 interface LabelWithCaptionWrapperProps {
   label?: string;
   required?: boolean;
-  caption?: string;
+  caption?: string | ReactNode;
   error?: boolean;
   captionPosition?: "before" | "after";
   children: React.ReactNode;
