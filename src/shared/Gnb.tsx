@@ -75,17 +75,19 @@ const Gnb = () => {
             </NavigationArea>
             <IconArea>
                 {/* 2차 mvp 채팅 주석 해제 */}
-                {/* <Button><img src="/icons/Chat.svg" alt="채팅"/></Button> */}
+                {/* <Button>
+                    <Icon src="/icons/Chat.svg" />
+                </Button> */}
 
                 {/* 알림 버튼과 클릭시 모달창 */}
                 <Button onClick={()=>handleIconClick('bell')}>
-                    <img src="/icons/Bell.svg" alt="알림"/>
+                    <Icon src="/icons/Bell.svg" />
                 </Button>
                 {activeModal === 'bell' && <Alert />}
 
                 {/* 마이 페이지 버튼과 클릭시 모달창 */}
                 <Button onClick={()=>handleIconClick('user')}>
-                    <img src="/icons/User.svg" alt="마이페이지"/>
+                    <Icon src="/icons/User.svg" />
                 </Button>
                 {activeModal === 'user' && <DropDown state={state} onClick={gotoLogout}/>}
             </IconArea>
@@ -142,5 +144,28 @@ const NavigationText = styled(Button2)`
 const IconArea=styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     gap: 2rem;
+`;
+
+const Icon = styled.div<{src:string;}>`
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: var(--gray-scale-70);
+
+    mask-image: url(${({ src }) => src});
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image:url(${({ src }) => src});
+
+    :hover{
+        background-color: var(--gray-scale-80);
+        transition: all 0.3s;
+    }
+    :active{
+        background-color: var(--gray-scale-80);
+        transition: all 0.3s;
+    }
 `;
