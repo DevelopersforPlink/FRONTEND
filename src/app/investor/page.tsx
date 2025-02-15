@@ -8,6 +8,7 @@ import Gnb from '@/shared/Gnb';
 import Category from './components/Category';
 import StateDropDown from './components/stateDropDown';
 import Videos from './components/Videos';
+import { Pagination } from '@/shared/Pagination';
 
 export default function InvestorMain() {
   const [selectedFiled, setSelectedFiled] = useState<number | null>(null);
@@ -21,7 +22,6 @@ export default function InvestorMain() {
   useEffect(()=>{
     setSelectedFiled(0);
     // api 요청도 밑에 추가하기
-    
   },[])
 
   // 선택된 요소가 달라질때마다 axios요청 보내기.
@@ -34,6 +34,7 @@ export default function InvestorMain() {
     <Container>
       <Category onClick={handleFiledClick} selectedFiled={selectedFiled}/>
       <Videos />
+      <Pagination number='5'/>
     </Container>
   )
 }
