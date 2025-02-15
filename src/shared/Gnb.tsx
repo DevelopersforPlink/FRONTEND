@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState,useEffect} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter,usePathname } from "next/navigation";
 import useAuthStore from "@/store/useAuthStore";
 
@@ -13,6 +13,7 @@ import Alert from "./Modal/Alert";
 const Gnb = () => {
     const router = useRouter();
     const pathname = usePathname();
+    const gnbRef = useRef<HTMLDivElement | null>(null);
 
     const { state, type, gotoLogout } = useAuthStore();
     const [activeModal, setActiveModal] =  useState<'bell'|'user'|null>(null);
@@ -37,10 +38,28 @@ const Gnb = () => {
             alert('창업자는 투자자 페이지에 접근할 수 없습니다.');
             // router.push('/founder');
         }
+
+        // 외부 클릭 감지 로직
+        const handleClickOutside = (event:MouseEvent)=>{
+            if (gnbRef.current && !gnbRef.current.contains(event.target as Node)){
+                setActiveModal(null); // Gnb 밖을 클릭하면 모달 닫힘
+            }
+        };
+
+        document.addEventListener('mousedown',handleClickOutside);
+        return()=>{
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
     },[])
 
+    // 라우터 주소가 변경되면 모달창 닫기
+    useEffect(()=>{
+        setActiveModal(null)
+    },[pathname])
+
     return(
-        <Container>
+        // Gnb 요소 감지
+        <Container ref={gnbRef}>
             <NavigationArea>
                 <img src="/Logo.svg" onClick={()=>router.push('/')}/>
 
@@ -77,6 +96,8 @@ const Gnb = () => {
 export default Gnb;
 
 const Container = styled.div`
+    z-index: 10;
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;

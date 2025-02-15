@@ -13,6 +13,12 @@ const nextConfig: NextConfig = {
         canvas:false, // 브라우저 환경에서 canvas 비활성화
       };
     }
+
+    // svg에 css 적용하기 위한 설정
+    config.module.rules.push({
+      test:/\.svg$/,
+      use:["@svg/webpack"],
+    })
     return config;
   }
 };

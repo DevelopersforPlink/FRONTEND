@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Thumbnail from "./Thumbnail";
 import Profile from "./Profile";
 import ContentInfo from "./ContentInfo";
-import { stringToUTF16BEString } from "pdfjs-dist/types/src/shared/util";
+// import { stringToUTF16BEString } from "pdfjs-dist/types/src/shared/util";
 // import PencilIcon from '/icon/Pencil.svg';
 // import TrashIcon from '/icon/Trash.svg';
 
@@ -19,12 +19,12 @@ const UploadComponent:React.FC<UploadComponentProps> = ({thumbnailSrc,name,compa
 
     return(
         <Container>
-            <Thumbnail src={thumbnailSrc} type="upload"/>
+            <Thumbnail src={thumbnailSrc} type="founder"/>
             <Wrapper>
                 <ContentInfo 
-                    name={name}
-                    companyName={companyName}
-                    serviceName={serviceName}
+                    title={name}
+                    company={companyName}
+                    service_name={serviceName}
                     type="upload"
                 />
                 <ButtonsWrapper>

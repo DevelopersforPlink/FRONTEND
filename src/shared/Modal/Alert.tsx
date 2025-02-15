@@ -41,6 +41,8 @@ const Alert = () => {
 export default Alert;
 
 const Container = styled.div`
+    z-index: 10;
+
     position: absolute;
     top: 4rem;
     right: 5rem;
