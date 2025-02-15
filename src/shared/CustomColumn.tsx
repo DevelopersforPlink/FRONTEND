@@ -9,6 +9,7 @@ interface CustomColumnProps {
 	$alignitems?: string;
 	$justifycontent?: string;
 	$marginTop?: string;
+  $margin?: string;
 	$padding?: string;
 }
 
@@ -21,6 +22,7 @@ const CustomColumn = styled.div<CustomColumnProps>`
   align-items: ${(props) => props.$alignitems || 'center'};
   justify-content: ${(props) => props.$justifycontent || 'center'};
   margin-top: ${(props) => props.$marginTop || '0'};
+  margin: ${(props) => props.$margin || '0'};
   padding: ${(props) => props.$padding || '0'};
 `;
 

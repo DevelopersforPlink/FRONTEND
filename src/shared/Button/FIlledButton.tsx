@@ -56,7 +56,7 @@ interface FilledButtonProps {
 
 const FilledButton = styled.button<FilledButtonProps>`
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   display: flex;
   justify-content: center;

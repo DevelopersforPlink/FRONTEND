@@ -7,6 +7,9 @@ import FilledButton from '@/shared/Button/FIlledButton';
 import LabelWithCaptionWrapper from '@/shared/Input/LabelwithCaptionWrapper';
 import CustomColumn from '@/shared/CustomColumn';
 import CustomRow from '@/shared/CustomRow';
+import Image from 'next/image';
+import * as Typography from '@/app/typography'
+import LoginNavigation from './components/LoginNavigation';
 
 export default function SignupPage() {
 
@@ -41,7 +44,20 @@ export default function SignupPage() {
 
 
   return (
-    <div>
+    <CustomColumn $gap='2.5rem'>
+      <CustomColumn $width='100%' $gap='24px' $alignitems='flex-start'>
+        <Image 
+          src="/SmallLogo.svg"
+          alt='smalllogo' 
+          width={80} 
+          height={80} 
+          layout="intrinsic"  //원본 비율을 유지하면서 컨테이너 크기에 맞춰 자동 조정
+        />
+        <Typography.Headline1>
+          회원가입
+        </Typography.Headline1>
+      </CustomColumn>      
+
       <CustomColumn $width='100%' $gap='24px' $alignitems="flex-start" $justifycontent="center">
         <LabelWithCaptionWrapper
           label="아이디"
@@ -53,9 +69,10 @@ export default function SignupPage() {
               placeholder="아이디"
               scale="m"
               icon={false}
-              onChange={(e) => console.log(e.target.value)}
               value={userId}
               state="default"
+              // onChange={(e) => console.log(e.target.value)}
+              onChange={(e) => setUserId(e.target.value)}
             />
             <FilledButton
               scale="xs"
@@ -77,11 +94,29 @@ export default function SignupPage() {
             placeholder="비밀번호"
             scale="l"
             icon={true}
-            iconSrc="/icons/Eyecrossed.svg"
+            required={true}
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </LabelWithCaptionWrapper>
+        
+        <LabelWithCaptionWrapper
+          label="비밀번호 확인"
+          captionPosition="after"
+          required={true}
+          error={false}
+        >
+          <Input 
+            placeholder='비밀번호 확인'
+            scale='l'
+            icon={true}
+            required={true}
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </LabelWithCaptionWrapper>
+
         <FilledButton
           scale="l"
           state={buttonState}
@@ -91,6 +126,8 @@ export default function SignupPage() {
           다음
         </FilledButton>
       </CustomColumn>
-    </div>
+
+      <LoginNavigation />
+    </CustomColumn>
   )
 }
