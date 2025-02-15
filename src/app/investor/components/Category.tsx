@@ -1,29 +1,27 @@
 "use client";
 
-import { useState } from "react";
 import styled from '@emotion/styled';
 
 /* 네비게이션 요소 불러옴 */
 import Filed from './filed';
 import FiledIcon from '@/constant/FiledIcon'; // icon list
 
+interface CategoryProps {
+    selectedFiled : number|null;
+    onClick : (index:number)=>void;
+}
 
-const Category=()=>{
-    const [selectedFiled, setSelectedFiled] = useState<number | null>(null);
-
-    const handleFiledClick = (index: number) => {
-        setSelectedFiled(index); // ✅ 클릭한 `Filed`의 index를 저장 (active 유지)
-    };
+const Category:React.FC<CategoryProps>=({onClick,selectedFiled})=>{
 
     return(
         <Container>
             {FiledIcon.map(({icon,business_type_display},index)=>(
                 <Filed 
-                key={index} 
-                src={icon} 
-                tag={business_type_display}
-                state={selectedFiled === index} // 선택된 filed만 active 상태 유지
-                onClick={()=>handleFiledClick(index)}
+                    key={index} 
+                    src={icon} 
+                    tag={business_type_display}
+                    state={selectedFiled === index} // 선택된 filed만 active 상태 유지
+                    onClick={()=>{onClick(index);console.log(`선택된 filed index : ${index}`)}}
                 />
             ))}
         </Container>
@@ -38,4 +36,6 @@ const Container=styled.div`
     justify-content: center;
     width: 100%;
     box-sizing: border-box;
+    /* margin: 0 5rem; */
+    
 `;

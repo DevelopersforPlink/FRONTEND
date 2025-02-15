@@ -26,7 +26,6 @@ export default function PtPage() {
 
   return (
     <Container>
-      <Gnb />
       <BoxComponent 
         name={TestData.name}
         summation={TestData.summation}

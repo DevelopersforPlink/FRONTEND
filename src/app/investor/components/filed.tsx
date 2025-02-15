@@ -24,17 +24,22 @@ export default Filed;
 
 const Container = styled.div<{isActive:boolean}>`
     cursor: pointer;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+
     position: relative; /*  border-bottom 효과를 위한 설정 */
 
     padding: 1rem 1.25rem;
     gap: 0.75rem;
-    width: 9.0625rem;
-    height: 5.25rem;
+    /* width: 9.0625rem;
+    height: 5.25rem; */
+    width: 10%;
+    height: auto;
+
     flex-shrink: 0;
 
     color: ${({ isActive }) => (isActive ? "var(--primary-color-60)" : "var(--gray-scale-60)")};
