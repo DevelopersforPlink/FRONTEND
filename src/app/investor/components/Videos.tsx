@@ -1,41 +1,48 @@
 "use client";
 
+import React from "react";
 import { useRouter } from "next/navigation";
 import styled from "@emotion/styled";
 import InvestorMainBox from "@/shared/Box/InvestorMainComponent";
 
-const boxList:Array<{thumbnailSrc ?:string; profileSrc ?:string; name : string; companyName : string; serviceName : string;id:number}>=[
+interface TestBoxListProps {
+    id:number;
+    thumbnail:string;
+    profile:string;
+    title : string;
+    company : string;
+    service_name : string;
+    business_type:string;
+    business_type_display:string;
+    onClick:()=>void;
+    type: "investor" | "founder"; 
+}
+
+const boxList:Array<TestBoxListProps>=[
     {
-        thumbnailSrc: 'https://i.pinimg.com/736x/60/64/51/606451347f254811ae6a2841e70b3014.jpg',
-        profileSrc :'https://i.pinimg.com/736x/03/c5/63/03c5638d323961e848155c8cf6863540.jpg' ,
-        name : '테스트 1입니다',
-        companyName : '테스트 1',
-        serviceName : 'test-01',
         id:1,
-    },
-    {
-        profileSrc:'https://i.pinimg.com/736x/08/fc/c3/08fcc39b4dc798e91db8208d732bc56b.jpg',
-        name : '테스트 2입니다',
-        companyName : '테스트 2',
-        serviceName : 'test-02',
+        thumbnail:'/thumbnailTest.png',
+        profile:'https://i.pinimg.com/736x/45/2c/03/452c039a7efa5fc2dfc7b8447d25e575.jpg',
+        title : '테스트01',
+        company : '플링크크크',
+        service_name : '테스트입니다',
+        business_type:'IT',
+        business_type_display:'IT',
+        onClick:() => console.log(`클릭됨`),
+        type:"investor",  
+    },{
         id:2,
+        thumbnail:'/thumbnailTest.png',
+        profile:'https://i.pinimg.com/736x/45/2c/03/452c039a7efa5fc2dfc7b8447d25e575.jpg',
+        title : '테스트02',
+        company : '플링크크크',
+        service_name : '테스트입니다',
+        business_type:'IT',
+        business_type_display:'IT',
+        onClick:() => console.log("클릭됨"),
+        type:"investor",
     },
-    {
-        thumbnailSrc: 'https://i.pinimg.com/736x/df/59/6d/df596da6fa8c58c404ef1066376272d4.jpg',
-        profileSrc :'https://i.pinimg.com/736x/8c/05/8c/8c058cc527b3f60c8055215b95f38b3f.jpg' ,
-        name : '테스트 3입니다',
-        companyName : '테스트 3',
-        serviceName : 'test-03',
-        id:3,
-    },
-    {
-        profileSrc:'https://i.pinimg.com/736x/2c/ea/36/2cea3612832722e2094f48630dc81a40.jpg',
-        name : '테스트 4입니다',
-        companyName : '테스트 4',
-        serviceName : 'test-04',
-        id:4,
-    },
-]
+];
 
 const Videos = () => {
     const router = useRouter();
@@ -43,31 +50,33 @@ const Videos = () => {
     return(
         <Container>
             <VideoWrapper>
-                {boxList.map(({thumbnailSrc,profileSrc,name,companyName,serviceName,id},index)=>(
+                {boxList.map(({
+                    thumbnail,
+                    profile,
+                    title,
+                    company,
+                    service_name,
+                    id,
+                    business_type,
+                    business_type_display,
+                    type
+                },)=>(
+                    <React.Fragment key={id}>
                     <InvestorMainBox 
-                        thumbnailSrc={thumbnailSrc}
-                        profileSrc={profileSrc}
-                        name={name}
-                        companyName={companyName} 
-                        serviceName={serviceName}
+                        thumbnail={thumbnail}
+                        profile={profile}
+                        title={title}
+                        company={company} 
+                        service_name={service_name}
+                        business_type={business_type}
+                        business_type_display={business_type_display}
                         
-                        key={index}
+                        key={id}
                         onClick={()=> router.push(`/investor/${id}`)}
+                        type={type}
+                        id={id}
                         />
-                ))}
-            </VideoWrapper>
-            <VideoWrapper>
-                {boxList.map(({thumbnailSrc,profileSrc,name,companyName,serviceName,id},index)=>(
-                    <InvestorMainBox 
-                        thumbnailSrc={thumbnailSrc}
-                        profileSrc={profileSrc}
-                        name={name}
-                        companyName={companyName} 
-                        serviceName={serviceName}
-                        
-                        key={index}
-                        onClick={()=> router.push(`/investor/${id}`)}
-                        />
+                    </React.Fragment>
                 ))}
             </VideoWrapper>
         </Container>

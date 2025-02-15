@@ -4,15 +4,15 @@ import styled from "@emotion/styled";
 
 interface ThumbnailProps {
     src ?: string;
-    type : 'investormain' | 'upload';
+    type ?: 'investor' | 'founder';
 }
 
 const SizeMap = {
-    investormain:{
+    investor:{
         width:'18.4375rem',
         height:'10rem'
     },
-    upload:{
+    founder:{
         // width:'25.1875rem',
         width:'100%',
         height:'14.125rem',
@@ -20,12 +20,12 @@ const SizeMap = {
 }
 
 const Thumbnail = styled.div<ThumbnailProps>`
-    width: ${({type}) => SizeMap[type].width};
-    height: ${({type}) => SizeMap[type].height};
+    width: ${({ type = "investor" }) => SizeMap[type]?.width || "18.4375rem"};
+    height: ${({ type = "investor" }) => SizeMap[type]?.height || "10rem"};
 
-    /* border-radius: 0.625rem; */
     border-radius: 0.3rem;
-    background: ${({src}) => src ? `url(${src}) center/cover no-repeat`:"var(--gray-scale-40, #B3BAC1)"};
+    background: ${({ src }) =>
+        src ? `url(${src}) center/cover no-repeat` : "var(--gray-scale-40, #B3BAC1)"};
 `;
 
 export default Thumbnail;

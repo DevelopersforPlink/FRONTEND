@@ -8,29 +8,47 @@ import Profile from "./Profile";
 import ContentInfo from "./ContentInfo";
 
 interface InvestorMainBoxProps {
-    thumbnailSrc ?:string;
-    profileSrc ?:string;
-    name : string;
-    companyName : string;
-    serviceName : string;
+    id:number;
+    thumbnail ?:string;
+    profile ?:string;
+    title : string;
+    company : string;
+    service_name : string;
+    business_type:string;
+    business_type_display:string;
     onClick:React.MouseEventHandler<HTMLButtonElement>;
+
+    type:'investor'|'founder';
 }
 
 /* 추후 아래 주석으로 변경 */
-const InvestorMainBox:React.FC<InvestorMainBoxProps> = ({thumbnailSrc, profileSrc, name, companyName, serviceName,onClick}) =>{
-// const InvestorMainBox = () =>{
+const InvestorMainBox:React.FC<InvestorMainBoxProps> = ({
+    id,
+    thumbnail, 
+    profile, 
+    title, 
+    company, 
+    service_name,
+    business_type,
+    business_type_display,
+    onClick,
+
+    type,
+}) =>{
 
     return(
         <Container onClick={onClick}>
-            <Thumbnail src={thumbnailSrc} type="investormain"/>
+            <Thumbnail src={thumbnail} type={type}/>
             <Wrapper>
-                <Profile src={profileSrc}/>
+                <Profile src={profile}/>
                 <ContentInfo 
-                    name={name}
-                    companyName={companyName}
-                    serviceName={serviceName}
+                    title={title}
+                    company={company}
+                    service_name={service_name}
+                    business_type_display={business_type_display}
+                    // 컴포넌트 재사용을 위한 type 지정
                     type='investormain'
-                    />
+                />
             </Wrapper>
         </Container>
     )
