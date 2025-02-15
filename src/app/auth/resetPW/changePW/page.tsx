@@ -1,4 +1,4 @@
-// p. 1.1.1
+// p.1.1.2 비밀번호 재설정 페이지
 "use client"
 
 import React, { useState } from 'react';
@@ -9,12 +9,10 @@ import CustomColumn from '@/shared/CustomColumn';
 import CustomRow from '@/shared/CustomRow';
 import Image from 'next/image';
 import * as Typography from '@/app/typography'
-import LoginNavigation from './components/LoginNavigation';
 
-export default function SignupPage() {
-
-  const [userId, setUserId] = useState('');
+export default function PasswordChangePage() {
   const [password, setPassword] = useState('');
+  const [checkPw, setCheckPw] = useState('');
 
   const validatePassword = (value: string) => {
     // 길이 체크 (8자 ~ 15자)
@@ -34,14 +32,23 @@ export default function SignupPage() {
     return criteriaCount >= 2;
   };
 
+  // 비밀번호 일치 여부를 확인하는 함수 추가
+  const validatePasswordMatch = () => {
+    return password === checkPw;
+  };
+
+  //
+  const isButtonDisabled = 
+    !password || // 비밀번호 입력값이 없으면 true
+    !checkPw || // 비밀번호 확인 입력값이 없으면 true
+    !validatePassword(password) || // 비밀번호가 유효성 검사를 통과하지 못하면 true
+    !validatePasswordMatch(); // 비밀번호와 비밀번호 확인이 일치하지 않으면 true
+
   const [buttonState, setButtonState] = useState<"default" | "pressed" | "disabled" | "hover">("default");
 
   const handleClick = () => {
     setButtonState(buttonState === "pressed" ? "default" : "pressed");
   };
-
-  const isButtonDisabled = userId.trim() === '' || password.trim() === '' || !validatePassword(password);
-
 
   return (
     <CustomColumn $gap='2.5rem'>
@@ -53,38 +60,18 @@ export default function SignupPage() {
           height={80} 
           layout="intrinsic"  //원본 비율을 유지하면서 컨테이너 크기에 맞춰 자동 조정
         />
-        <Typography.Headline1>
-          회원가입
-        </Typography.Headline1>
+        <Typography.Title4>
+          비밀번호를 잊어버리셨나요?
+        </Typography.Title4>
+        <Typography.Body5>
+          가입한 계정 정보를 입력해주세요.<br/>
+          가입 계정 이메일로 인증번호를 보내드립니다.
+        </Typography.Body5>
       </CustomColumn>      
 
-      <CustomColumn $width='100%' $gap='24px' $alignitems="flex-start" $justifycontent="center">
+      <CustomColumn $width='100%' $gap='1.5rem' $alignitems="flex-start" $justifycontent="center">
         <LabelWithCaptionWrapper
-          label="아이디"
-          required={true}
-          error={false}
-        >
-          <CustomRow $width="100%" $alignitems="center" $justifycontent="flex-start">
-            <Input
-              placeholder="아이디"
-              scale="m"
-              icon={false}
-              value={userId}
-              state="default"
-              // onChange={(e) => console.log(e.target.value)}
-              onChange={(e) => setUserId(e.target.value)}
-            />
-            <FilledButton
-              scale="xs"
-              state={buttonState}
-              onClick={handleClick}
-            >
-              중복확인
-            </FilledButton>
-          </CustomRow>
-        </LabelWithCaptionWrapper>
-        <LabelWithCaptionWrapper
-          label="비밀번호"
+          label="변경할 비밀번호"
           caption='*최소 8자 이상 (영문, 숫자, 특수문자 포함 )'
           captionPosition="after"
           required={true}
@@ -102,7 +89,7 @@ export default function SignupPage() {
         </LabelWithCaptionWrapper>
         
         <LabelWithCaptionWrapper
-          label="비밀번호 확인"
+          label="변경할 비밀번호 확인"
           captionPosition="after"
           required={true}
           error={false}
@@ -113,7 +100,8 @@ export default function SignupPage() {
             icon={true}
             required={true}
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
+            value={checkPw}  // value 속성 추가
+            onChange={(e) => setCheckPw(e.target.value)}  // setCheckPw로 수정
           />
         </LabelWithCaptionWrapper>
 
@@ -123,11 +111,11 @@ export default function SignupPage() {
           onClick={handleClick}
           disabled={isButtonDisabled} // 버튼 비활성화 상태
         >
-          다음
+          <Typography.Button1>
+            비밀번호 변경하기
+          </Typography.Button1>
         </FilledButton>
       </CustomColumn>
-
-      <LoginNavigation />
     </CustomColumn>
   )
 }

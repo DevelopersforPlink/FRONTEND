@@ -15,7 +15,7 @@ const Container = styled.div`
   width: 500px;
   height: 500px;
   flex-shrink: 0;
-  border-radius: 20px;
+  border-radius: 1.25rem;
   background: var(--Common-White, #FFF);
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.10); 
 `
