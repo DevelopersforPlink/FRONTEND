@@ -1,68 +1,29 @@
 "use client";
 
+import { useState } from "react";
 import styled from '@emotion/styled';
-
 
 /* 네비게이션 요소 불러옴 */
 import Filed from './filed';
+import FiledIcon from '@/constant/FiledIcon'; // icon list
 
-interface FiledTypeProps {
-    icon:string;
-    business_type_display:string,
-}
-
-const filedList:Array<FiledTypeProps> = [
-    {
-        icon:'/icons/All.svg',
-        business_type_display:'전체',
-    },
-    {
-        icon:'/icons/FinaceBanking.svg',
-        business_type_display:'금융·은행업'
-    },
-    {
-        icon:'/icons/It.svg',
-        business_type_display:'IT·정보통신업'
-    },
-    {
-        icon:'/icons/Sales.svg',
-        business_type_display:'판매·유통업'
-    },
-    {
-        icon:'/icons/Manufacturing.svg',
-        business_type_display:'제조·생산·화학업'
-    },
-    {
-        icon:'/icons/Study.svg',
-        business_type_display:'교육업'
-    },
-    {
-        icon:'/icons/ConstructionIndustry.svg',
-        business_type_display:'건설업'
-    },
-    {
-        icon:'/icons/Medical.svg',
-        business_type_display:'의료·제약업'
-    },
-    {
-        icon:'/icons/Media.svg',
-        business_type_display:'미디어·광고업'
-    },
-    {
-        icon:'/icons/Culture.svg',
-        business_type_display:'문화·예술·디자인업'
-    },
-
-]
 
 const Category=()=>{
+    const [selectedFiled, setSelectedFiled] = useState<number | null>(null);
+
+    const handleFiledClick = (index: number) => {
+        setSelectedFiled(index); // ✅ 클릭한 `Filed`의 index를 저장 (active 유지)
+    };
 
     return(
         <Container>
-            {filedList.map(({icon,business_type_display},index)=>(
-                <Filed key={index} 
+            {FiledIcon.map(({icon,business_type_display},index)=>(
+                <Filed 
+                key={index} 
                 src={icon} 
-                tag={business_type_display} 
+                tag={business_type_display}
+                state={selectedFiled === index} // 선택된 filed만 active 상태 유지
+                onClick={()=>handleFiledClick(index)}
                 />
             ))}
         </Container>
