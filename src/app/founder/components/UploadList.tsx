@@ -4,10 +4,11 @@ import styled from "@emotion/styled";
 import UploadComponent from '@/shared/Box/UploadComponent';
 
 interface UploadItem {
-    name:string;
-    companyName:string;
-    serviceName:string;
-    src:string;
+    id:number;
+    thumbnail:string;
+    title : string;
+    company : string;
+    service_name : string;
 }
 
 interface UploadListProps {
@@ -29,10 +30,10 @@ const UploadList:React.FC<UploadListProps>=({data})=>{
                 {itemList.map((item, index) => (
                     <UploadComponent
                         key={index}
-                        thumbnailSrc={item.src}
-                        name={item.name}
-                        companyName={item.companyName}
-                        serviceName={item.serviceName}
+                        thumbnailSrc={item.thumbnail}
+                        name={item.title}
+                        companyName={item.company}
+                        serviceName={item.service_name}
                     />
                 ))}
             </UploadComponentWrapper>
@@ -49,22 +50,28 @@ const Container = styled.div`
     justify-content: center;
     align-items: flex-start;
     align-content: center;
+    flex-shrink: 0;
 
     margin: 0 5rem ;
     width: 100%;
 
     flex-wrap: wrap;
     gap: 1.5rem;
-
 `;
 
 const UploadComponentWrapper = styled.div`
-    display: flex;
+    /* display: flex;
     flex-direction: row;
-    /* justify-content: center; */
     width: 100%;
     
     align-items: center;
 
-    gap: 1.25rem;
+    gap: 1.25rem; */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); // ✅ 1줄에 4개 
+    grid-column-gap: 1.5rem; // ✅ 간격 3개 유지
+    grid-row-gap: 1.5rem;
+    place-items: center;
+
+    width: 100%;
 `;
