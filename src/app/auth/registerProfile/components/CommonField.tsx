@@ -4,6 +4,12 @@ import CustomColumn from "@/shared/CustomColumn";
 import InputFormField from "./InputFormField";
 import InputGroupFormField from "@/shared/Combination/InputGroupFormField";
 
+// 전화번호 (000-0000-0000 형태)
+const isValidPhoneNumber = (value: string) => {
+  const regex = /^\d{3}-\d{4}-\d{4}$/;
+  return regex.test(value);
+};
+
 interface CommonFieldProps {
   userName: string;
   phone: string;
@@ -25,6 +31,14 @@ const CommonField: React.FC<CommonFieldProps> = ({
   setCompany,
   setPosition
 }) => {
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(e);
+  };
+
+  const isPhoneEmpty = phone.trim() === '';
+
+
   return (
     <CustomColumn $width="100%" $gap="24px" $alignitems="center" $justifycontent="center">
       <InputFormField
@@ -38,8 +52,11 @@ const CommonField: React.FC<CommonFieldProps> = ({
         label="전화번호"
         required={true}
         value={phone}
-        onChange={setPhone}
-        placeholder="전화번호"
+        onChange={handlePhoneChange}
+        placeholder="000-0000-0000"
+        captionPosition="after"
+        caption={!isValidPhoneNumber(phone) && !isPhoneEmpty ? "전화번호 형식이 올바르지 않습니다." : ''}
+        error={!isValidPhoneNumber(phone)}
       />
       <InputGroupFormField
         label="소속 회사 및 직무"

@@ -13,6 +13,7 @@ interface InvestorTabProps {
   codeValue: string;
   handleCodeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleClick: React.MouseEventHandler<HTMLButtonElement>;
+  onFileSelect: (fileSelected: boolean, fileName: string | null) => void;
 }
 
 const caption = (
@@ -29,8 +30,11 @@ const InvestorTab: React.FC<InvestorTabProps> = ({
   codeValue,
   handleCodeChange,
   handleClick,
+  onFileSelect,
 }) => {
     const [isEmailValid, setIsEmailValid] = useState(true);
+    const [fileSelected, setFileSelected] = useState<boolean>(false);
+    const [fileName, setFileName] = useState<string | null>(null); 
   
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const emailValue = e.target.value;
@@ -39,6 +43,14 @@ const InvestorTab: React.FC<InvestorTabProps> = ({
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       setIsEmailValid(emailRegex.test(emailValue));
     };
+
+    const handleFileSelect = (fileSelected: boolean, fileName: string | null) => {
+      console.log(`파일 선택됨: ${fileName}, 선택 여부: ${fileSelected}`);
+      setFileSelected(fileSelected);
+      setFileName(fileName);
+      onFileSelect(fileSelected, fileName);
+    };
+
   return (
     <div>
       <CustomColumn $width="100%" $gap="24px" $alignitems="center" $justifycontent="center">
@@ -79,7 +91,10 @@ const InvestorTab: React.FC<InvestorTabProps> = ({
             </FilledButton>
           </CustomRow>
         </LabelWithCaptionWrapper>
-        <FileUploadButton label="재직 증명서 사본" buttonState={buttonState} />
+        <FileUploadButton 
+          label="재직 증명서 사본" 
+          buttonState={buttonState}
+          onFileSelect={handleFileSelect} />
       </CustomColumn>
     </div>
   );

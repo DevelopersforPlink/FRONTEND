@@ -14,9 +14,11 @@ import InvestorTab from "./components/InvestorField";
 import CheckboxGroup from "./components/CheckboxGroup";
 import Modal from "@/shared/Modal/Modal";
 import FilledButton from "@/shared/Button/FIlledButton";
+import { useRouter } from "next/navigation";
 
 
 export default function RegisterProfilePage() {
+  const router = useRouter();
   const tabs = ["창업자", "투자자"];
   const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
 
@@ -38,6 +40,7 @@ export default function RegisterProfilePage() {
     email: "",
     codeValue: "",
     fileSelected: false,
+    fileName: null as string | null,
   });
 
   const [checkedItems, setCheckedItems] = useState({
@@ -47,6 +50,7 @@ export default function RegisterProfilePage() {
       { label: "개인정보 제 3자 제공 동의", checked: false },
     ]
   });
+
   const [buttonState, setButtonState] = useState<"default" | "pressed" | "disabled" | "hover">("default");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -58,7 +62,6 @@ export default function RegisterProfilePage() {
     return selectedTab === "창업자" ? entrepreneurState : investorState;
   };
 
-  // Event handlers
   const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (selectedTab === "창업자") {
@@ -110,16 +113,15 @@ export default function RegisterProfilePage() {
     }
   };
 
-  const handleFileSelect = () => {
-    if (selectedTab === "투자자") {
-      setInvestorState(prev => ({ ...prev, fileSelected: true }));
-    }
+  const handleFileSelect = (fileSelected: boolean, fileName: string | null) => {
+    setInvestorState(prev => ({ 
+      ...prev, 
+      fileSelected: fileSelected, fileName: fileName }));
   };
 
   const handleCheckboxChange = (checkedItems: { label: string; checked: boolean }[]) => {
-    // Update the checkedItems array and also the 'allChecked' state
     setCheckedItems(prev => {
-      const allChecked = checkedItems.every(item => item.checked); // Check if all are selected
+      const allChecked = checkedItems.every(item => item.checked);
       return { ...prev, items: checkedItems, allChecked };
     });
   };
@@ -142,12 +144,15 @@ export default function RegisterProfilePage() {
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-  // For debugging
-  useEffect(() => {
-    console.log('Current State:', getCurrentState());
-    console.log('Checkboxes:', checkedItems);
-    console.log('Button Disabled:', isButtonDisabled());
-  }, [entrepreneurState, investorState, checkedItems]);
+  const handleModalConfirm = () => {
+    if (selectedTab === "창업자") {
+      router.push('/founder');
+    } else {
+      router.push('/investor');
+    }
+    setIsModalOpen(false); 
+  };
+
 
   return (
     <Container>
@@ -191,6 +196,7 @@ export default function RegisterProfilePage() {
               codeValue={investorState.codeValue}
               handleCodeChange={handleCodeChange}
               handleClick={handleClick}
+              onFileSelect={handleFileSelect}
             />
           )}
         </CustomColumn>
@@ -214,6 +220,7 @@ export default function RegisterProfilePage() {
             modalText="회원정보 등록이 요청되었어요"
             closeModal={toggleModal}
             modalType="request"
+            onConfirm={handleModalConfirm}
           />
         )}
       </CustomColumn>

@@ -9,6 +9,8 @@ interface InputFormFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   placeholder: string;
+  caption?: string;
+  captionPosition?: "before" | "after";
   error?: boolean;
   scale?: "s" | "m" | "l";
 }
@@ -19,11 +21,13 @@ const InputFormField: React.FC<InputFormFieldProps> = ({
   onChange,
   required = false,
   placeholder,
+  caption,
+  captionPosition,
   error = false,
   scale = "l",
 }) => {
   return label ? (
-    <LabelWithCaptionWrapper label={label} required={required} error={error}>
+    <LabelWithCaptionWrapper label={label} required={required} caption={caption} captionPosition={captionPosition} error={error}>
       <Input
         placeholder={placeholder}
         scale={scale}

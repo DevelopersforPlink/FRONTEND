@@ -1,13 +1,17 @@
-import React, {useState} from 'react';
+"use client"
+
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import FilledButton from '@/shared/Button/FIlledButton';
 import CustomColumn from '../CustomColumn';
 import { Title5 } from '@/app/typography';
+import { useRouter } from "next/navigation";
 
 interface ModalProps {
   modalText: string;
   closeModal: () => void;
   modalType: 'request' | 'pay';
+  onConfirm?: ()=> void;
   children?: React.ReactNode;
 }
 
@@ -18,7 +22,7 @@ const Overlay = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(23, 26, 28, 0.6);
-  z-index: 999;
+  z-index: 1;
 `;
 
 const ModalWrapper = styled.div`
@@ -31,11 +35,11 @@ const ModalWrapper = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
-  z-index: 1000; /* 모달이 오버레이보다 위에 오도록 설정 */
+  z-index: 2;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* 화면 중앙에 배치 */
+  transform: translate(-50%, -50%);
 `;
 
 const CloseButton = styled.button`
@@ -93,7 +97,7 @@ const ContentWrapper = styled.div`
   align-items: center;
 `;
 
-const Modal: React.FC<ModalProps> = ({ modalText, closeModal, modalType }) => {
+const Modal: React.FC<ModalProps> = ({ modalText, closeModal, modalType, onConfirm }) => {
   const handleOverlayClick = (e: React.MouseEvent) => {
     // Overlay 클릭 시 모달 닫기
     if (e.target === e.currentTarget) {
@@ -102,10 +106,17 @@ const Modal: React.FC<ModalProps> = ({ modalText, closeModal, modalType }) => {
   };
 
   const [buttonState, setButtonState] = useState<"default" | "pressed" | "disabled" | "hover">("default");
+  const router = useRouter();
 
   const handleClick = () => {
     setButtonState(buttonState === "pressed" ? "default" : "pressed");
+
+    if (onConfirm) {
+      onConfirm();  // 부모 컴포넌트에서 전달된 경로 변경 함수 호출
+      closeModal();  // 모달 닫기
+    }
   };
+
 
   return (
     <>
@@ -114,19 +125,21 @@ const Modal: React.FC<ModalProps> = ({ modalText, closeModal, modalType }) => {
         <CloseButton onClick={closeModal}>
           <img src="/icons/Crossmall.svg" alt="Close" />
         </CloseButton>
-        <CustomColumn $width='100%' $gap='36px' $alignitems="center" $justifycontent="center" $marginTop='40px'>
-        <CircleWrapper modalType={modalType}>
-          <MainIcon src={modalType === 'request' ? '/icons/Check.svg' : '/icons/Card.svg'} alt="Main Icon" />
-        </CircleWrapper>
-        <ModalText>{modalText}</ModalText>
-        <FilledButton
-          scale="l"
-          state="pressed"
-          onClick={handleClick}
-        >
-          확인
-        </FilledButton>
-        </CustomColumn>
+        <ContentWrapper>
+          <CustomColumn $width='100%' $gap='36px' $alignitems="center" $justifycontent="center" $marginTop='5.75rem'>
+            <CircleWrapper modalType={modalType}>
+              <MainIcon src={modalType === 'request' ? '/icons/Check.svg' : '/icons/Card.svg'} alt="Main Icon" />
+            </CircleWrapper>
+            <ModalText>{modalText}</ModalText>
+            <FilledButton
+              scale="l"
+              state="pressed"
+              onClick={handleClick}
+            >
+              확인
+            </FilledButton>
+          </CustomColumn>
+        </ContentWrapper>
       </ModalWrapper>
     </>
   );
