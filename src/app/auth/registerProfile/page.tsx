@@ -28,7 +28,7 @@ export default function RegisterProfilePage() {
     phone: "",
     company: "",
     position: "",
-    email: "",
+    company_email: "",
   });
 
   // 투자자 탭 상태
@@ -37,7 +37,7 @@ export default function RegisterProfilePage() {
     phone: "",
     company: "",
     position: "",
-    email: "",
+    company_email: "",
     codeValue: "",
     fileSelected: false,
     fileName: null as string | null,
@@ -130,11 +130,11 @@ export default function RegisterProfilePage() {
   // 버튼 활성화 상태 
   const isButtonDisabled = (): boolean => {
     if (selectedTab === "창업자") {
-      const { userName, phone, company, position, email } = entrepreneurState;
-      return !userName || !phone || !company || !position || !email || !checkedItems.allChecked;
+      const { userName, phone, company, position, company_email } = entrepreneurState;
+      return !userName || !phone || !company || !position || !company_email || !checkedItems.allChecked;
     } else {
-      const { userName, phone, company, position, email, codeValue, fileSelected } = investorState;
-      return !userName || !phone || !company || !position || !email || !codeValue || !fileSelected || !checkedItems.allChecked;
+      const { userName, phone, company, position, company_email, codeValue, fileSelected } = investorState;
+      return !userName || !phone || !company || !position || !company_email || !codeValue || !fileSelected || !checkedItems.allChecked;
     }
   };
 
@@ -184,14 +184,14 @@ export default function RegisterProfilePage() {
           />
           {selectedTab === "창업자" && (
             <FounderTab
-              email={entrepreneurState.email}
-              setEmail={handleEmailChange}
+            company_email={entrepreneurState.company_email}
+            setCompany_email={handleEmailChange}
             />
           )}
           {selectedTab === "투자자" && (
             <InvestorTab
-              email={investorState.email}
-              setEmail={handleEmailChange}
+              company_email={investorState.company_email}
+              setCompany_email={handleEmailChange}
               buttonState={buttonState}
               codeValue={investorState.codeValue}
               handleCodeChange={handleCodeChange}

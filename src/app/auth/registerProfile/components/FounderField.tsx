@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import LabelWithCaptionWrapper from "@/shared/Input/LabelwithCaptionWrapper";
-import InputFormField from "./InputFormField";
+import InputFormField from "../../../../shared/Combination/InputFormField";
 
 interface FounderTabProps {
-  email: string;
-  setEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  company_email: string;
+  setCompany_email: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 
 const FounderTab: React.FC<FounderTabProps> = ({
-  email,
-  setEmail
+  company_email,
+  setCompany_email
 }) => {
   const [isEmailValid, setIsEmailValid] = useState(true);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const emailValue = e.target.value;
-    setEmail(e);
+    setCompany_email(e);
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     setIsEmailValid(emailRegex.test(emailValue));
@@ -33,7 +33,7 @@ const FounderTab: React.FC<FounderTabProps> = ({
         <InputFormField
           label="회사 이메일"
           required={true}
-          value={email}
+          value={company_email}
           onChange={handleEmailChange}
           placeholder="example@google.com"
         />

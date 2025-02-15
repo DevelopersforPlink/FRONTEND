@@ -7,8 +7,8 @@ import FileUploadButton from "@/shared/Combination/FileUploadButton";
 import LabelWithCaptionWrapper from "@/shared/Input/LabelwithCaptionWrapper";
 
 interface InvestorTabProps {
-  email: string;
-  setEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  company_email: string;
+  setCompany_email: (e: React.ChangeEvent<HTMLInputElement>) => void;
   buttonState: "default" | "pressed" | "disabled" | "hover";
   codeValue: string;
   handleCodeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -24,8 +24,8 @@ const caption = (
 );
 
 const InvestorTab: React.FC<InvestorTabProps> = ({
-  email,
-  setEmail,
+  company_email,
+  setCompany_email,
   buttonState,
   codeValue,
   handleCodeChange,
@@ -38,7 +38,7 @@ const InvestorTab: React.FC<InvestorTabProps> = ({
   
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const emailValue = e.target.value;
-      setEmail(e);
+      setCompany_email(e);
   
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       setIsEmailValid(emailRegex.test(emailValue));
@@ -64,7 +64,7 @@ const InvestorTab: React.FC<InvestorTabProps> = ({
           <CustomRow $width="100%" $alignitems="center" $justifycontent="flex-start">
             <CertificationInput
               placeholder="회사 이메일"
-              value={email}
+              value={company_email}
               onChange={handleEmailChange}
               state="default"
             />

@@ -77,7 +77,7 @@ export default function MyPage() {
         <FilledButton
           scale="l"
           state="default"
-          onClick={()=>router.push('/mypage/edit')}
+          onClick={()=>router.push('/mypage/editProfile')}
         >
           내 정보 수정하기
         </FilledButton>

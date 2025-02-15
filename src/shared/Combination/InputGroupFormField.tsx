@@ -1,7 +1,7 @@
 import React from "react";
 import LabelWithCaptionWrapper from "@/shared/Input/LabelwithCaptionWrapper";
 import CustomColumn from "../CustomColumn";
-import InputFormField from "../../app/auth/registerProfile/components/InputFormField";
+import InputFormField from "./InputFormField";
 
 interface InputGroupFormFieldProps {
   label: string;

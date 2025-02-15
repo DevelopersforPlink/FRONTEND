@@ -13,6 +13,7 @@ interface InputFormFieldProps {
   captionPosition?: "before" | "after";
   error?: boolean;
   scale?: "s" | "m" | "l";
+  disabled?: boolean;
 }
 
 const InputFormField: React.FC<InputFormFieldProps> = ({
@@ -25,6 +26,7 @@ const InputFormField: React.FC<InputFormFieldProps> = ({
   captionPosition,
   error = false,
   scale = "l",
+  disabled = false,
 }) => {
   return label ? (
     <LabelWithCaptionWrapper label={label} required={required} caption={caption} captionPosition={captionPosition} error={error}>
@@ -33,6 +35,7 @@ const InputFormField: React.FC<InputFormFieldProps> = ({
         scale={scale}
         onChange={onChange}
         value={value}
+        disabled={disabled}
       />
     </LabelWithCaptionWrapper>
   ) : (
@@ -41,6 +44,7 @@ const InputFormField: React.FC<InputFormFieldProps> = ({
       scale={scale}
       onChange={onChange}
       value={value}
+      disabled={disabled}
     />
   );
 };

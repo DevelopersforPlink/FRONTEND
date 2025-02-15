@@ -1,7 +1,7 @@
 // CommonField.tsx
 import React from "react";
 import CustomColumn from "@/shared/CustomColumn";
-import InputFormField from "./InputFormField";
+import InputFormField from "../../../../shared/Combination/InputFormField";
 import InputGroupFormField from "@/shared/Combination/InputGroupFormField";
 
 // 전화번호 (000-0000-0000 형태)
