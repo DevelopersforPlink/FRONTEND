@@ -52,7 +52,7 @@ export const boxList:Array<TestBoxListProps>=[
     },
     {
         id:4,
-        thumbnail:'/thumbnailTest.png',
+        thumbnail:'https://i.pinimg.com/736x/94/ab/91/94ab9154dfae0fd22a7c7fbc5c734061.jpg',
         profile:'https://i.pinimg.com/736x/45/2c/03/452c039a7efa5fc2dfc7b8447d25e575.jpg',
         title : '테스트02',
         company : '플링크크크',
