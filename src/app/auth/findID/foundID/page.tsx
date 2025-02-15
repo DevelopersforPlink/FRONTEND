@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import CustomRow from '@/shared/CustomColumn';
+import CustomRow from '@/shared/CustomRow';
 import CustomColumn from '@/shared/CustomColumn';
 import Image from 'next/image';
 import * as Typography from '@/app/typography'
