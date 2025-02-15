@@ -8,7 +8,6 @@ import { Headline1,Title2 } from '../typography';
 import OutlinedButtonComponent from '@/shared/Button/OutlinedButtonComponent';
 // import { styleText } from 'util';
 import styled from '@emotion/styled';
-import Gnb from '../../shared/Gnb';
 
 const Test = [
   {
@@ -94,20 +93,17 @@ const FounderMain=()=>{
   },[])
 
   return (
-    <>
-      <Gnb />
-      <Container>
-        <Title>등록한 프레젠테이션</Title>
-        <UploadButton 
-          scale='xs'
-          state='default'
-          children='등록하기'
-          iconSrc='/icons/Pluscircle.svg'
-          onClick={()=>{router.push('/founder/upload')}}
-        />
-        <UploadList data={Test}/>
-      </Container>
-    </>
+  <Container>
+    <Title>등록한 프레젠테이션</Title>
+    <UploadButton 
+      scale='xs'
+      state='default'
+      children='등록하기'
+      iconSrc='/icons/Pluscircle.svg'
+      onClick={()=>{router.push('/founder/upload')}}
+    />
+    <UploadList data={Test}/>
+  </Container>
   )
 };
 
