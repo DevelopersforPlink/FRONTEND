@@ -11,13 +11,21 @@ export const Headline1=styled.p`
 
 export const Title1 = styled.p`
     font-family: Pretendard;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+`;
+
+export const Title2 = styled.p`
+    font-family: Pretendard;
     font-size: 1.875rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
 `;
 
-export const Title2 = styled.p`
+export const Title3 = styled.p`
     font-family: Pretendard;
     font-size: 2.5rem;
     font-style: normal;
@@ -25,7 +33,7 @@ export const Title2 = styled.p`
     line-height: normal;
 `;
 
-export const Title3 = styled.p`
+export const Title4 = styled.p`
     font-family: Pretendard;
     font-size: 2.25rem;
     font-style: normal;
@@ -33,7 +41,7 @@ export const Title3 = styled.p`
     line-height: normal;
 `;
 
-export const Title4 = styled.p`
+export const Title5 = styled.p`
     font-family: Pretendard;
     font-size: 1.5rem;
     font-style: normal;
@@ -41,17 +49,9 @@ export const Title4 = styled.p`
     line-height: normal;
 `;
 
-export const Title5 = styled.p`
-    font-family: Pretendard;
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-`;
-
 export const Title6 = styled.p`
     font-family: Pretendard;
-    font-size: 1rem;
+    font-size: 1.25rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -66,6 +66,14 @@ export const Title7 = styled.p`
 `;
 
 export const Title8 = styled.p`
+    font-family: Pretendard;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+`;
+
+export const Title9 = styled.p`
     font-family: Pretendard;
     font-size: 1.25rem;
     font-style: normal;
@@ -231,6 +239,6 @@ export const Button4 = styled.p`
     font-family: Pretendard;
     font-size: 0.875rem;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     line-height: normal;
 `;

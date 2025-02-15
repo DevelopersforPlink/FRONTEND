@@ -13,6 +13,7 @@ interface InputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   placeholder?: string;
+  type?: string;
 }
 
 const InputContainer = styled.div`
@@ -57,7 +58,7 @@ const InputFieldWrapper = styled.div<InputProps>`
       }
       return "var(--gray-scale-20)";
     }};
-  border-radius: 4px;
+  border-radius: 10px;
 
   &:focus {
     outline: none;
@@ -117,10 +118,12 @@ const Input = ({
   onChange,
   required = false,
   placeholder,
+  type,
   ...props
 }: InputProps) => {
   const [inputState, setInputState] = useState(state);
   const [inputValue, setInputValue] = useState(value || "");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleFocus = () => {
     setInputState("pressed");
@@ -135,6 +138,16 @@ const Input = ({
     onChange?.(e);
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const inputType = type === "password" ? (showPassword ? "text" : "password") : type;
+
+  const currentIconSrc = type === "password" 
+    ? (showPassword ? "/icons/Eye.svg" : "/icons/Eyecrossed.svg")
+    : iconSrc;
+
   return (
     <InputContainer>
       <InputFieldWrapper
@@ -146,6 +159,7 @@ const Input = ({
       >
         <InputField
           {...props}
+          type={inputType}
           state={inputState}
           scale={scale}
           disabled={disabled}
@@ -156,7 +170,14 @@ const Input = ({
           required={required}
           placeholder={placeholder}
         />
-        {icon && iconSrc && <IconWrapper src={iconSrc} alt="icon" />}
+        {/* {icon && iconSrc && <IconWrapper src={iconSrc} alt="icon" />} */}
+        {icon && currentIconSrc && (
+          <IconWrapper 
+            src={currentIconSrc} 
+            alt="icon" 
+            onClick={type === "password" ? togglePasswordVisibility : undefined}
+          />
+        )}
       </InputFieldWrapper>
     </InputContainer>
   );

@@ -1,4 +1,3 @@
-// p.1.1.1 비밀번호 재설정 페이지
 "use client"
 
 import React, { useState } from 'react'
@@ -11,7 +10,7 @@ import Image from 'next/image';
 import * as Typography from '@/app/typography'
 import CertificationInput from '@/shared/Input/CertificationInput';
 
-export default function ResetPWPage() {
+function FindIDPage() {
   const [userId, setUserId] = useState('');
   const [buttonState, setButtonState] = useState<"default" | "pressed" | "disabled" | "hover">("default");
   const [codeValue, setCodeValue] = useState("");
@@ -24,7 +23,7 @@ export default function ResetPWPage() {
   }
   
   const isButtonDisabled = userId.trim() === '' || codeValue.trim() === '';
-
+  
   return (
     <CustomColumn $gap='2.5rem'>
       <CustomColumn $width='100%' $gap='1.5rem' $alignitems='flex-start'>
@@ -36,7 +35,7 @@ export default function ResetPWPage() {
           layout="intrinsic"  //원본 비율을 유지하면서 컨테이너 크기에 맞춰 자동 조정
         />
         <Typography.Title4>
-          비밀번호를 잊어버리셨나요?
+          아이디를 잊어버리셨나요?
         </Typography.Title4>
         <Typography.Body5>
           가입한 계정 정보를 입력해주세요. <br/>
@@ -98,3 +97,5 @@ export default function ResetPWPage() {
     </CustomColumn>
   )
 }
+
+export default FindIDPage;

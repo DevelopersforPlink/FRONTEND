@@ -91,7 +91,7 @@ const CertificationInput = ({
 }) => {
   const [inputState, setInputState] = useState<"default" | "error" | "pressed" | "after">(state || "default");
   const [codeValue, setCodeValue] = useState(value || "");
-  const [timer, setTimer] = useState(10);
+  const [timer, setTimer] = useState(600); //초 기준
   const [timerInterval, setTimerInterval] = useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
