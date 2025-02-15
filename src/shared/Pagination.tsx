@@ -25,6 +25,7 @@ const Container = styled.div`
     gap: 1.5rem;
 
     margin: 4rem 0;
+    width: fit-content;
 `;
 // ✅ `mask-image`를 활용한 SVG 색상 변경 (hover, active 상태 반응)
 const Icon = styled.div<{ src: string;}>`
