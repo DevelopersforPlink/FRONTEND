@@ -1,85 +1,134 @@
 // p.7.1.1
 "use client"
 
-import React, { useState } from 'react'
-import ThumbnailComponent from '@/shared/Button/ThumbnailComponent'
-import LabelWithCaptionWrapper from '@/shared/Input/LabelwithCaptionWrapper';
+import React, { useState } from 'react';
+import styled from "@emotion/styled";
+import { Headline1 } from "@/app/typography";
+import Gnb from '@/shared/Gnb';
 import CustomColumn from '@/shared/CustomColumn';
-import CustomRow from '@/shared/CustomRow';
-import Textarea from '@/shared/Input/Textarea';
-import RadioComponent from '@/shared/RadioComponent';
+import PTInfoField from '../components/PTInfoField';
+import FileUploadField from '../components/FileUploadField';
+import RadioFormField from '@/shared/Combination/RadioFormField';
+import FilledButton from '@/shared/Button/FIlledButton';
+import Modal from '@/shared/Modal/Modal';
+import { useRouter } from 'next/navigation';
 
 export default function PtUpload() {
+  const router = useRouter();
 
   const [buttonState, setButtonState] = useState<"default" | "pressed" | "disabled" | "hover">("default");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleClick = () => {
-    setButtonState(buttonState === "pressed" ? "default" : "pressed");
+
+
+  // 파일 상태 관리
+  const [fileStatus, setFileStatus] = useState<any>({
+    summary_business_plan: { selected: false, fileName: null },
+    business_plan: { selected: false, fileName: null },
+    pitch_deck: { selected: false, fileName: null },
+    traction_data: { selected: false, fileName: null },
+  });
+
+  // 사업 진행도 상태 관리
+  const [business_progress, setBusiness_progress] = useState<string>("");
+
+  const handleFileSelect = (fileSelected: boolean, fileName: string | null, field: string) => {
+    setFileStatus((prevState: any) => ({
+      ...prevState,
+      [field]: { selected: fileSelected, fileName: fileName },
+    }));
+  };
+  
+  // 사업 진행도 변경 핸들러
+  const handleBusinessProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBusiness_progress(e.target.value);
   };
 
-  const [textValue, setTextValue] = useState("");
+  const radioOptions = [
+    { label: "아이디어", value: "founder" },
+    { label: "사업 진행중", value: "investor" },
+  ];
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTextValue(e.target.value);
+  const isButtonDisabled = () => {
+    return !(
+      fileStatus.summary_business_plan.selected &&
+      fileStatus.business_plan.selected &&
+      fileStatus.pitch_deck.selected &&
+      fileStatus.traction_data.selected &&
+      business_progress
+    );
   };
 
-  const [selectedOption, setSelectedOption] = useState(false);
-
-  const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedOption(e.target.checked);
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    setIsModalOpen(true);
   };
 
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
 
   return (
-    <div>
-      창업가 - PT 업로드 페이지
-      <CustomColumn $width='100%' $gap='24px' $alignitems="flex-start" $justifycontent="center">
-        <LabelWithCaptionWrapper
-          label="프레젠테이션 썸네일"
-          required={true}
-          error={false}
-        >
-          <ThumbnailComponent
+    <>
+      <Gnb />
+      <Container>
+        <Title>프레젠테이션 등록</Title>
+        <CustomColumn $width="25.875rem" $gap='1.5rem' $alignitems='flex-start'>
+          <PTInfoField
+            buttonState={buttonState}
+            onFileSelect={handleFileSelect}
+          />
+
+          <FileUploadField
+            buttonState={buttonState}
+            onFileSelect={handleFileSelect}
+          />
+
+          <RadioFormField
+            label="사업 진행도"
+            options={radioOptions}
+            name="business_progress"
+            checkedValue={business_progress}
+            onChange={handleBusinessProgressChange}
+            disabled={false}
+          />
+
+          <FilledButton
+            scale="l"
             state={buttonState}
-            iconSrc="/icons/Pluscircle.svg"
             onClick={handleClick}
-          />
-        </LabelWithCaptionWrapper>
-        <LabelWithCaptionWrapper
-          label="프레젠테이션 요약"
-          required={true}
-          error={false}
-        >
-          <Textarea
-            value={textValue}
-            onChange={handleChange}
-            placeholder="프레젠테이션 내용을 간략하게 입력해주세요. "
-            required
-          />
-        </LabelWithCaptionWrapper>
-        <LabelWithCaptionWrapper
-          label="사업 진행도"
-          required={true}
-          error={false}
-        >
-          <CustomRow $width="100%" $alignitems="center" $justifycontent="flex-start">
-            <RadioComponent
-              label="아이디어"
-              value="idea"
-              name="progress"
-              checked={selectedOption}
-              onChange={handleRadioChange}
+            disabled={isButtonDisabled()}
+          >
+            등록하기
+          </FilledButton>
+          {isModalOpen && (
+            <Modal
+              modalText="프레젠테이션 등록이 요청되었어요"
+              closeModal={toggleModal}
+              modalType="request"
+              onConfirm={() => router.push('/founder')}
             />
-            <RadioComponent
-              label="사업 진행중"
-              value="business"
-              name="progress"
-              checked={selectedOption}
-              onChange={handleRadioChange}
-            />
-          </CustomRow>
-        </LabelWithCaptionWrapper>
-      </CustomColumn>
-    </div>
+          )}
+        </CustomColumn>
+      </Container>
+    </>
   )
 }
+
+const Container = styled.div`
+  width: 100%;
+  height: 100vh;
+  padding: 2.5rem 0 11.78rem 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+`
+
+const Title = styled(Headline1)`
+  margin: 2.5rem 0;
+  width: 25.875rem;
+  align-items: flex-start; 
+`

@@ -24,11 +24,12 @@
   }
 }
 
+
 html,
 body {
   min-width : 1140px;
   min-height : 1024px;
-  overflow-x: hidden;
+  overflow: hidden;
 
   /* 컬러 선언 */
   /* Primary Color : 블루 계열 */

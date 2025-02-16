@@ -8,6 +8,7 @@ interface CustomRowProps {
   $height?: string;
   $gap?: string;
   $alignitems?: string;
+  $alignself?: string;
   $justifycontent?: string;
   $margin?: string;
   $padding?: string;
@@ -21,6 +22,7 @@ const CustomRow = styled.div<CustomRowProps>`
   height: ${(props) => props.$height || "auto"};
   gap: ${(props) => props.$gap || "20px"};
   align-items: ${(props) => props.$alignitems || "center"};
+  align-self: ${(props) => props.$alignitems || "auto"};
   justify-content: ${(props) => props.$justifycontent || "center"};
   margin: ${(props) => props.$margin || "0"};
   padding: ${(props) => props.$padding || "0"};
