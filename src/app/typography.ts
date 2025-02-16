@@ -165,10 +165,10 @@ export const Caption2 = styled.p`
 
 export const Caption3 = styled.p`
     font-family: Pretendard;
-    font-size: 1.25rem;
+    font-size: 0.75rem;
     font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    font-weight: 500;
+    line-height: 130%; /* 0.975rem */
 `;
 
 export const Caption4 = styled.p`
