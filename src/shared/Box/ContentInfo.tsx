@@ -9,7 +9,7 @@ interface ContentInfoProps {
     company : string;
     service_name : string;
     // business_type_display:string;
-
+    business_progress:string;
     type:'investormain' | 'upload'
 }
 
@@ -30,6 +30,7 @@ const ContentInfo:React.FC<ContentInfoProps> = ({
     company, 
     service_name, 
     // business_type_display,
+    business_progress,
     type
 }) =>{
     const NameComponent = typograpyMap[type].name;
