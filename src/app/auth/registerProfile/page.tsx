@@ -127,7 +127,6 @@ export default function RegisterProfilePage() {
   };
 
 
-  // 버튼 활성화 상태 
   const isButtonDisabled = (): boolean => {
     if (selectedTab === "창업자") {
       const { userName, phone, company, position, company_email } = entrepreneurState;
