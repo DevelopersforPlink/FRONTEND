@@ -19,6 +19,20 @@ const nextConfig: NextConfig = {
       test:/\.svg$/,
       use:["@svg/webpack"],
     })
+
+    // PDF worker 설정 추가
+    config.module.rules.push({
+      test:/pdf\.worker\.js$/,
+      use:{
+        loader:'file-loader',
+        options:{
+          name:'[name].ext',
+          outputPath:'static/js/',
+          publickPath:'/_next/static/js/',
+        },
+      },
+    });
+    
     return config;
   }
 };
