@@ -160,7 +160,7 @@ export const Caption2 = styled.p`
     font-size: 0.875rem;
     font-style: normal;
     font-weight: 600;
-    line-height: normal;
+    line-height: 130%;
 `;
 
 export const Caption3 = styled.p`
@@ -195,6 +195,14 @@ export const Caption6 = styled.p`
     line-height: normal;
 `;
 
+export const Caption7 = styled.p`
+    font-family: Pretendard;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%; /* 1.1375rem */
+`;
+
 export const Label1 = styled.p`
     font-family: Pretendard;
     font-size: 1rem;
@@ -221,10 +229,10 @@ export const Button1 = styled.p`
 
 export const Button2 = styled.p`
     font-family: Pretendard;
-    font-size: 0.9375rem;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 600;
-    line-height: normal;
+    line-height: 130%; /* 1.3rem */
 `;
 
 export const Button3 = styled.p`
