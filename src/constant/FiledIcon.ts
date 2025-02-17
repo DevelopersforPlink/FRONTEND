@@ -8,12 +8,10 @@ const FiledIcon:Array<FiledTypeProps> = [
     {
         icon:'/icons/All.svg',
         business_type_display:'전체',
-        // business_type:
     },
     {
-        icon:'/icons/All.svg',
+        icon:'/icons/Service.svg',
         business_type_display:'서비스업',
-        // business_type:
     },
     {
         icon:'/icons/FinaceBanking.svg',
