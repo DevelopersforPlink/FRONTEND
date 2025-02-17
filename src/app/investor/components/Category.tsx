@@ -7,8 +7,8 @@ import Filed from './filed';
 import FiledIcon from '@/constant/FiledIcon'; // icon list
 
 interface CategoryProps {
-    selectedFiled : number|null;
-    onClick : (index:number)=>void;
+    selectedFiled : string;
+    onClick : (category: string)=>void;
 }
 
 const Category:React.FC<CategoryProps>=({onClick,selectedFiled})=>{
@@ -20,8 +20,8 @@ const Category:React.FC<CategoryProps>=({onClick,selectedFiled})=>{
                     key={index} 
                     src={icon} 
                     tag={business_type_display}
-                    state={selectedFiled === index} // 선택된 filed만 active 상태 유지
-                    onClick={()=>{onClick(index);console.log(`선택된 filed index : ${index}`)}}
+                    state={selectedFiled === business_type_display} // 선택된 filed만 active 상태 유지
+                    onClick={()=>{onClick(business_type_display)}}
                 />
             ))}
         </Container>

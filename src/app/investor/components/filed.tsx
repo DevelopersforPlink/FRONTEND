@@ -33,11 +33,11 @@ const Container = styled.div<{isActive:boolean}>`
 
     position: relative; /*  border-bottom 효과를 위한 설정 */
 
-    padding: 1rem 1.25rem;
+    padding: 1rem 0.75rem;
     gap: 0.75rem;
     /* width: 9.0625rem;
     height: 5.25rem; */
-    width: 10%;
+    width: 9%;
     height: auto;
 
     flex-shrink: 0;

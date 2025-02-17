@@ -6,16 +6,18 @@ import styled from "@emotion/styled";
 import Thumbnail from "./Thumbnail";
 import Profile from "./Profile";
 import ContentInfo from "./ContentInfo";
+import ContentState from "./ContentState";
 
 interface InvestorMainBoxProps {
-    id:number;
+    id:string;
     thumbnail ?:string;
     profile ?:string;
     title : string;
     company : string;
     service_name : string;
     business_type:string;
-    business_type_display:string;
+    business_progress:string;
+    is_approve:boolean;
     onClick:React.MouseEventHandler<HTMLButtonElement>;
 
     type:'investor'|'founder';
@@ -30,22 +32,29 @@ const InvestorMainBox:React.FC<InvestorMainBoxProps> = ({
     company, 
     service_name,
     business_type,
-    business_type_display,
+    business_progress,
     onClick,
 
+    is_approve,
     type,
 }) =>{
 
     return(
         <Container onClick={onClick}>
-            <Thumbnail src={thumbnail} type={type}/>
+            {is_approve && <Thumbnail src={thumbnail} type={type} is_approve={is_approve}/>}
+            {!is_approve && 
+                <ThumbnailWrapper>
+                    <ContentState type='editing'/>
+                    <StyledThumbnail src={thumbnail} type={type} is_approve={is_approve}/>
+                </ThumbnailWrapper>
+            }
             <Wrapper>
                 <Profile src={profile}/>
                 <ContentInfo 
                     title={title}
                     company={company}
                     service_name={service_name}
-                    business_type_display={business_type_display}
+                    business_progress={business_progress}
                     // 컴포넌트 재사용을 위한 type 지정
                     type='investormain'
                 />
@@ -92,4 +101,20 @@ const Wrapper = styled.div`
     align-items: center;
 
     gap: 0.75rem;
+`;
+
+const ThumbnailWrapper = styled.div`
+    position: relative; /* ✅ 부모 요소를 relative로 설정하여 State 배치 가능 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: auto;
+`;
+
+const StyledThumbnail=styled(Thumbnail)`
+    position: relative; /* ✅ State보다 뒤에 있도록 설정 */
+    z-index: 1;
 `;

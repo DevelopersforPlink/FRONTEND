@@ -2,6 +2,7 @@
 
 import styled from "@emotion/styled";
 import UploadComponent from '@/shared/Box/UploadComponent';
+import EmptyContent from "@/shared/EmptyContent";
 
 interface UploadItem {
     id:number;
@@ -12,12 +13,18 @@ interface UploadItem {
 }
 
 interface UploadListProps {
-    data:UploadItem[];
+    data:UploadItem[]|null;
 }
 
 const UploadList:React.FC<UploadListProps>=({data})=>{
-    const itemLists = Array.from({length:Math.ceil(data.length / 3)},(_, index)=>
-        data.slice(index*3, index*3+3)
+    // const itemLists = Array.from({length:Math.ceil(data.length / 3)},(_, index)=>
+    //     data?.slice(index*3, index*3+3)
+    // );
+
+    // data가 null일 경우 안전하게 처리
+    const itemLists = Array.from(
+        { length: data ? Math.ceil(data.length / 3) : 0 }, 
+        (_, index) => data ? data.slice(index * 3, index * 3 + 3) : []
     );
 
     return(
@@ -27,7 +34,7 @@ const UploadList:React.FC<UploadListProps>=({data})=>{
                     
                 // </Row>
                 <UploadComponentWrapper  key={rowIndex}>
-                {itemList.map((item, index) => (
+                {itemList?.map((item, index) => (
                     <UploadComponent
                         key={index}
                         thumbnailSrc={item.thumbnail}
@@ -38,6 +45,7 @@ const UploadList:React.FC<UploadListProps>=({data})=>{
                 ))}
             </UploadComponentWrapper>
             ))}
+            {data === null && <EmptyContent type="upload"/>}
         </Container>
     )
 };
@@ -60,17 +68,10 @@ const Container = styled.div`
 `;
 
 const UploadComponentWrapper = styled.div`
-    /* display: flex;
-    flex-direction: row;
-    width: 100%;
-    
-    align-items: center;
-
-    gap: 1.25rem; */
     display: grid;
-    grid-template-columns: repeat(3, 1fr); // ✅ 1줄에 4개 
-    grid-column-gap: 1.5rem; // ✅ 간격 3개 유지
-    grid-row-gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap: 1.25rem;
+    grid-column-gap: 1.5rem; 
     place-items: center;
 
     width: 100%;

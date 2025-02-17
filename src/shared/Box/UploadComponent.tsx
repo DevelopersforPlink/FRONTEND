@@ -16,7 +16,6 @@ interface UploadComponentProps {
 }
 
 const UploadComponent:React.FC<UploadComponentProps> = ({thumbnailSrc,name,companyName,serviceName}) =>{
-
     return(
         <Container>
             <Thumbnail src={thumbnailSrc} type="founder"/>
@@ -29,11 +28,11 @@ const UploadComponent:React.FC<UploadComponentProps> = ({thumbnailSrc,name,compa
                 />
                 <ButtonsWrapper>
                     <EditButton>
-                        <img src="/icons/Pencil.svg"/>
+                        <Icon src="/icons/Pencil.svg"/>
                         {/* <PencilIcon /> */}
                     </EditButton>
                     <DeleteButton>
-                        <img src="/icons/Trash.svg"/>
+                        <Icon src="/icons/Trash.svg"/>
                         {/* <TrashIcon /> */}
                     </DeleteButton>
                 </ButtonsWrapper>
@@ -52,7 +51,8 @@ const Container = styled.div`
     align-items: center;
     flex-grow: 1;
 
-    width: 25.8125rem;
+    /* width: 25.8125rem; */
+    width: 100%;
     /* height: 20.8125rem; */
     padding: 0.3125rem;
     gap: 0.75rem;
@@ -103,4 +103,25 @@ const DeleteButton = styled.button`
     
     border: none;
     background-color: transparent;
+`;
+
+const Icon = styled.div<{src:string;}>`
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: var(--gray-scale-60);
+
+    mask-image: url(${({ src }) => src});
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image:url(${({ src }) => src});
+
+    :hover{
+        background-color: var(--gray-scale-80);
+        transition: all 0.3s;
+    }
+    :active{
+        background-color: var(--gray-scale-100);
+        transition: all 0.3s;
+    }
 `;
