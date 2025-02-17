@@ -2,7 +2,7 @@ export const data = {
     "category": "전체",
     "page": 1,
     "page_size": 12,
-    "total_pages": 1,
+    "total_pages": 13,
     "total_items": 5,
     "presentations": [
         {
@@ -26,7 +26,7 @@ export const data = {
             "service_name": "서비스명",
             "business_type": "미디어/광고업",
             "business_progress": "사업 진행중",
-            "is_approve": false,
+            "is_approve": true,
             "created_at": "2025-02-16T02:00:57.744177"
         },
         {
@@ -38,7 +38,7 @@ export const data = {
             "service_name": "기깔",
             "business_type": "IT/정보통신업",
             "business_progress": "사업 진행중",
-            "is_approve": false,
+            "is_approve": true,
             "created_at": "2025-02-16T02:00:57.728183"
         },
         {
@@ -62,7 +62,7 @@ export const data = {
             "service_name": "서비스명",
             "business_type": "서비스업",
             "business_progress": "아이디어",
-            "is_approve": false,
+            "is_approve": true,
             "created_at": "2025-02-16T02:00:57.695038"
         },
         {
@@ -98,7 +98,7 @@ export const data = {
             "service_name": "기깔",
             "business_type": "IT/정보통신업",
             "business_progress": "사업 진행중",
-            "is_approve": false,
+            "is_approve": true,
             "created_at": "2025-02-16T02:00:57.728183"
         },
         {
@@ -122,7 +122,7 @@ export const data = {
             "service_name": "서비스명",
             "business_type": "서비스업",
             "business_progress": "아이디어",
-            "is_approve": false,
+            "is_approve": true,
             "created_at": "2025-02-16T02:00:57.695038"
         },
         {
@@ -146,7 +146,7 @@ export const data = {
             "service_name": "서비스명",
             "business_type": "미디어/광고업",
             "business_progress": "사업 진행중",
-            "is_approve": false,
+            "is_approve": true,
             "created_at": "2025-02-16T02:00:57.744177"
         },
         {
@@ -170,6 +170,66 @@ export const data = {
             "service_name": "서비스명",
             "business_type": "서비스업",
             "business_progress": "사업 진행중",
+            "is_approve": true,
+            "created_at": "2025-02-16T02:00:57.712214"
+        },
+        {
+            "id": "01JM4T808GQPPTJ80CH5E3GZTY",
+            "thumbnail": "https://i.pinimg.com/736x/5e/d4/de/5ed4de3d2fbf97963e674dc12667dd07.jpg",
+            "profile": "https://i.pinimg.com/736x/cc/ef/7b/ccef7b5c2e7e765bc6a3f7f5bd908eb3.jpg",
+            "title": "프레젠테이션명",
+            "company": "네이버",
+            "service_name": "서비스명",
+            "business_type": "서비스업",
+            "business_progress": "아이디어",
+            "is_approve": true,
+            "created_at": "2025-02-16T02:00:57.695038"
+        },
+        {
+            "id": "01JM4T9ZA6V42WBCF9PGH4ZS2N",
+            "thumbnail": "https://i.pinimg.com/736x/72/02/9d/72029d03eaada490526826d57eb54f4c.jpg",
+            "profile": "https://i.pinimg.com/736x/45/2c/03/452c039a7efa5fc2dfc7b8447d25e575.jpg",
+            "title": "프레젠테이션명",
+            "company": "네이버",
+            "service_name": "서비스명",
+            "business_type": "문화/예술/디자인업",
+            "business_progress": "사업 진행중",
+            "is_approve": false,
+            "created_at": "2025-02-16T02:00:57.758176"
+        },
+        {
+            "id": "01JM4T9QNYCXHJVV0GX4Q2ZBE0",
+            "thumbnail": "/thumbnailTest.png",
+            "profile": "https://i.pinimg.com/736x/44/1c/ee/441cee07e1b69b82bdc827377fd206ce.jpg",
+            "title": "프레젠테이션명",
+            "company": "네이버",
+            "service_name": "서비스명",
+            "business_type": "미디어/광고업",
+            "business_progress": "사업 진행중",
+            "is_approve": true,
+            "created_at": "2025-02-16T02:00:57.744177"
+        },
+        {
+            "id": "01JM4T9FQB42KK60VZC2EBZBZ9",
+            "thumbnail": "https://i.pinimg.com/736x/cc/ef/7b/ccef7b5c2e7e765bc6a3f7f5bd908eb3.jpg",
+            "profile": "https://i.pinimg.com/736x/5e/d4/de/5ed4de3d2fbf97963e674dc12667dd07.jpg",
+            "title": "프레젠테이션명",
+            "company": "플링크",
+            "service_name": "기깔",
+            "business_type": "IT/정보통신업",
+            "business_progress": "사업 진행중",
+            "is_approve": true,
+            "created_at": "2025-02-16T02:00:57.728183"
+        },
+        {
+            "id": "01JM4T929W1HC4JMMQ0XC1WA0E",
+            "thumbnail": "https://i.pinimg.com/736x/cc/ef/7b/ccef7b5c2e7e765bc6a3f7f5bd908eb3.jpg",
+            "profile": "/thumbnailTest.png",
+            "title": "프레젠테이션명",
+            "company": "네이버",
+            "service_name": "서비스명",
+            "business_type": "서비스업",
+            "business_progress": "사업 진행중",
             "is_approve": false,
             "created_at": "2025-02-16T02:00:57.712214"
         },
@@ -182,7 +242,7 @@ export const data = {
             "service_name": "서비스명",
             "business_type": "서비스업",
             "business_progress": "아이디어",
-            "is_approve": false,
+            "is_approve": true,
             "created_at": "2025-02-16T02:00:57.695038"
         },
         {
@@ -218,7 +278,7 @@ export const data = {
             "service_name": "기깔",
             "business_type": "IT/정보통신업",
             "business_progress": "사업 진행중",
-            "is_approve": false,
+            "is_approve": true,
             "created_at": "2025-02-16T02:00:57.728183"
         },
         {
@@ -242,67 +302,7 @@ export const data = {
             "service_name": "서비스명",
             "business_type": "서비스업",
             "business_progress": "아이디어",
-            "is_approve": false,
-            "created_at": "2025-02-16T02:00:57.695038"
-        },
-        {
-            "id": "01JM4T9ZA6V42WBCF9PGH4ZS2N",
-            "thumbnail": "https://i.pinimg.com/736x/72/02/9d/72029d03eaada490526826d57eb54f4c.jpg",
-            "profile": "https://i.pinimg.com/736x/45/2c/03/452c039a7efa5fc2dfc7b8447d25e575.jpg",
-            "title": "프레젠테이션명",
-            "company": "네이버",
-            "service_name": "서비스명",
-            "business_type": "문화/예술/디자인업",
-            "business_progress": "사업 진행중",
-            "is_approve": false,
-            "created_at": "2025-02-16T02:00:57.758176"
-        },
-        {
-            "id": "01JM4T9QNYCXHJVV0GX4Q2ZBE0",
-            "thumbnail": "/thumbnailTest.png",
-            "profile": "https://i.pinimg.com/736x/44/1c/ee/441cee07e1b69b82bdc827377fd206ce.jpg",
-            "title": "프레젠테이션명",
-            "company": "네이버",
-            "service_name": "서비스명",
-            "business_type": "미디어/광고업",
-            "business_progress": "사업 진행중",
-            "is_approve": false,
-            "created_at": "2025-02-16T02:00:57.744177"
-        },
-        {
-            "id": "01JM4T9FQB42KK60VZC2EBZBZ9",
-            "thumbnail": "https://i.pinimg.com/736x/cc/ef/7b/ccef7b5c2e7e765bc6a3f7f5bd908eb3.jpg",
-            "profile": "https://i.pinimg.com/736x/5e/d4/de/5ed4de3d2fbf97963e674dc12667dd07.jpg",
-            "title": "프레젠테이션명",
-            "company": "플링크",
-            "service_name": "기깔",
-            "business_type": "IT/정보통신업",
-            "business_progress": "사업 진행중",
-            "is_approve": false,
-            "created_at": "2025-02-16T02:00:57.728183"
-        },
-        {
-            "id": "01JM4T929W1HC4JMMQ0XC1WA0E",
-            "thumbnail": "https://i.pinimg.com/736x/cc/ef/7b/ccef7b5c2e7e765bc6a3f7f5bd908eb3.jpg",
-            "profile": "/thumbnailTest.png",
-            "title": "프레젠테이션명",
-            "company": "네이버",
-            "service_name": "서비스명",
-            "business_type": "서비스업",
-            "business_progress": "사업 진행중",
-            "is_approve": false,
-            "created_at": "2025-02-16T02:00:57.712214"
-        },
-        {
-            "id": "01JM4T808GQPPTJ80CH5E3GZTY",
-            "thumbnail": "https://i.pinimg.com/736x/5e/d4/de/5ed4de3d2fbf97963e674dc12667dd07.jpg",
-            "profile": "https://i.pinimg.com/736x/cc/ef/7b/ccef7b5c2e7e765bc6a3f7f5bd908eb3.jpg",
-            "title": "프레젠테이션명",
-            "company": "네이버",
-            "service_name": "서비스명",
-            "business_type": "서비스업",
-            "business_progress": "아이디어",
-            "is_approve": false,
+            "is_approve": true,
             "created_at": "2025-02-16T02:00:57.695038"
         }
     ]
