@@ -4,12 +4,24 @@ import { useEffect,useState } from "react";
 import styled from "@emotion/styled";
 import dynamic from "next/dynamic";
 
-import { Viewer,Worker } from "@react-pdf-viewer/core";
+import { ScrollMode, SpecialZoomLevel, Viewer, ViewMode, Worker } from "@react-pdf-viewer/core";
+// 플러그인 도구들 레이아웃 가져옴
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+import { ViewportBoundary } from "next/dist/lib/metadata/metadata-boundary";
+
 // import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 // import "@react/pdf-viewer/core/lib/styles/index.css";
 
-const PdfViewer = ()=>{
+import { fullScreenPlugin } from '@react-pdf-viewer/full-screen';
+
+// Import styles
+import '@react-pdf-viewer/full-screen/lib/styles/index.css';
+
+interface PdfViewerProps {
+    fileUrl:string;
+}
+
+const PdfViewer:React.FC<PdfViewerProps> = ({fileUrl})=>{
     const defaultLayoutPluginInstance = defaultLayoutPlugin()
 
     return(
@@ -17,10 +29,12 @@ const PdfViewer = ()=>{
             <WorkerComponent workerUrl="https://unpkg.com/pdfjs-dist@3.10.111/build/pdf.worker.min.js">
                 <ViewerComponent 
                     // fileUrl={'/modalTest.pdf'}
-                    // fileUrl={'/test02.pdf'}
-                    fileUrl={'/test03.pdf'}
+                    fileUrl={'/test02.pdf'}
+                    // fileUrl={'/test03.pdf'}
                     // fileUrl={'/testPDF.pdf'}
-                    defaultScale={1}
+                    defaultScale={SpecialZoomLevel.PageFit} 
+                    scrollMode={ScrollMode.Vertical} 
+                    viewMode={ViewMode.SinglePage}              
                 />
             </WorkerComponent>
         </Container>
@@ -52,8 +66,8 @@ const WorkerComponent = styled(Worker)`
 `;
 
 const ViewerComponent = styled(Viewer)`
-    /* width: 100%; */
-    width: fit-content;
+    width: 100%;
+    /* width: fit-content; */
     /* width: 55.7818rem; */
     /* max-width: 100%;  */
     height: auto;

@@ -1,6 +1,6 @@
 // p.4.1.2
 // 동적 라우트기 때문에 추후에 백엔드랑 주소 맞출 때 변수명 잘 맞출 것
-// '/investor/[ptId]'로 접속하면 진입 가능
+// '/founder/[ptId]'로 접속하면 진입 가능
 // [ptId]자리에는 무슨 숫자를 쓰든 접속 가능
 
 "use client";
@@ -17,6 +17,14 @@ const TestData:{name : string, summation : string, companyName : string, service
   summation : '투자자에게 아웃바운드 딜 소싱, 창업가에게는 1분 PT 및 사업기획안 어필의 기회를 제공한다.',
   companyName : 'Plers(플러스)',
   serviceName : 'Plink(플링크)'
+}
+
+interface ButtonDataProps {
+    scale : string;
+    state : string;
+    children : string;
+    iconSrc:string;
+    onClick:()=>void
 }
 
 export default function PtPage() {
@@ -40,11 +48,33 @@ export default function PtPage() {
           iconSrc='/icons/Folder.svg'
           onClick={()=>setIsModalOpen(true)}
         />
+        {/* <OutlinedButtonComponent 
+          scale='m'
+          state='default'
+          children='원페이퍼 사업기획서'
+          iconSrc='/icons/Folder.svg'
+          onClick={()=>setIsModalOpen(true)}
+        />
+        <OutlinedButtonComponent 
+          scale='m'
+          state='default'
+          children='원페이퍼 사업기획서'
+          iconSrc='/icons/Folder.svg'
+          onClick={()=>setIsModalOpen(true)}
+        />
+        <OutlinedButtonComponent 
+          scale='m'
+          state='default'
+          children='원페이퍼 사업기획서'
+          iconSrc='/icons/Folder.svg'
+          onClick={()=>setIsModalOpen(true)}
+        />
+         */}
       </ButtonsWrapper>
       <Modal 
         isOpen={isModalOpen}
         onClose={()=>setIsModalOpen(false)}
-        pdfUrl={pdfTestUrl}
+        fileUrl={pdfTestUrl}
       />
     </Container>
   )
@@ -61,9 +91,12 @@ const Container = styled.div`
 `;
 
 const ButtonsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  grid-column-gap: 2rem; // ✅ 간격 3개 유지
+  grid-row-gap: 1.5rem;
+  place-items: center;
+  
 
   padding: 2.5rem 5rem;
 `;

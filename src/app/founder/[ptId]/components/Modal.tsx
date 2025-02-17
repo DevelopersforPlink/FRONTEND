@@ -9,10 +9,10 @@ import {BsFillXCircleFill} from 'react-icons/bs';
 interface ModalProps {
     isOpen : boolean;
     onClose : () => void;
-    pdfUrl : string;
+    fileUrl : string;
 }
 
-const Modal:React.FC<ModalProps> = ({isOpen, onClose, pdfUrl}) => {
+const Modal:React.FC<ModalProps> = ({isOpen, onClose, fileUrl}) => {
     // const [numPages, setNumPages] = useState<number | null>(null);
     const [numPages, setNumPages] = useState(0);
     const [pageNumber, setPageNumber] = useState(1);
@@ -36,7 +36,7 @@ const Modal:React.FC<ModalProps> = ({isOpen, onClose, pdfUrl}) => {
                 <CrossButton onClick={onClose}>
                     <CrossIcon />
                 </CrossButton>
-                <PdfViewer />
+                <PdfViewer fileUrl='/test03.pdf'/>
             </Wrapper>
         </Container>
     )
@@ -66,15 +66,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    /* align-items: center; */
-
-    /* padding: 3rem; */
-    /* gap: 1.5rem; */
-
-    /* width: 66.5rem; */
-    /* width: 55rem;
-    width: 37rem; */
+    align-content: center;
     width: 80%;
     height: 80%;
 `;
