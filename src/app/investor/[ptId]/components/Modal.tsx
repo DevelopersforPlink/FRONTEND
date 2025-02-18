@@ -36,7 +36,7 @@ const Modal:React.FC<ModalProps> = ({isOpen, onClose, pdfUrl}) => {
                 <CrossButton onClick={onClose}>
                     <CrossIcon />
                 </CrossButton>
-                <PdfViewer />
+                <PdfViewer pdfUrl={pdfUrl}/>
             </Wrapper>
         </Container>
     )
@@ -66,8 +66,8 @@ const Container = styled.div`
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    /* align-items: center; */
+    justify-content: center; 
+    align-items: center;
 
     /* padding: 3rem; */
     /* gap: 1.5rem; */
@@ -85,9 +85,9 @@ const CrossButton = styled.button`
 
     margin: 0 0.8rem auto auto;
 
-    position: sticky;
+    /* position: absolute; */
     top: 6rem;
-    right: -6rem;
+    right: 6rem;
 
     width: fit-content;
     width: auto;

@@ -5,16 +5,16 @@ import { Headline1,Body4 } from "@/app/typography";
 
 interface ContentInfoProps {
     name : string;
-    summation : string;
+    summary : string;
 }
 
-const ContentInfo :React.FC<ContentInfoProps> = ({name, summation}) => {
+const ContentInfo :React.FC<ContentInfoProps> = ({name, summary}) => {
 
     return(
         <Container>
             <Headline1>{name}</Headline1>
             <SummationArea>
-                <Body4>{summation}</Body4>
+                <Body4>{summary}</Body4>
             </SummationArea>
         </Container>
     )

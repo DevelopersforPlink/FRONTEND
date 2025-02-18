@@ -11,6 +11,7 @@ import Gnb from '@/shared/Gnb';
 import BoxComponent from './components/BoxComponent';
 import OutlinedButtonComponent from '@/shared/Button/OutlinedButtonComponent';
 import Modal from './components/Modal';
+import { testPresentation } from '../../../constant/testPresentation';
 
 const TestData:{name : string, summation : string, companyName : string, serviceName : string} = {
   name : '테스트01-플링크',
@@ -27,10 +28,13 @@ export default function PtPage() {
   return (
     <Container>
       <BoxComponent 
-        name={TestData.name}
-        summation={TestData.summation}
-        companyName={TestData.companyName}
-        serviceName={TestData.serviceName}
+        name={testPresentation.title}
+        summary={testPresentation.summary}
+        companyName={testPresentation.company}
+        serviceName={testPresentation.service_name}
+        profile={testPresentation.profile}
+        thumbnail={testPresentation.thumbnail}
+        is_approve={testPresentation.is_approve}
       />
       <ButtonsWrapper>
         <OutlinedButtonComponent 
@@ -44,7 +48,7 @@ export default function PtPage() {
       <Modal 
         isOpen={isModalOpen}
         onClose={()=>setIsModalOpen(false)}
-        pdfUrl={pdfTestUrl}
+        pdfUrl={testPresentation.summary_business_plan}
       />
     </Container>
   )
@@ -61,9 +65,12 @@ const Container = styled.div`
 `;
 
 const ButtonsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  grid-column-gap: 2rem; // ✅ 간격 3개 유지
+  grid-row-gap: 1.5rem;
+  place-items: center;
+  
 
   padding: 2.5rem 5rem;
 `;

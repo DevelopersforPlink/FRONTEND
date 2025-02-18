@@ -9,7 +9,11 @@ import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 // import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 // import "@react/pdf-viewer/core/lib/styles/index.css";
 
-const PdfViewer = ()=>{
+interface PdfViewerProps {
+    pdfUrl:string;
+}
+
+const PdfViewer = ({pdfUrl}:PdfViewerProps)=>{
     const defaultLayoutPluginInstance = defaultLayoutPlugin()
 
     return(
@@ -18,9 +22,10 @@ const PdfViewer = ()=>{
                 <ViewerComponent 
                     // fileUrl={'/modalTest.pdf'}
                     // fileUrl={'/test02.pdf'}
-                    fileUrl={'/test03.pdf'}
+                    // fileUrl={'/test03.pdf'}
                     // fileUrl={'/testPDF.pdf'}
-                    defaultScale={1}
+                    fileUrl={pdfUrl}
+                    // defaultScale={1}
                 />
             </WorkerComponent>
         </Container>
@@ -30,9 +35,12 @@ const PdfViewer = ()=>{
 export default PdfViewer;
 
 const Container=styled.div`
-    width: 100%;
-    /* width: fit-content; */
-    height: 100%;
+    /* width: 80%;
+    height: 80%; */
+    width: fit-content;
+
+    width: 80vw;
+    height: 80vh;
 
     display: flex;
     justify-content: center;
@@ -42,20 +50,20 @@ const Container=styled.div`
     border-radius: 0.625rem;
 
     color: white;
+    margin: 0;
 `;
 
 const WorkerComponent = styled(Worker)`
     width: 100%;
-    width: fit-content;
     align-content: center;
     align-items: center;
 `;
 
 const ViewerComponent = styled(Viewer)`
-    /* width: 100%; */
-    width: fit-content;
+    width: 100%;
+    width: 100vw;
+    /* width: fit-content; */
     /* width: 55.7818rem; */
     /* max-width: 100%;  */
     height: auto;
-    border-radius: 0.625rem;
 `;
