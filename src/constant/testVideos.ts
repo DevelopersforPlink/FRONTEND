@@ -160,3 +160,37 @@ export const boxList:Array<TestBoxListProps>=[
     // },
 
 ];
+
+interface testBoxContentsProps{
+    id: string;
+    thumbnail: string;
+    profile: string;
+    title: string;
+    company: string;
+    service_name: string;
+    business_type: string;
+    business_progress: string;
+    is_approve: boolean;
+    created_at: string;
+
+    link:string;
+    summary: string;
+    summary_business_plan: string;
+}
+
+export const testBoxContent = {
+    id: "01JM4T929W1HC4JMMQ0XC1WA0E",
+    thumbnail:'/testThumbnail.png',
+    profile: '/SmallLogo.svg',
+    title: '플링크 시연',
+    company: '플러스(plers)',
+    service_name: '플링크(plink)',
+    business_type: 'IT/정보통신업',
+    business_progress: '사업 진행중',
+    is_approve: true,
+    created_at: '2025-02-16T02:00:57.758176',
+
+    link: "https://youtu.be/D88yEibsrgQ?si=uh-7eydSYmtxPSan",
+    summary: '플링크 시연 영상입니다.',
+    summary_business_plan: '/ptPdf.pdf',
+}
