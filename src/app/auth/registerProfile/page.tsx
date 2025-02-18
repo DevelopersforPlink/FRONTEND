@@ -101,9 +101,9 @@ export default function RegisterProfilePage() {
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (selectedTab === "창업자") {
-      setEntrepreneurState(prev => ({ ...prev, email: value }));
+      setEntrepreneurState(prev => ({ ...prev, company_email: value }));
     } else {
-      setInvestorState(prev => ({ ...prev, email: value }));
+      setInvestorState(prev => ({ ...prev, company_email: value }));
     }
   };
 
@@ -122,6 +122,7 @@ export default function RegisterProfilePage() {
   const handleCheckboxChange = (checkedItems: { label: string; checked: boolean }[]) => {
     setCheckedItems(prev => {
       const allChecked = checkedItems.every(item => item.checked);
+      console.log('allChecked:', allChecked);
       return { ...prev, items: checkedItems, allChecked };
     });
   };
@@ -130,12 +131,17 @@ export default function RegisterProfilePage() {
   const isButtonDisabled = (): boolean => {
     if (selectedTab === "창업자") {
       const { userName, phone, company, position, company_email } = entrepreneurState;
+      console.log('Entrepreneur State:', { userName, phone, company, position, company_email });
+      console.log('All Checked:', checkedItems.allChecked);
       return !userName || !phone || !company || !position || !company_email || !checkedItems.allChecked;
     } else {
       const { userName, phone, company, position, company_email, codeValue, fileSelected } = investorState;
+      console.log('Investor State:', { userName, phone, company, position, company_email, codeValue, fileSelected });
+      console.log('All Checked:', checkedItems.allChecked);
       return !userName || !phone || !company || !position || !company_email || !codeValue || !fileSelected || !checkedItems.allChecked;
     }
   };
+  
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     setIsModalOpen(true);
@@ -231,7 +237,7 @@ export default function RegisterProfilePage() {
 const Container = styled.div`
   width: 100%;
   height: 100vh;
-  padding: 5rem 0;
+  padding: 0 0 5rem 0;
   overflow-x: hidden;
   overflow-y: auto;
   ::-webkit-scrollbar {

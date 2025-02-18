@@ -45,7 +45,8 @@ const Container=styled.div`
     display: flex;
     justify-content: center;
     align-content: center;
-    overflow: auto; // 스크롤 가능하게 설정
+    /* overflow: auto; // 스크롤 가능하게 설정 */
+    overflow: hidden;
 
     border-radius: 0.625rem;
 

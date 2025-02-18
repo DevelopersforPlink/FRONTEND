@@ -52,26 +52,26 @@ export default function MyPage() {
       <Container>
         <CustomRow $width="25.875rem" $gap="1.5rem" $justifycontent="flex-start">
           <Typography.Headline1>내 정보</Typography.Headline1>
-          <StatusChip is_approve={false} />
+          <StatusChip is_approve={true} />
         </CustomRow>
         <CustomRow $width="25.9rem" $gap="1.25rem" $justifycontent="flex-start" $alignitems="center" $margin="2.5rem 0 0 0">
           <Image profileImage="" mainIcon="/icons/User.svg" />
           <CustomColumn $gap="0.5rem" $alignitems="flex-start">
             <CustomRow $gap="0.5rem" $alignitems="flex-end" $alignself="stretch">
-              <Typography.Title5>이름</Typography.Title5>
-              <Typography.Caption5>회원유형</Typography.Caption5>
+              <Typography.Title5>최규리</Typography.Title5>
+              <Typography.Caption5>창업가</Typography.Caption5>
             </CustomRow>
-            <Typography.Caption6>소속회사 | 직무</Typography.Caption6>
+            <Typography.Caption6>plers | 대표</Typography.Caption6>
           </CustomColumn>
         </CustomRow>
         <Others>
           <CustomRow $gap="3.125rem" $alignself="stretch">
             <Label>전화번호</Label>
-            <Value>010-0000-0000</Value>
+            <Value>010-4991-1409</Value>
           </CustomRow>
           <CustomRow $gap="3.125rem" $alignself="stretch">
             <Label>이메일</Label>
-            <Value>example@gmail.com</Value>
+            <Value>plink_hufs@gmail.com</Value>
           </CustomRow>
         </Others>
         <FilledButton

@@ -11,6 +11,7 @@ import Image from 'next/image';
 import * as Typography from '@/app/typography'
 import LoginNavigation from './components/LoginNavigation';
 import { useRouter } from 'next/navigation';
+import Modal from '@/shared/Modal/Modal';
 
 export default function SignupPage() {
   const router = useRouter();
@@ -18,6 +19,10 @@ export default function SignupPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isIdChecked, setIsIdChecked] = useState(false);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalText, setModalText] = useState('');
+  const [modalType, setModalType] = useState<'idCheck' | 'signupComplete'>('idCheck');
 
   const validatePassword = (value: string) => {
     // 길이 체크 (8자 ~ 15자)
@@ -41,7 +46,10 @@ export default function SignupPage() {
   //41~65줄 추가
   const handleIdCheck = () => {
     // 실제로는 API 호출이 필요하지만, 임시로 항상 사용 가능하다고 표시
-    alert('사용 가능한 아이디입니다.');
+    // alert('사용 가능한 아이디입니다.');
+    setModalText('사용 가능한 아이디입니다.');
+    setModalType('idCheck');
+    setModalVisible(true);
     setIsIdChecked(true);
   };
   const handleSignup = () => {
@@ -61,8 +69,10 @@ export default function SignupPage() {
     }
 
     // 실제로는 API 호출이 필요하지만, 임시로 성공 메시지 표시
-    alert('회원가입이 완료되었습니다.');
-    router.push('/auth/login')
+    // alert('회원가입이 완료되었습니다.');
+    setModalText('회원가입이 완료되었습니다.');
+    setModalType('signupComplete');
+    setModalVisible(true);
   };
 
   const [buttonState, setButtonState] = useState<"default" | "pressed" | "disabled" | "hover">("default");
@@ -72,6 +82,12 @@ export default function SignupPage() {
 
   const isButtonDisabled = userId.trim() === '' || password.trim() === '' || !validatePassword(password);
 
+  const handleModalConfirm = () => {
+    if (modalType === 'signupComplete') {
+      router.push('/auth/login'); // 회원가입 완료 후 로그인 페이지로 이동
+    }
+    setModalVisible(false); // 모달 닫기
+  };
 
   return (
     <CustomColumn $gap='2.5rem'>
@@ -161,6 +177,16 @@ export default function SignupPage() {
       </CustomColumn>
 
       <LoginNavigation />
+
+
+      {modalVisible && (
+        <Modal
+          modalText={modalText}
+          closeModal={() => setModalVisible(false)}
+          modalType="request"
+          onConfirm={handleModalConfirm}
+        />
+      )}
     </CustomColumn>
   )
 }

@@ -59,8 +59,7 @@ export default function LoginPage() {
     }
 
     // 실제로는 API 호출이 필요하지만, 임시로 성공 메시지 표시
-    alert('로그인 되었습니다.');
-    router.push('/founder') 
+    router.push('/auth/registerProfile') 
   };
   
   return (

@@ -11,11 +11,15 @@ import styled from '@emotion/styled';
 import { boxList } from '@/constant/testVideos';
 // import { Pagination } from '@/shared/Pagination';
 import { data } from '../../constant/testApiPagination';
+import Modal from '@/shared/Modal/Modal';
 
 
 const FounderMain=()=>{
   const router = useRouter();
   const [page, setPage] = useState<number>(1); // api 통신을 통해 오는 " 현재  페이지의 수
+
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);  // 모달 상태 관리
+  const [modalText, setModalText] = useState<string>('');
   
 
   const handlePageClick = (page:number) => {
@@ -27,6 +31,15 @@ const FounderMain=()=>{
     localStorage.setItem('accessToken','login');
   },[])
 
+   const openModal = (text: string) => {
+    setModalText(text);
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+
   return (
   <Container>
     <Title>등록한 프레젠테이션</Title>
@@ -36,6 +49,7 @@ const FounderMain=()=>{
       children='등록하기'
       iconSrc='/icons/Pluscircle.svg'
       onClick={()=>{router.push('/founder/upload')}}
+      // onClick={() => { openModal('회원 정보등록 심사 후 이용 가능합니다'); }}
     />
     <UploadList data={boxList}/>
     {/* <UploadList data={null}/> */}
@@ -46,6 +60,15 @@ const FounderMain=()=>{
         pagePerGroup={data.page_size}
         totalItem={data.total_items}
         /> */}
+        {isModalVisible && (
+        <Modal 
+          modalText={modalText} 
+          closeModal={closeModal}
+          modalType="request"  // 모달 타입 설정 (request 또는 pay)
+          onConfirm={closeModal}  // 확인 클릭 시 라우터 이동
+        />
+      )}
+
   </Container>
   )
 };

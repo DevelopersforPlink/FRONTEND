@@ -18,24 +18,23 @@ interface UploadComponentProps {
 const UploadComponent:React.FC<UploadComponentProps> = ({thumbnailSrc,name,companyName,serviceName}) =>{
     return(
         <Container>
-            <Thumbnail src={thumbnailSrc} type="founder"/>
+            <Thumbnail src={thumbnailSrc} type="founder" is_approve={false}/>
             <Wrapper>
                 <ContentInfo 
                     title={name}
                     company={companyName}
                     service_name={serviceName}
-                    type="upload"
-                />
-                <ButtonsWrapper>
+                    type="upload" business_progress={""}                />
+                {/* <ButtonsWrapper>
                     <EditButton>
-                        <Icon src="/icons/Pencil.svg"/>
+                        <Icon src="/icons/Pencil.svg"/> */}
                         {/* <PencilIcon /> */}
-                    </EditButton>
-                    <DeleteButton>
-                        <Icon src="/icons/Trash.svg"/>
+                    {/* </EditButton> */}
+                    {/* <DeleteButton>
+                        <Icon src="/icons/Trash.svg"/> */}
                         {/* <TrashIcon /> */}
-                    </DeleteButton>
-                </ButtonsWrapper>
+                    {/* </DeleteButton>
+                </ButtonsWrapper> */}
             </Wrapper>
         </Container>
     )

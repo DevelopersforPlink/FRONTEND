@@ -37,7 +37,7 @@ const DropdownMenu = styled.div`
   border: 1px solid var(--gray-scale-40);
   border-radius: 10px;
   position: absolute;
-  top: 60px;
+  top: 90px;
   background-color: var(--common-white);
   z-index: 2;
 `;

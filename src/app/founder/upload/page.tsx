@@ -67,7 +67,6 @@ export default function PtUpload() {
 
   return (
     <>
-      <Gnb />
       <Container>
         <Title>프레젠테이션 등록</Title>
         <CustomColumn $width="25.875rem" $gap='1.5rem' $alignitems='flex-start'>
