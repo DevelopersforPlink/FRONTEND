@@ -10,11 +10,14 @@ import CustomRow from '@/shared/CustomRow';
 import Image from 'next/image';
 import * as Typography from '@/app/typography'
 import LoginNavigation from './components/LoginNavigation';
+import { useRouter } from 'next/navigation';
 
 export default function SignupPage() {
-
+  const router = useRouter();
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isIdChecked, setIsIdChecked] = useState(false);
 
   const validatePassword = (value: string) => {
     // 길이 체크 (8자 ~ 15자)
@@ -23,19 +26,46 @@ export default function SignupPage() {
     }
 
     // 영문 대소문자, 숫자, 특수문자 존재 여부 체크
-    const hasUpperCase = /[A-Z]/.test(value); // 대문자 포함 여부
-    const hasLowerCase = /[a-z]/.test(value); // 소문자 포함 여부
+    // const hasUpperCase = /[A-Z]/.test(value); // 대문자 포함 여부
+    // const hasLowerCase = /[a-z]/.test(value); // 소문자 포함 여부
+    const hasLetter = /[a-zA-Z]/.test(value);
     const hasNumber = /\d/.test(value); // 숫자 포함 여부
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value); // 특수문자 포함 여부
 
     // 두 가지 이상 조합인지 확인
-    const criteriaCount = [hasUpperCase, hasLowerCase, hasNumber, hasSpecialChar].filter(Boolean).length;
+    // const criteriaCount = [hasUpperCase, hasLowerCase, hasNumber, hasSpecialChar].filter(Boolean).length;
+    // return criteriaCount >= 2;
+    return hasLetter && hasNumber && hasSpecialChar;
+  };
 
-    return criteriaCount >= 2;
+  //41~65줄 추가
+  const handleIdCheck = () => {
+    // 실제로는 API 호출이 필요하지만, 임시로 항상 사용 가능하다고 표시
+    alert('사용 가능한 아이디입니다.');
+    setIsIdChecked(true);
+  };
+  const handleSignup = () => {
+    if (!isIdChecked) {
+      alert('아이디 중복확인을 해주세요.');
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      alert('비밀번호는 8자 이상이며, 영문, 숫자, 특수문자를 모두 포함해야 합니다.');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    // 실제로는 API 호출이 필요하지만, 임시로 성공 메시지 표시
+    alert('회원가입이 완료되었습니다.');
+    router.push('/auth/login')
   };
 
   const [buttonState, setButtonState] = useState<"default" | "pressed" | "disabled" | "hover">("default");
-
   const handleClick = () => {
     setButtonState(buttonState === "pressed" ? "default" : "pressed");
   };
@@ -77,7 +107,8 @@ export default function SignupPage() {
             <FilledButton
               scale="xs"
               state={buttonState}
-              onClick={handleClick}
+              // onClick={handleClick}
+              onClick={handleIdCheck}
             >
               중복확인
             </FilledButton>
@@ -113,14 +144,16 @@ export default function SignupPage() {
             icon={true}
             required={true}
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </LabelWithCaptionWrapper>
 
         <FilledButton
           scale="l"
           state={buttonState}
-          onClick={handleClick}
+          // onClick={handleClick}
+          onClick={handleSignup}
           disabled={isButtonDisabled} // 버튼 비활성화 상태
         >
           다음

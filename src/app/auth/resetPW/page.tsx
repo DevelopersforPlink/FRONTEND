@@ -68,7 +68,15 @@ export default function ResetPWPage() {
             </FilledButton>
           </CustomRow>
         </LabelWithCaptionWrapper>
-        <LabelWithCaptionWrapper label='인증번호'>
+        <LabelWithCaptionWrapper 
+          label='인증번호'
+          caption={
+            <>
+              * 인증 메일이 오지 않으면 스팸 메일함을 확인해주세요. <br />
+              * 인증 메일로 수신되지 않을 경우, 정확한 정보로 재시도 해주세요.
+            </>
+          }
+        >
           <CustomRow $width="100%" $alignitems="center" $justifycontent="flex-start">
             <CertificationInput
               placeholder="인증코드"
