@@ -20,7 +20,7 @@ export const testPresentation:TestPresentationProps={
     thumbnail:'/testThumbnail.png',
     profile:'/SmallLogo.svg',
     title : '창업-투자 중개 및 관리 플랫폼',
-    link:'https://youtu.be/D88yEibsrgQ?si=uh-7eydSYmtxPSan',
+    link:'https://youtu.be/N03vQ8kEdF8',
     company : 'plers',
     summary:'플링크 시연입니다. 잘 부탁드립니다.',
     is_approve:true,

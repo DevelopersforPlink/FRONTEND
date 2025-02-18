@@ -52,7 +52,8 @@ export default function MyPage() {
       <Container>
         <CustomRow $width="25.875rem" $gap="1.5rem" $justifycontent="flex-start">
           <Typography.Headline1>내 정보</Typography.Headline1>
-          <StatusChip is_approve={true} />
+          <StatusChip is_approve={false} />
+          {/* <StatusChip is_approve={true} /> */}
         </CustomRow>
         <CustomRow $width="25.9rem" $gap="1.25rem" $justifycontent="flex-start" $alignitems="center" $margin="2.5rem 0 0 0">
           <Image profileImage="" mainIcon="/icons/User.svg" />
