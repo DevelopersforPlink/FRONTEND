@@ -11,6 +11,8 @@ import Gnb from '@/shared/Gnb';
 import BoxComponent from './components/BoxComponent';
 import OutlinedButtonComponent from '@/shared/Button/OutlinedButtonComponent';
 import Modal from './components/Modal';
+import { testPresentation } from '../../../constant/testPresentation';
+
 
 const TestData:{name : string, summation : string, companyName : string, serviceName : string} = {
   name : '테스트01-플링크',
@@ -29,16 +31,19 @@ interface ButtonDataProps {
 
 export default function PtPage() {
   const [isModalOpen,setIsModalOpen] = useState(false);
-  const pdfTestUrl = '/modalTest.pdf';
+  const pdfTestUrl = '/test02.pdf';
 
 
   return (
     <Container>
       <BoxComponent 
-        name={TestData.name}
-        summation={TestData.summation}
-        companyName={TestData.companyName}
-        serviceName={TestData.serviceName}
+        name={testPresentation.title}
+        summary={testPresentation.summary}
+        companyName={testPresentation.company}
+        serviceName={testPresentation.service_name}
+        profile={testPresentation.profile}
+        thumbnail={testPresentation.thumbnail}
+        is_approve={testPresentation.is_approve}
       />
       <ButtonsWrapper>
         <OutlinedButtonComponent 
@@ -74,7 +79,7 @@ export default function PtPage() {
       <Modal 
         isOpen={isModalOpen}
         onClose={()=>setIsModalOpen(false)}
-        fileUrl={pdfTestUrl}
+        pdfUrl={testPresentation.summary_business_plan}
       />
     </Container>
   )

@@ -9,28 +9,43 @@ import FilledButton from "@/shared/Button/FIlledButton";
 
 interface BoxProps {
     name : string;
-    summation : string;
+    summary : string;
     companyName : string;
     serviceName : string;
+    profile:string;
+    thumbnail:string;
+    is_approve:boolean;
 }
 
 const videoTest = `https://i.pinimg.com/736x/75/81/8f/75818fb615b8b9f205bc17653b4ae345.jpg`;
 
-const BoxComponent: React.FC<BoxProps> = ({name, summation, companyName, serviceName}) => {
+const BoxComponent: React.FC<BoxProps> = ({
+    name, 
+    summary, 
+    companyName, 
+    serviceName,
+    profile, 
+    thumbnail,
+    is_approve
+}) => {
 
     return(
         <Container>
             <InfoWrapper>
-                <ContentInfo name={name} summation={summation}/>
+                <ContentInfo name={name} summary={summary}/>
                 <UserInfoWrapper>
-                    <Profile />
+                    <Profile src={profile}/>
                     <UserInfo companyName={companyName} serviceName={serviceName}/>
                 </UserInfoWrapper>
             </InfoWrapper>
 
             <VideoWrapper>
                 {/* 왜 src test가 안될깡..? */}
-                <Video src={videoTest} type="investormain"/>
+                <Video 
+                    src={thumbnail} 
+                    // type="investormain"
+                    is_approve={is_approve}
+                    />
                 <FilledButton scale="l" state="default" children='재생하기'/>
             </VideoWrapper>
         </Container>
@@ -81,6 +96,6 @@ const Video = styled(Thumbnail)`
     height: 14.625rem;
     align-self: stretch;
     border-radius: 0.625rem;
-    background: var(--GrayScale-20, #D8DBDF);
+    background: ${({src})=> src ? `url(${src}) center/cover no-repeat`:'var(--gray-scale-20, #D8DBDF)'};
     box-shadow: 0px 0px 200px 0px rgba(7, 89, 230, 0.80);
 `;

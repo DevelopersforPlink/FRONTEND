@@ -9,10 +9,10 @@ import {BsFillXCircleFill} from 'react-icons/bs';
 interface ModalProps {
     isOpen : boolean;
     onClose : () => void;
-    fileUrl : string;
+    pdfUrl : string;
 }
 
-const Modal:React.FC<ModalProps> = ({isOpen, onClose, fileUrl}) => {
+const Modal:React.FC<ModalProps> = ({isOpen, onClose, pdfUrl}) => {
     // const [numPages, setNumPages] = useState<number | null>(null);
     const [numPages, setNumPages] = useState(0);
     const [pageNumber, setPageNumber] = useState(1);
@@ -36,7 +36,7 @@ const Modal:React.FC<ModalProps> = ({isOpen, onClose, fileUrl}) => {
                 <CrossButton onClick={onClose}>
                     <CrossIcon />
                 </CrossButton>
-                <PdfViewer fileUrl='/test03.pdf'/>
+                <PdfViewer pdfUrl={pdfUrl}/>
             </Wrapper>
         </Container>
     )
@@ -45,28 +45,36 @@ const Modal:React.FC<ModalProps> = ({isOpen, onClose, fileUrl}) => {
 export default Modal;
 
 const Container = styled.div`
-    z-index: 1000;
+   z-index: 1000;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
 
-    position: fixed;
-    top: 0;
-    left: 0;
+position: fixed;
+top: 0;
+left: 0;
 
-    width: 100%;
-    height: 100%;
+width: 100%;
+height: 100%;
 
-    background: rgba(23, 26, 28, 0.50);
-    backdrop-filter: blur(10px);
+background: rgba(23, 26, 28, 0.50);
+backdrop-filter: blur(10px);
 `;
 
 const Wrapper = styled.div`
-    display: flex;
+   display: flex;
     flex-direction: column;
-    align-content: center;
+    justify-content: center; 
+    align-items: center;
+
+    /* padding: 3rem; */
+    /* gap: 1.5rem; */
+
+    /* width: 66.5rem; */
+    /* width: 55rem;
+    width: 37rem; */
     width: 80%;
     height: 80%;
 `;
