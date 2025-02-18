@@ -10,6 +10,7 @@ import Image from 'next/image';
 import CustomRow from '@/shared/CustomRow';
 import AuthNavigation from './components/AuthNavigation';
 import styled from '@emotion/styled'
+import { useRouter } from 'next/navigation';
 
 const Container = styled.div`
   width: 500px;
@@ -21,9 +22,9 @@ const Container = styled.div`
 `
 
 export default function LoginPage() {
+  const router = useRouter();
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
-
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +39,30 @@ export default function LoginPage() {
 
   const isButtonDisabled = userId.trim() === '' || password.trim() === '';
 
+  const validatePassword = (value: string) => {
+    if (value.length < 8) return false;
+    const hasLetter = /[a-zA-Z]/.test(value);
+    const hasNumber = /\d/.test(value);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+    return hasLetter && hasNumber && hasSpecialChar;
+  };
+
+  const handleLogin = () => {
+    if (!userId || !password) {
+      alert('아이디와 비밀번호를 입력해주세요.');
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      alert('비밀번호 형식이 올바르지 않습니다.');
+      return;
+    }
+
+    // 실제로는 API 호출이 필요하지만, 임시로 성공 메시지 표시
+    alert('로그인 되었습니다.');
+    router.push('/founder') 
+  };
+  
   return (
     <Container>
       <CustomRow $padding='60px 0 40px 0'>
@@ -85,7 +110,8 @@ export default function LoginPage() {
         <FilledButton
           scale="l"
           state={buttonState}
-          onClick={handleClick}
+          // onClick={handleClick}
+          onClick={handleLogin}
           disabled={isButtonDisabled}
         >
           로그인

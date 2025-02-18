@@ -30,7 +30,7 @@ const Caption = styled(Caption6)<{ error?: boolean }>`
 interface LabelWithCaptionWrapperProps {
   label?: string;
   required?: boolean;
-  caption?: string;
+  caption?: React.ReactNode;
   error?: boolean;
   captionPosition?: "before" | "after";
   children: React.ReactNode;
