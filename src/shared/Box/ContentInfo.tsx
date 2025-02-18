@@ -5,9 +5,11 @@ import styled from "@emotion/styled";
 
 /* 확장성 고려해서 interface로 선언 */
 interface ContentInfoProps {
-    name : string;
-    companyName : string;
-    serviceName : string;
+    title : string;
+    company : string;
+    service_name : string;
+    // business_type_display:string;
+    business_progress:string;
     type:'investormain' | 'upload'
 }
 
@@ -23,17 +25,24 @@ const typograpyMap = {
     // 박스 요소 더 만들어지면 그거에 맞게 추가하기
 };
 
-const ContentInfo:React.FC<ContentInfoProps> = ({name, companyName, serviceName, type}) =>{
+const ContentInfo:React.FC<ContentInfoProps> = ({
+    title, 
+    company, 
+    service_name, 
+    // business_type_display,
+    business_progress,
+    type
+}) =>{
     const NameComponent = typograpyMap[type].name;
     const CaptionComponent = typograpyMap[type].caption;
 
     return(
-        <Container>
-            <NameComponent>{name}</NameComponent>
+        <Container >
+            <NameComponent>{title}</NameComponent>
             <CaptionsWrapper>
-                <CaptionComponent>{companyName}</CaptionComponent>
+                <CaptionComponent>{company}</CaptionComponent>
                 <CaptionSeparator />
-                <CaptionComponent>{serviceName}</CaptionComponent>
+                <CaptionComponent>{service_name}</CaptionComponent>
             </CaptionsWrapper>
         </Container>
     )

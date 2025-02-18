@@ -6,31 +6,58 @@ import styled from "@emotion/styled";
 import Thumbnail from "./Thumbnail";
 import Profile from "./Profile";
 import ContentInfo from "./ContentInfo";
+import ContentState from "./ContentState";
 
 interface InvestorMainBoxProps {
-    thumbnailSrc ?:string;
-    profileSrc ?:string;
-    name : string;
-    companyName : string;
-    serviceName : string;
+    id:string;
+    thumbnail ?:string;
+    profile ?:string;
+    title : string;
+    company : string;
+    service_name : string;
+    business_type:string;
+    business_progress:string;
+    is_approve:boolean;
     onClick:React.MouseEventHandler<HTMLButtonElement>;
+
+    type:'investor'|'founder';
 }
 
 /* 추후 아래 주석으로 변경 */
-const InvestorMainBox:React.FC<InvestorMainBoxProps> = ({thumbnailSrc, profileSrc, name, companyName, serviceName,onClick}) =>{
-// const InvestorMainBox = () =>{
+const InvestorMainBox:React.FC<InvestorMainBoxProps> = ({
+    id,
+    thumbnail, 
+    profile, 
+    title, 
+    company, 
+    service_name,
+    business_type,
+    business_progress,
+    onClick,
+
+    is_approve,
+    type,
+}) =>{
 
     return(
         <Container onClick={onClick}>
-            <Thumbnail src={thumbnailSrc} type="investormain"/>
+            {is_approve && <Thumbnail src={thumbnail} type={type} is_approve={is_approve}/>}
+            {!is_approve && 
+                <ThumbnailWrapper>
+                    <ContentState type='editing'/>
+                    <StyledThumbnail src={thumbnail} type={type} is_approve={is_approve}/>
+                </ThumbnailWrapper>
+            }
             <Wrapper>
-                <Profile src={profileSrc}/>
+                <Profile src={profile}/>
                 <ContentInfo 
-                    name={name}
-                    companyName={companyName}
-                    serviceName={serviceName}
+                    title={title}
+                    company={company}
+                    service_name={service_name}
+                    business_progress={business_progress}
+                    // 컴포넌트 재사용을 위한 type 지정
                     type='investormain'
-                    />
+                />
             </Wrapper>
         </Container>
     )
@@ -74,4 +101,20 @@ const Wrapper = styled.div`
     align-items: center;
 
     gap: 0.75rem;
+`;
+
+const ThumbnailWrapper = styled.div`
+    position: relative; /* ✅ 부모 요소를 relative로 설정하여 State 배치 가능 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: auto;
+`;
+
+const StyledThumbnail=styled(Thumbnail)`
+    position: relative; /* ✅ State보다 뒤에 있도록 설정 */
+    z-index: 1;
 `;

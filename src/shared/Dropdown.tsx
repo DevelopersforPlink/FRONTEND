@@ -39,7 +39,7 @@ const Container = styled.div`
 
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     
     position: absolute;
     top: 4rem;
