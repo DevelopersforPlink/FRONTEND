@@ -24,19 +24,19 @@ export default function RegisterProfilePage() {
 
   // 창업자 탭 상태
   const [entrepreneurState, setEntrepreneurState] = useState({
-    userName: "",
+    name: "",
     phone: "",
     company: "",
-    position: "",
+    company_position: "",
     company_email: "",
   });
 
   // 투자자 탭 상태
   const [investorState, setInvestorState] = useState({
-    userName: "",
+    name: "",
     phone: "",
     company: "",
-    position: "",
+    company_position: "",
     company_email: "",
     codeValue: "",
     fileSelected: false,
@@ -65,9 +65,9 @@ export default function RegisterProfilePage() {
   const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (selectedTab === "창업자") {
-      setEntrepreneurState(prev => ({ ...prev, userName: value }));
+      setEntrepreneurState(prev => ({ ...prev, name: value }));
     } else {
-      setInvestorState(prev => ({ ...prev, userName: value }));
+      setInvestorState(prev => ({ ...prev, name: value }));
     }
   };
 
@@ -92,18 +92,18 @@ export default function RegisterProfilePage() {
   const handlePositionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (selectedTab === "창업자") {
-      setEntrepreneurState(prev => ({ ...prev, position: value }));
+      setEntrepreneurState(prev => ({ ...prev, company_position: value }));
     } else {
-      setInvestorState(prev => ({ ...prev, position: value }));
+      setInvestorState(prev => ({ ...prev, company_position: value }));
     }
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (selectedTab === "창업자") {
-      setEntrepreneurState(prev => ({ ...prev, email: value }));
+      setEntrepreneurState(prev => ({ ...prev, company_email: value }));
     } else {
-      setInvestorState(prev => ({ ...prev, email: value }));
+      setInvestorState(prev => ({ ...prev, company_email: value }));
     }
   };
 
@@ -129,11 +129,11 @@ export default function RegisterProfilePage() {
 
   const isButtonDisabled = (): boolean => {
     if (selectedTab === "창업자") {
-      const { userName, phone, company, position, company_email } = entrepreneurState;
-      return !userName || !phone || !company || !position || !company_email || !checkedItems.allChecked;
+      const { name, phone, company, company_position, company_email } = entrepreneurState;
+      return !name || !phone || !company || !company_position || !company_email || !checkedItems.allChecked;
     } else {
-      const { userName, phone, company, position, company_email, codeValue, fileSelected } = investorState;
-      return !userName || !phone || !company || !position || !company_email || !codeValue || !fileSelected || !checkedItems.allChecked;
+      const { name, phone, company, company_position, company_email, codeValue, fileSelected } = investorState;
+      return !name || !phone || !company || !company_position || !company_email || !codeValue || !fileSelected || !checkedItems.allChecked;
     }
   };
 
@@ -172,12 +172,12 @@ export default function RegisterProfilePage() {
         <Profile profileImage="" mainIcon="/icons/User.svg" secondaryIcon="/icons/Pic.svg" />
         <CustomColumn $width="100%" $gap="24px" $alignitems="center" $justifycontent="center">
           <CommonField
-            userName={getCurrentState().userName}
+            userName={getCurrentState().name}
             phone={getCurrentState().phone}
             setUserName={handleUserNameChange}
             setPhone={handlePhoneChange}
             company={getCurrentState().company}
-            position={getCurrentState().position}
+            position={getCurrentState().company_position}
             setCompany={handleCompanyChange}
             setPosition={handlePositionChange}
           />

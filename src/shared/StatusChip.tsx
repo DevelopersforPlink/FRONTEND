@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import {Caption6} from '@/app/typography';
 
 interface StatusChipProps {
-  is_approve: boolean;
+  is_approve: boolean | null;
 }
 
 const ChipWrapper = styled.div`

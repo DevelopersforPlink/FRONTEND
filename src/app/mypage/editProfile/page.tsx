@@ -1,4 +1,3 @@
-// p.9.1
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -14,38 +13,40 @@ import Modal from "@/shared/Modal/Modal";
 import FilledButton from "@/shared/Button/FIlledButton";
 import { useRouter } from "next/navigation";
 import DeleteAccount from "./components/DeleteAccount";
-
+import patchUserClientInfo from "@/api/patch/patchUserClientInfo";
+import getUserClientInfoUpdate from "@/api/get/getUserClientInfoUpdate";
 
 export default function EditProfilePage() {
   const router = useRouter();
 
   const [userData, setUserData] = useState({
     image: "",
-    username: "",
+    id: "",
     name: "",
     phone: "",
     company: "",
     company_position: "",
     company_email: "",
-    certificate_employment: "",
+    certificate_employment: null as string | null,
     client_position: "",
     fileSelected: false,
     fileName: null as string | null,
   });
-
 
   const [buttonState, setButtonState] = useState<"default" | "pressed" | "disabled" | "hover">("default");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('api/user/client-info/');
-      const data = await response.json();
-      setUserData(data);
+      try {
+        const data = await getUserClientInfoUpdate(); // 회원 정보 조회
+        setUserData(data);
+      } catch (error) {
+        console.error("회원 정보 조회 실패: ", error);
+      }
     };
-
     fetchData();
-  }, []);
+  }, []);;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
     setUserData(prev => ({ ...prev, [field]: e.target.value }));
@@ -76,12 +77,15 @@ export default function EditProfilePage() {
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
   const handleSubmit = async () => {
-    setIsModalOpen(true);
+    try {
+      // 수정된 정보만 보냄
+      await patchUserClientInfo(userData); 
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("회원 정보 수정 실패:", error);
+    }
   };
 
-  const changeClientPosition = (position: "창업자" | "투자자") => {
-    setUserData(prev => ({ ...prev, client_position: position }));
-  };
 
   return (
     <>
@@ -95,23 +99,19 @@ export default function EditProfilePage() {
           <CustomColumn $width="100%" $gap="24px" $alignitems="center" $justifycontent="center">
             <CommonField
               image={userData.image}
-              username={userData.username}
+              id={userData.id}
               name={userData.name}
               phone={userData.phone}
               company={userData.company}
               company_position={userData.company_position}
               client_position={userData.client_position}
-              setUsername={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, 'username')}
+              setId={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, 'id')}
               setName={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, 'name')}
               setPhone={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, 'phone')}
               setCompany={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, 'company')}
               setCompanyPosition={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, 'company_position')}
               setClientPosition={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, 'client_position')}
             />
-            {/* <div>
-              <button onClick={() => changeClientPosition("창업자")}>창업자 선택</button>
-              <button onClick={() => changeClientPosition("투자자")}>투자자 선택</button>
-            </div> */}
             {userData.client_position === "창업자" && (
               <FounderTab
                 company_email={userData.company_email}

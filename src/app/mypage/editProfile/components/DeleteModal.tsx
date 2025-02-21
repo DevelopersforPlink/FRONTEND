@@ -3,15 +3,15 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import FilledButton from '@/shared/Button/FIlledButton';
-import CustomColumn from '../CustomColumn';
-import { Title5 } from '@/app/typography';
-import { useRouter } from "next/navigation";
+import CustomColumn from '@/shared/CustomColumn';
+import { Label1, Title5 } from '@/app/typography';
+import CustomRow from '@/shared/CustomRow';
 
 interface ModalProps {
   modalText: string;
+  modalDescription: React.ReactNode;
   closeModal: () => void;
-  modalType: 'request' | 'pay';
-  onConfirm?: ()=> void;
+  onConfirm?: () => void;
   children?: React.ReactNode;
 }
 
@@ -26,8 +26,8 @@ const Overlay = styled.div`
 `;
 
 const ModalWrapper = styled.div`
-  width: 462px;
-  height: 323px;
+  width: 28.875rem;
+  height: 20.625rem;
   background-color: var(--common-white);
   position: relative;
   border-radius: 16px;
@@ -62,29 +62,30 @@ const CloseButton = styled.button`
   }
 `;
 
-const CircleWrapper = styled.div<{ modalType: 'request' | 'pay' }>`
-  width: 70px;
-  height: 70px;
+const CircleWrapper = styled.div`
+  width: 3.75rem;
+  height: 3.75rem;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-
-  ${({ modalType }) => modalType === 'request' && `
-    background-color: var(--primary-color-60);
-  `}
-  ${({ modalType }) => modalType === 'pay' && `
-    background-color: var(--sementic-color-notice);
-  `}
+  background-color: var(--sementic-color-notice);
+  flex-shrink: 0;
 `;
 
 const MainIcon = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 1.5rem;
+  height: 1.5rem; 
+  flex-shrink: 0;
 `;
 
 const ModalText = styled(Title5)`
+  text-align: center;
+  color: var(--gray-scale-90);
+`;
+
+const ModalDescription = styled(Label1)`
   text-align: center;
   color: var(--gray-scale-90);
 `;
@@ -97,26 +98,25 @@ const ContentWrapper = styled.div`
   align-items: center;
 `;
 
-const Modal: React.FC<ModalProps> = ({ modalText, closeModal, modalType, onConfirm }) => {
+const DeleteModal: React.FC<ModalProps> = ({ modalText, modalDescription, closeModal, onConfirm }) => {
   const handleOverlayClick = (e: React.MouseEvent) => {
-    // Overlay 클릭 시 모달 닫기
     if (e.target === e.currentTarget) {
       closeModal();
     }
   };
 
   const [buttonState, setButtonState] = useState<"default" | "pressed" | "disabled" | "hover">("default");
-  const router = useRouter();
 
-  const handleClick = () => {
-    setButtonState(buttonState === "pressed" ? "default" : "pressed");
-
-    if (onConfirm) {
-      onConfirm();  // 부모 컴포넌트에서 전달된 경로 변경 함수 호출
-      closeModal();  // 모달 닫기
-    }
+  const handleCancelClick = () => {
+    closeModal();
   };
 
+  const handleDeleteClick = () => {
+    if (onConfirm) {
+      onConfirm();
+    }
+    closeModal();
+  };
 
   return (
     <>
@@ -126,18 +126,30 @@ const Modal: React.FC<ModalProps> = ({ modalText, closeModal, modalType, onConfi
           <img src="/icons/Crossmall.svg" alt="Close" />
         </CloseButton>
         <ContentWrapper>
-          <CustomColumn $width='100%' $gap='36px' $alignitems="center" $justifycontent="center" $marginTop='5.75rem'>
-            <CircleWrapper modalType={modalType}>
-              <MainIcon src={modalType === 'request' ? '/icons/Check.svg' : '/icons/Card.svg'} alt="Main Icon" />
+          <CustomColumn $width='100%' $alignitems="center" $justifycontent="center" $marginTop='0.5rem'>
+            <CircleWrapper>
+              <MainIcon src="/icons/Trash.svg" alt="Trash Icon" />
             </CircleWrapper>
-            <ModalText>{modalText}</ModalText>
+            <CustomColumn $gap='0.75rem'>
+              <ModalText>{modalText}</ModalText>
+              <ModalDescription>{modalDescription}</ModalDescription>
+            </CustomColumn>
+            <CustomRow $gap='0.75rem'>
             <FilledButton
-              scale="l"
+              scale="s"
               state="pressed"
-              onClick={handleClick}
+              onClick={handleCancelClick}
             >
-              확인
+              취소
             </FilledButton>
+            <FilledButton
+              scale="s"
+              state="default"
+              onClick={handleDeleteClick}
+            >
+              탈퇴
+            </FilledButton>
+            </CustomRow>
           </CustomColumn>
         </ContentWrapper>
       </ModalWrapper>
@@ -145,4 +157,4 @@ const Modal: React.FC<ModalProps> = ({ modalText, closeModal, modalType, onConfi
   );
 };
 
-export default Modal;
+export default DeleteModal;
