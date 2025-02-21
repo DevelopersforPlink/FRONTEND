@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from "react";
 import CustomColumn from "@/shared/CustomColumn";
 import CustomRow from "@/shared/CustomRow";
