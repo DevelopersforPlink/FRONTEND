@@ -15,6 +15,7 @@ import CheckboxGroup from "./components/CheckboxGroup";
 import Modal from "@/shared/Modal/Modal";
 import FilledButton from "@/shared/Button/FIlledButton";
 import { useRouter } from "next/navigation";
+import postUserClientInfo from "@/api/post/postUserClientInfo";
 
 
 export default function RegisterProfilePage() {
@@ -62,54 +63,11 @@ export default function RegisterProfilePage() {
     return selectedTab === "창업자" ? entrepreneurState : investorState;
   };
 
-  const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+  const handleChange = (field: string, value: string) => {
     if (selectedTab === "창업자") {
-      setEntrepreneurState(prev => ({ ...prev, name: value }));
+      setEntrepreneurState((prev) => ({ ...prev, [field]: value }));
     } else {
-      setInvestorState(prev => ({ ...prev, name: value }));
-    }
-  };
-
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (selectedTab === "창업자") {
-      setEntrepreneurState(prev => ({ ...prev, phone: value }));
-    } else {
-      setInvestorState(prev => ({ ...prev, phone: value }));
-    }
-  };
-
-  const handleCompanyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (selectedTab === "창업자") {
-      setEntrepreneurState(prev => ({ ...prev, company: value }));
-    } else {
-      setInvestorState(prev => ({ ...prev, company: value }));
-    }
-  };
-
-  const handlePositionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (selectedTab === "창업자") {
-      setEntrepreneurState(prev => ({ ...prev, company_position: value }));
-    } else {
-      setInvestorState(prev => ({ ...prev, company_position: value }));
-    }
-  };
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (selectedTab === "창업자") {
-      setEntrepreneurState(prev => ({ ...prev, company_email: value }));
-    } else {
-      setInvestorState(prev => ({ ...prev, company_email: value }));
-    }
-  };
-
-  const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (selectedTab === "투자자") {
-      setInvestorState(prev => ({ ...prev, codeValue: e.target.value }));
+      setInvestorState((prev) => ({ ...prev, [field]: value }));
     }
   };
 
@@ -137,9 +95,29 @@ export default function RegisterProfilePage() {
     }
   };
 
-  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    setIsModalOpen(true);
+  const handleSubmit = async () => {
+    const data = selectedTab === "창업자"
+      ? {
+          ...entrepreneurState,
+          certificate_employment: "",
+          client_position: "창업자",
+          image: null
+        }
+      : {
+          ...investorState,
+          certificate_employment: investorState.fileName ?? "",
+          client_position: "투자자",
+          image: null
+        };
+
+    try {
+      await postUserClientInfo(data);
+      setIsModalOpen(true); 
+    } catch (error) {
+      console.error("회원 정보 등록 실패: ", error);
+    }
   };
+
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
@@ -171,30 +149,30 @@ export default function RegisterProfilePage() {
         <TabMenu tabs={tabs} onTabSelect={handleTabSelect} />
         <Profile profileImage="" mainIcon="/icons/User.svg" secondaryIcon="/icons/Pic.svg" />
         <CustomColumn $width="100%" $gap="24px" $alignitems="center" $justifycontent="center">
-          <CommonField
+        <CommonField
             userName={getCurrentState().name}
             phone={getCurrentState().phone}
-            setUserName={handleUserNameChange}
-            setPhone={handlePhoneChange}
+            setUserName={(e) => handleChange('name', e.target.value)}
+            setPhone={(e) => handleChange('phone', e.target.value)}
             company={getCurrentState().company}
             position={getCurrentState().company_position}
-            setCompany={handleCompanyChange}
-            setPosition={handlePositionChange}
+            setCompany={(e) => handleChange('company', e.target.value)}
+            setPosition={(e) => handleChange('company_position', e.target.value)}
           />
           {selectedTab === "창업자" && (
             <FounderTab
-            company_email={entrepreneurState.company_email}
-            setCompany_email={handleEmailChange}
+              company_email={entrepreneurState.company_email}
+              setCompany_email={(e) => handleChange('company_email', e.target.value)}
             />
           )}
           {selectedTab === "투자자" && (
             <InvestorTab
               company_email={investorState.company_email}
-              setCompany_email={handleEmailChange}
+              setCompany_email={(e) => handleChange('company_email', e.target.value)}
               buttonState={buttonState}
               codeValue={investorState.codeValue}
-              handleCodeChange={handleCodeChange}
-              handleClick={handleClick}
+              handleCodeChange={(e) => handleChange('codeValue', e.target.value)}
+              handleClick={handleSubmit}
               onFileSelect={handleFileSelect}
             />
           )}
@@ -205,11 +183,10 @@ export default function RegisterProfilePage() {
           onChange={handleCheckboxChange}
           allChecked={checkedItems.allChecked}
         />
-
         <FilledButton
           scale="l"
           state={buttonState}
-          onClick={handleClick}
+          onClick={handleSubmit}
           disabled={isButtonDisabled()}
         >
           등록하기
