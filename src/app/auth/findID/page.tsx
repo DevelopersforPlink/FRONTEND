@@ -35,14 +35,6 @@ function FindIDPage() {
   const [codeInputState, setCodeInputState] = useState<"default" | "error" | "pressed" | "after">("default");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // 이메일 입력 상태에 따라 인증 버튼 활성화/비활성화
-  // useEffect(() => {
-  //   if (userId.trim() === '') {
-  //     setVerifyButtonDisabled(true);
-  //   } else {
-  //     setVerifyButtonDisabled(false);
-  //   }
-  // }, [userId]);
   // 이메일 형식 검증 함수
   const isValidEmail = (email: string) => {
     // 이메일 형식 검증을 위한 정규식
