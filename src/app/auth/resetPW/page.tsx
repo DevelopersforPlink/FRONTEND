@@ -36,18 +36,16 @@ export default function ResetPWPage() {
   const [codeInputState, setCodeInputState] = useState<"default" | "error" | "pressed" | "after">("default");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // const handleClick = () => {
-  //   setButtonState(buttonState === "pressed" ? "default" : "pressed");
-  // };
-  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setCodeValue(e.target.value);
-  // }
-  
-  // const isButtonDisabled = userId.trim() === '' || codeValue.trim() === '';
+  // 이메일 형식 검증 함수
+  const isValidEmail = (email: string) => {
+    // 이메일 형식 검증을 위한 정규식
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   // 이메일 입력 상태에 따라 인증 버튼 활성화/비활성화
   useEffect(() => {
-    if (userId.trim() === '') {
+    if (userId.trim() === '' || !isValidEmail(userId)) {
       setVerifyButtonDisabled(true);
     } else {
       setVerifyButtonDisabled(false);
