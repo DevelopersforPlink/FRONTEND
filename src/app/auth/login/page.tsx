@@ -11,6 +11,7 @@ import CustomRow from '@/shared/CustomRow';
 import AuthNavigation from './components/AuthNavigation';
 import styled from '@emotion/styled'
 import { useRouter } from 'next/navigation';
+import * as Typography from '@/app/typography'
 
 const Container = styled.div`
   width: 500px;
@@ -114,7 +115,9 @@ export default function LoginPage() {
           onClick={handleLogin}
           disabled={isButtonDisabled}
         >
-          로그인
+          <Typography.Button2>
+            로그인
+          </Typography.Button2>
         </FilledButton>
       </CustomColumn>
 

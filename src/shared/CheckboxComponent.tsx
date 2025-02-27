@@ -11,7 +11,7 @@ const CheckboxWrapper = styled.div<{ disabled: boolean; checked: boolean; hovere
 const Checkbox = styled.input<{ checked: boolean; hovered: boolean; disabled: boolean }>`
   width: 20px;
   height: 20px;
-  border: 2px solid
+  border: 1px solid
     ${(props) =>
       props.disabled
         ? 'var(--gray-scale-40)'
@@ -24,7 +24,7 @@ const Checkbox = styled.input<{ checked: boolean; hovered: boolean; disabled: bo
       : props.checked
       ? 'var(--primary-color-60)'
       : 'var(--common-white)'};
-  border-radius: 2px;
+  border-radius: 4px;
   appearance: none;
   position: relative;
   transition: all 0.2s ease;
