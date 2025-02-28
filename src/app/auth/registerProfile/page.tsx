@@ -22,6 +22,8 @@ export default function RegisterProfilePage() {
   const router = useRouter();
   const tabs = ["창업자", "투자자"];
   const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
+  const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [profileImageUrl, setProfileImageUrl] = useState<string>("");
 
   // 창업자 탭 상태
   const [entrepreneurState, setEntrepreneurState] = useState({
@@ -40,7 +42,8 @@ export default function RegisterProfilePage() {
     company_position: "",
     company_email: "",
     codeValue: "",
-    fileSelected: false,
+    // fileSelected: false,
+    certificateFile: null as File | null,
     fileName: null as string | null,
   });
 
@@ -54,6 +57,7 @@ export default function RegisterProfilePage() {
 
   const [buttonState, setButtonState] = useState<"default" | "pressed" | "disabled" | "hover">("default");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("회원정보 등록이 요청되었어요");
 
   const handleTabSelect = (tab: string) => {
     setSelectedTab(tab);
@@ -71,11 +75,24 @@ export default function RegisterProfilePage() {
     }
   };
 
+  // 추가
+  const handleProfileImageUpload = (file: File) => {
+    setProfileImage(file);
+    setProfileImageUrl(URL.createObjectURL(file));
+  };
+
   const handleFileSelect = (fileSelected: boolean, fileName: string | null) => {
     setInvestorState(prev => ({ 
       ...prev, 
       fileSelected: fileSelected, fileName: fileName }));
   };
+  // const handleFileSelect = (file: File | null, fileName: string | null) => {
+  //   setInvestorState(prev => ({ 
+  //     ...prev, 
+  //     certificateFile: file,
+  //     fileName: fileName 
+  //   }));
+  // };
 
   const handleCheckboxChange = (checkedItems: { label: string; checked: boolean }[]) => {
     setCheckedItems(prev => {
@@ -90,8 +107,8 @@ export default function RegisterProfilePage() {
       const { name, phone, company, company_position, company_email } = entrepreneurState;
       return !name || !phone || !company || !company_position || !company_email || !checkedItems.allChecked;
     } else {
-      const { name, phone, company, company_position, company_email, codeValue, fileSelected } = investorState;
-      return !name || !phone || !company || !company_position || !company_email || !codeValue || !fileSelected || !checkedItems.allChecked;
+      const { name, phone, company, company_position, company_email, codeValue, certificateFile } = investorState;
+      return !name || !phone || !company || !company_position || !company_email || !codeValue || !certificateFile || !checkedItems.allChecked;
     }
   };
 
@@ -111,12 +128,36 @@ export default function RegisterProfilePage() {
         };
 
     try {
-      await postUserClientInfo(data);
+      await postUserClientInfo(data)
       setIsModalOpen(true); 
     } catch (error) {
       console.error("회원 정보 등록 실패: ", error);
     }
   };
+  // const handleSubmit = async () => {
+  //   try {
+  //     // 사용자 데이터 준비
+  //     const userData = {
+  //       name: getCurrentState().name,
+  //       phone: getCurrentState().phone,
+  //       image: profileImage,
+  //       company: getCurrentState().company,
+  //       company_position: getCurrentState().company_position,
+  //       company_email: getCurrentState().company_email,
+  //       certificate_employment: selectedTab === "투자자" ? investorState.certificateFile : null,
+  //       client_position: selectedTab
+  //     };
+
+  //     const response = await postUserClientInfo(userData);
+      
+  //     setModalMessage(response.message || "회원정보 등록이 요청되었어요");
+  //     setIsModalOpen(true);
+  //   } catch (error) {
+  //     console.error("회원 정보 등록 실패: ", error);
+  //     setModalMessage("회원 정보 등록에 실패했습니다. 다시 시도해주세요.");
+  //     setIsModalOpen(true);
+  //   }
+  // };
 
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
@@ -172,7 +213,9 @@ export default function RegisterProfilePage() {
               buttonState={buttonState}
               codeValue={investorState.codeValue}
               handleCodeChange={(e) => handleChange('codeValue', e.target.value)}
-              handleClick={handleSubmit}
+              // handleClick={handleSubmit}
+              // onFileSelect={handleFileSelect}
+              handleClick={() => {}}
               onFileSelect={handleFileSelect}
             />
           )}

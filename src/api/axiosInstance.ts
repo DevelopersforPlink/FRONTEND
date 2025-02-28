@@ -29,7 +29,7 @@ axiosInstance.interceptors.request.use(
       }
   
       if (accessToken && config.headers) {
-        config.headers.Authorization = `${accessToken}`; //`Bearer ${accessToken}` 원래는 이건데 이번에는 백에서 Bearer를 붙여서 줘서 뺌
+        config.headers.Authorization = `Bearer ${accessToken}`; //`Bearer ${accessToken}` 원래는 이건데 이번에는 백에서 Bearer를 붙여서 줘서 뺌
         console.log("Authorization 헤더:", config.headers.Authorization);
       }
       console.log("config 확인:", config);
