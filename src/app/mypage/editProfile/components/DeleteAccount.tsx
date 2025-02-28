@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import * as Typograghy from '@/app/typography';
+import DeleteModal from "./DeleteModal";
 
 const DeleteAccount = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <DeleteAccountContainer>
       <Text>
         더 이상 Plink 이용을 원하지 않으신가요?
       </Text>
-      <Button>회원 탈퇴</Button>
+      <Button onClick={toggleModal}>회원 탈퇴</Button>
+      {isModalOpen && (
+        <DeleteModal
+          modalText="정말 탈퇴하시겠어요?"
+          modalDescription={<>
+            탈퇴 버튼 선택 시, <br />
+            계정은 삭제되며 복구되지 않습니다.
+          </>}
+          closeModal={toggleModal}
+        />
+      )}
     </DeleteAccountContainer>
   );
 };

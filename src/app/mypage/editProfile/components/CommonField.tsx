@@ -12,14 +12,14 @@ const isValidPhoneNumber = (value: string) => {
 };
 
 interface CommonFieldProps {
-  username: string;
+  id: string;
   image: string;
   name: string;
   phone: string;
   company: string;
   company_position: string;
   client_position: string;
-  setUsername: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setId: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setName: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setPhone: (e: React.ChangeEvent<HTMLInputElement>) => void; 
   setCompany: (e: React.ChangeEvent<HTMLInputElement>) => void; 
@@ -29,13 +29,13 @@ interface CommonFieldProps {
 
 const CommonField: React.FC<CommonFieldProps> = ({
   image,
-  username,
+  id,
   name,
   phone,
   client_position,
   company,
   company_position,
-  setUsername,
+  setId,
   setName,
   setPhone,
   setClientPosition,
@@ -60,8 +60,8 @@ const CommonField: React.FC<CommonFieldProps> = ({
       <InputFormField
         label="아이디"
         required={true}
-        value={username}
-        onChange={setUsername}
+        value={id}
+        onChange={setId}
         placeholder="아이디"
         disabled={true}
       />

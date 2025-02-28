@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { LandingHeader } from "./landing/landingHeader";
+import Footer from "@/shared/Footer";
 
 export const metadata: Metadata = {
   title: "Plink ｜ 플러스(주) ｜ PLERS Corporation",
@@ -21,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {children}
+        <Footer/>
       </body>
     </html>
   );

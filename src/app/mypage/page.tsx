@@ -11,8 +11,9 @@ import Image from "@/app/mypage/components/Image";
 import FilledButton from "@/shared/Button/FIlledButton";
 import { useRouter } from "next/navigation";
 import StatusChip from "@/shared/StatusChip";
+import getUserClientInfo from "@/api/get/getUserClientInfo";
 
-interface UserData {
+interface clientData {
   user: string,
   name: string,
   phone: string,
@@ -22,29 +23,33 @@ interface UserData {
   company_email: string,
   certificate_employment: null,
   client_position: string,
-  summit_count: string,
-  pt_count: string,
-  is_approve: boolean,
+  summit_count: number,
+  pt_count: number,
+  is_approve: boolean | null,
+  status: string,
 }
 
 export default function MyPage() {
   const router = useRouter();
-  // const [userData, setUserData] = useState<UserData | null>(null);
+  const [clientData, setClientData] = useState<clientData | null>(null);
 
-  // const fetchUserData = async () => {
-  //   try {
-  //     const response = await fetch('api/user/client-info/');
-  //     const data = await response.json();
-  //     setUserData(data);
-  //   } catch (error) {
-  //     console.error('Error fetching user data:', error);
-  //   }
-  // };
+  useEffect(() => {
+    async function fetchClientInfo() {
+      try {
+        const data = await getUserClientInfo();
+        setClientData(data);
+      } catch (error) {
+        console.error("회원 정보 불러오기 실패: ", error)
+      }
+    }
+    fetchClientInfo();
+  }, []);
 
-  // // 컴포넌트 마운트 시 데이터 호출
-  // useEffect(() => {
-  //   fetchUserData();
-  // }, []);
+  const getApprovalStatus = (status: string) => {
+    if (status === 'Y') return true;
+    if (status === 'N') return false;
+    return null;
+  }
 
   return (
     <>
@@ -52,32 +57,36 @@ export default function MyPage() {
       <Container>
         <CustomRow $width="25.875rem" $gap="1.5rem" $justifycontent="flex-start">
           <Typography.Headline1>내 정보</Typography.Headline1>
-          <StatusChip is_approve={false} />
+          {clientData && clientData.status && (
+            <StatusChip is_approve={getApprovalStatus(clientData.status)} />
+          )}
         </CustomRow>
-        <CustomRow $width="25.9rem" $gap="1.25rem" $justifycontent="flex-start" $alignitems="center" $margin="2.5rem 0 0 0">
-          <Image profileImage="" mainIcon="/icons/User.svg" />
-          <CustomColumn $gap="0.5rem" $alignitems="flex-start">
-            <CustomRow $gap="0.5rem" $alignitems="flex-end" $alignself="stretch">
-              <Typography.Title5>이름</Typography.Title5>
-              <Typography.Caption5>회원유형</Typography.Caption5>
-            </CustomRow>
-            <Typography.Caption6>소속회사 | 직무</Typography.Caption6>
-          </CustomColumn>
-        </CustomRow>
+        {clientData && (
+          <CustomRow $width="25.9rem" $gap="1.25rem" $justifycontent="flex-start" $alignitems="center" $margin="2.5rem 0 0 0">
+            <Image profileImage={clientData.image || ""} mainIcon="/icons/User.svg" />
+            <CustomColumn $gap="0.5rem" $alignitems="flex-start">
+              <CustomRow $gap="0.5rem" $alignitems="flex-end" $alignself="stretch">
+                <Typography.Title5>{clientData.name}</Typography.Title5>
+                <Typography.Caption5>{clientData.client_position}</Typography.Caption5>
+              </CustomRow>
+              <Typography.Caption6>{clientData.company} | {clientData.company_position}</Typography.Caption6>
+            </CustomColumn>
+          </CustomRow>
+        )}
         <Others>
           <CustomRow $gap="3.125rem" $alignself="stretch">
             <Label>전화번호</Label>
-            <Value>010-0000-0000</Value>
+            <Value>{clientData?.phone || '정보 없음'}</Value>
           </CustomRow>
           <CustomRow $gap="3.125rem" $alignself="stretch">
             <Label>이메일</Label>
-            <Value>example@gmail.com</Value>
+            <Value>{clientData?.company_email || '정보 없음'}</Value>
           </CustomRow>
         </Others>
         <FilledButton
           scale="l"
           state="default"
-          onClick={()=>router.push('/mypage/editProfile')}
+          onClick={() => router.push('/mypage/editProfile')}
         >
           내 정보 수정하기
         </FilledButton>

@@ -3,7 +3,7 @@ import axiosInstance from "../axiosInstance";
 interface RegisterData {
   name: string;
   phone: string;
-  image: null;
+  image: string | null;
   company: string;
   company_position: string;
   company_email: string;
