@@ -17,7 +17,7 @@ interface clientData {
   status: string;
 };
 
-export default async function getUserClientInfo () {
+export default async function getUserClientInfoUpdate () {
   try {
     const response = await axiosInstance.get(`api/user/client-info/update/`);
     // console.log(response.data);

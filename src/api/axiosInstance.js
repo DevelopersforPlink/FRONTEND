@@ -30,10 +30,10 @@ axiosInstance.interceptors.response.use(
     (error) => {
         if(error.response){
             console.error('[ 🚨 API 응답 오류 ] : ', error.response);
-            // if(error.response.status == 401){
-            //     alert("인증이 필요합니다. 다시 로그인해주세요.")
-            //     window.location.href='/auth/login'; // 인증 실패시 로그인 페이지로 이동
-            // }
+            if(error.response.status == 401){
+                alert("인증이 필요합니다. 다시 로그인해주세요.")
+                window.location.href='/auth/login'; // 인증 실패시 로그인 페이지로 이동
+            }
         }
         return Promise.reject(error)
     }

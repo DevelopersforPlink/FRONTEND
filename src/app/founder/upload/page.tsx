@@ -45,8 +45,8 @@ export default function PtUpload() {
   };
 
   const radioOptions = [
-    { label: "아이디어", value: "founder" },
-    { label: "사업 진행중", value: "investor" },
+    { label: "아이디어", value: "아이디어" },
+    { label: "사업 진행중", value: "사업 진행중" },
   ];
 
   const isButtonDisabled = () => {
