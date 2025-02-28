@@ -9,8 +9,11 @@ import CustomColumn from '@/shared/CustomColumn';
 import CustomRow from '@/shared/CustomRow';
 import Image from 'next/image';
 import * as Typography from '@/app/typography'
+import patchPwModify from '@/api/patch/patchPwModify';
+import { useRouter } from 'next/navigation';
 
 export default function PasswordChangePage() {
+  const router = useRouter();
   const [password, setPassword] = useState('');
   const [checkPw, setCheckPw] = useState('');
 
@@ -49,6 +52,21 @@ export default function PasswordChangePage() {
   const handleClick = () => {
     setButtonState(buttonState === "pressed" ? "default" : "pressed");
   };
+
+  const handleModify = async () => {
+    const requestData = {
+      password,
+    }
+    console.log('회원가입 데이터: ', requestData); // 리퀘스트 데이터
+    try {
+      const response = patchPwModify(requestData);
+      console.log('비밀번호 변경 성공: ', response);
+      router.push('/auth/login');
+    } catch (error: any) {
+      console.error('에러: ', error.response);
+      alert('비밀번호 변경에 실패했습니다.');
+    }
+  }
 
   return (
     <CustomColumn $gap='2.5rem'>
@@ -108,7 +126,7 @@ export default function PasswordChangePage() {
         <FilledButton
           scale="l"
           state={buttonState}
-          onClick={handleClick}
+          onClick={handleModify}
           disabled={isButtonDisabled} // 버튼 비활성화 상태
         >
           <Typography.Button1>

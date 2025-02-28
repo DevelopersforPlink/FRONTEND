@@ -11,6 +11,8 @@ import * as Typography from '@/app/typography'
 import CertificationInput from '@/shared/Input/CertificationInput';
 import { useRouter } from 'next/navigation';
 import styled from "@emotion/styled";
+import postCodeSend from '@/api/post/postCodeSend';
+import patchCodeSend from '@/api/patch/patchCodeCheck';
 
 // 에러 메시지 스타일
 const ErrorMessage = styled(Typography.Caption7)`
@@ -21,7 +23,7 @@ const ErrorMessage = styled(Typography.Caption7)`
 
 function FindIDPage() {
   const router = useRouter();
-  const [userId, setUserId] = useState('');
+  const [email, setEmail] = useState('');
   const [buttonState, setButtonState] = useState<"default" | "pressed" | "disabled" | "hover">("default");
   const [codeValue, setCodeValue] = useState("");
   const [isEmailVerified, setIsEmailVerified] = useState(false);
@@ -44,12 +46,12 @@ function FindIDPage() {
 
   // 이메일 입력 상태에 따라 인증 버튼 활성화/비활성화
   useEffect(() => {
-    if (userId.trim() === '' || !isValidEmail(userId)) {
+    if (email.trim() === '' || !isValidEmail(email)) {
       setVerifyButtonDisabled(true);
     } else {
       setVerifyButtonDisabled(false);
     }
-  }, [userId]);
+  }, [email]);
 
   // 인증코드 입력 상태에 따라 확인 버튼 활성화/비활성화
   useEffect(() => {
@@ -70,7 +72,7 @@ function FindIDPage() {
     }
   }, [resetTimer]);
 
-  const handleEmailVerification = () => {
+  const handleEmailVerification = async () => {
     setCodeValue(""); // 인증번호 입력창 초기화
 
     // 이메일 재인증 시 에러 상태와 메시지를 모두 초기화하고 싶다면:
@@ -85,25 +87,60 @@ function FindIDPage() {
       // 첫 인증 시도
       setIsEmailVerified(true);
       setVerifyButtonText("재전송");
+
       // 여기에 인증 메일 발송 로직 추가
+      const Request = {
+        email,
+      };
+      console.log('리퀘스트 바디: ', Request)
+
+      try {
+        const response = await postCodeSend(Request);
+        alert('휴대폰 인증 번호가 발송되었습니다! 문자 메시지를 확인해주세요.')
+      } catch (error) {
+        alert("인증에 실패하였습니다.")
+      }
     } else {
       // 재전송 로직
       // 여기에 인증 메일 재전송 로직 추가
+      const Request = {
+        email,
+      };
+      console.log('리퀘스트 바디: ', Request)
+
+      try {
+        const response = await postCodeSend(Request);
+        alert('휴대폰 인증 번호가 발송되었습니다! 문자 메시지를 확인해주세요.')
+      } catch (error) {
+        alert("인증에 실패하였습니다.")
+      }
     }
   };
 
   // 인증코드 확인을 위한 가상의 올바른 코드 (실제로는 서버에서 검증)
   const correctCode = "123456";
 
-  const handleCodeVerification = () => {
+  const handleCodeVerification = async () => {
     // 인증코드 검증 로직
-    if (codeValue === correctCode) {
+    // if (codeValue === correctCode) {
+    const Request = {
+      email,
+      code: codeValue
+    };
+    console.log('리퀘스트 바디: ', Request);
+
+    try{
+      const response = await patchCodeSend(Request);
       setVerificationSuccess(true);
       setButtonState("pressed");
       setPauseTimer(true);
       setCodeInputState("default");
       setErrorMessage(null); // 성공 시에만 에러 메시지 제거
-    } else {
+
+      // 서버에서 받은 temporary_access 저장 (필요한 경우) - 나중에 확인해보고 변수명 둘 중 하나만 사용하기
+      localStorage.setItem('temporary_access', response.temporary_access);
+      localStorage.setItem('accessToken', response.temporary_access);
+    } catch (error: any) {
       // 인증 실패 시
       setVerificationSuccess(false);
       setCodeInputState("error");
@@ -118,7 +155,7 @@ function FindIDPage() {
   }
 
   // 다음 버튼은 이메일 입력, 인증코드 6글자 입력, 코드 확인 성공 시에만 활성화
-  const isNextButtonDisabled = userId.trim() === '' || codeValue.length !== 6 || !verificationSuccess;
+  const isNextButtonDisabled = email.trim() === '' || codeValue.length !== 6 || !verificationSuccess;
   
   return (
     <CustomColumn $gap='2.5rem'>
@@ -149,10 +186,10 @@ function FindIDPage() {
               placeholder="example@google.com"
               scale="m"
               icon={false}
-              value={userId}
+              value={email}
               state="default"
               // onChange={(e) => console.log(e.target.value)}
-              onChange={(e) => setUserId(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <FilledButton
               scale="xs"

@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import CustomRow from '@/shared/CustomRow';
 import CustomColumn from '@/shared/CustomColumn';
 import Image from 'next/image';
@@ -8,6 +8,7 @@ import * as Typography from '@/app/typography'
 import styled from '@emotion/styled'
 import FilledButton from '@/shared/Button/FIlledButton';
 import { useRouter } from 'next/navigation';
+import getIdFind from '@/api/get/getIdFind';
 
 const Container = styled.div`
   width: 40rem;
@@ -32,8 +33,22 @@ const StyledButton = styled.button`
 `;
 
 function FoundIDPage() {
-  const foundID = "abcd1234";
+  // const foundID = "abcd1234";
+  const [foundID, setFoundID] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getIdFind();
+        setFoundID(response.username);
+      } catch (error) {
+        console.error("아이디 조회 중 오류 발생:", error);
+      }
+    };
+    
+    fetchData();
+  }, []);
 
   return (
     //gap: 30px 먹는 이상한 문제 해결하기 위함
