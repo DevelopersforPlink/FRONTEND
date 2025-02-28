@@ -11,10 +11,12 @@ import Image from 'next/image';
 import * as Typography from '@/app/typography'
 import LoginNavigation from './components/LoginNavigation';
 import { useRouter } from 'next/navigation';
+import getIdCheck from '@/api/get/getIdCheck';
+import postJoin from '@/api/post/postJoin';
 
 export default function SignupPage() {
   const router = useRouter();
-  const [userId, setUserId] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isIdChecked, setIsIdChecked] = useState(false);
@@ -38,13 +40,25 @@ export default function SignupPage() {
     return hasLetter && hasNumber && hasSpecialChar;
   };
 
-  //41~65줄 추가
-  const handleIdCheck = () => {
+  const handleIdCheck = async () => {
     // 실제로는 API 호출이 필요하지만, 임시로 항상 사용 가능하다고 표시
-    alert('사용 가능한 아이디입니다.');
-    setIsIdChecked(true);
+    // alert('사용 가능한 아이디입니다.');
+    // setIsIdChecked(true);
+    if (!username.trim()) {
+      alert("아이디를 입력하세요.");
+      return;
+    }
+    try {
+      const response = await getIdCheck(username);
+      alert(response.message); // "사용할 수 있는 아이디입니다."
+      setIsIdChecked(true);
+    } catch (error) {
+      alert(error); // "해당 ID는 사용할 수 없습니다." 또는 기타 오류 메시지
+      setIsIdChecked(false);
+    }
   };
-  const handleSignup = () => {
+
+  const handleSignup = async() => {
     if (!isIdChecked) {
       alert('아이디 중복확인을 해주세요.');
       return;
@@ -61,8 +75,22 @@ export default function SignupPage() {
     }
 
     // 실제로는 API 호출이 필요하지만, 임시로 성공 메시지 표시
-    alert('회원가입이 완료되었습니다.');
-    router.push('/auth/login')
+    // alert('회원가입이 완료되었습니다.');
+    // router.push('/auth/login')
+    const userData = {
+      username,
+      password,
+    }
+    console.log('회원가입 데이터: ', userData); // 리퀘스트 데이터
+
+    try {
+      const response = await postJoin(userData);
+      console.log('회원가입 성공: ', response);
+      alert('회원가입이 완료되었습니다.');
+      router.push('/auth/login')
+    } catch (error: any) {
+      alert('회원가입에 실패했습니다.')
+    }
   };
 
   const [buttonState, setButtonState] = useState<"default" | "pressed" | "disabled" | "hover">("default");
@@ -70,7 +98,7 @@ export default function SignupPage() {
     setButtonState(buttonState === "pressed" ? "default" : "pressed");
   };
 
-  const isButtonDisabled = userId.trim() === '' || password.trim() === '' || !validatePassword(password);
+  const isButtonDisabled = username.trim() === '' || password.trim() === '' || !validatePassword(password);
 
 
   return (
@@ -99,10 +127,10 @@ export default function SignupPage() {
               placeholder="아이디"
               scale="m"
               icon={false}
-              value={userId}
+              value={username}
               state="default"
               // onChange={(e) => console.log(e.target.value)}
-              onChange={(e) => setUserId(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
             />
             <FilledButton
               scale="xs"
