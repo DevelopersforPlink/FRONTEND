@@ -6,13 +6,15 @@ import FilledButton from '@/shared/Button/FIlledButton';
 import CustomColumn from '../CustomColumn';
 import { Title5 } from '@/app/typography';
 import { useRouter } from "next/navigation";
+import { Label1 } from '@/app/typography';
 
 interface ModalProps {
   modalText: string;
   closeModal: () => void;
-  modalType: 'request' | 'pay';
+  modalType: 'request' | 'pay' | 'secession';
   onConfirm?: ()=> void;
   children?: React.ReactNode;
+  caption:string | null;
 }
 
 const Overlay = styled.div`
@@ -26,19 +28,25 @@ const Overlay = styled.div`
 `;
 
 const ModalWrapper = styled.div`
-  width: 462px;
-  height: 323px;
-  background-color: var(--common-white);
-  position: relative;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  z-index: 2;
+
   display: flex;
   flex-direction: column;
-  z-index: 2;
+  justify-content: space-between;
+  /* position: relative; */
   position: absolute;
   top: 50%;
   left: 50%;
+
+  width: 462px;
+  height: 323px;
+
+  /* padding: 20px; */
+  padding: 1.5rem;
+  
+  border-radius: 16px;
+  background-color: var(--common-white);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transform: translate(-50%, -50%);
 `;
 
@@ -62,26 +70,27 @@ const CloseButton = styled.button`
   }
 `;
 
-const CircleWrapper = styled.div<{ modalType: 'request' | 'pay' }>`
-  width: 70px;
-  height: 70px;
+const CircleWrapper = styled.div<{ modalType: 'request' | 'pay' | 'secession'}>`
+  width: 3.75rem;
+  height: 3.75rem;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  margin-right: 0;
 
   ${({ modalType }) => modalType === 'request' && `
     background-color: var(--primary-color-60);
   `}
-  ${({ modalType }) => modalType === 'pay' && `
+  ${({ modalType }) => modalType === 'pay' || 'secession' && `
     background-color: var(--sementic-color-notice);
   `}
 `;
 
 const MainIcon = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 1.5rem;
+  height: 1.5rem;
 `;
 
 const ModalText = styled(Title5)`
@@ -90,14 +99,22 @@ const ModalText = styled(Title5)`
 `;
 
 const ContentWrapper = styled.div`
-  margin-top: 24px;
   flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  padding: 1.13rem;
+
+  white-space: pre-line;
 `;
 
-const Modal: React.FC<ModalProps> = ({ modalText, closeModal, modalType, onConfirm }) => {
+const Caption = styled(Label1)`
+  color: var(--gray-scale-90, #2E3338);
+  text-align: center;
+`;
+
+const Modal: React.FC<ModalProps> = ({ modalText, closeModal, modalType, onConfirm, caption }) => {
   const handleOverlayClick = (e: React.MouseEvent) => {
     // Overlay 클릭 시 모달 닫기
     if (e.target === e.currentTarget) {
@@ -126,11 +143,17 @@ const Modal: React.FC<ModalProps> = ({ modalText, closeModal, modalType, onConfi
           <img src="/icons/Crossmall.svg" alt="Close" />
         </CloseButton>
         <ContentWrapper>
-          <CustomColumn $width='100%' $gap='36px' $alignitems="center" $justifycontent="center" $marginTop='5.75rem'>
+          <CustomColumn $width='100%' 
+          // $gap='36px' 
+          $alignitems="center" 
+          $justifycontent="center" 
+          // $marginTop='5.75rem'
+          >
             <CircleWrapper modalType={modalType}>
               <MainIcon src={modalType === 'request' ? '/icons/Check.svg' : '/icons/Card.svg'} alt="Main Icon" />
             </CircleWrapper>
             <ModalText>{modalText}</ModalText>
+            {caption && <Caption>{caption}</Caption>}
             <FilledButton
               scale="l"
               state="pressed"
