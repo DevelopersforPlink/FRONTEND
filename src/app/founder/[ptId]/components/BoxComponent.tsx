@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import UserInfo from "./UserInfo";
 import ContentInfo from "./ContentInfo";
 import Profile from "@/shared/Box/Profile";
+import EditDeleteButton from "@/shared/Button/EditDeleteButton";
 import Thumbnail from "@/shared/Box/Thumbnail";
 import FilledButton from "@/shared/Button/FIlledButton";
 
@@ -37,6 +38,10 @@ const BoxComponent: React.FC<BoxProps> = ({
                     <Profile src={profile}/>
                     <UserInfo companyName={companyName} serviceName={serviceName}/>
                 </UserInfoWrapper>
+                <ButtonWrapper>
+                    <EditDeleteButton type='edit' />
+                    <EditDeleteButton type='delete' />
+                </ButtonWrapper>
             </InfoWrapper>
 
             <VideoWrapper>
@@ -80,6 +85,15 @@ const UserInfoWrapper = styled.div`
     align-items: center;
 
     gap: 1.5rem;
+`;
+
+const ButtonWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.81rem;
 `;
 
 const VideoWrapper = styled.div`
