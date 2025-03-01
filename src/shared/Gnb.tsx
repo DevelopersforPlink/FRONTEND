@@ -16,28 +16,28 @@ const Gnb = () => {
     const gnbRef = useRef<HTMLDivElement | null>(null);
 
     const { state, type, gotoLogout } = useAuthStore();
-    const [activeModal, setActiveModal] =  useState<'bell'|'user'|null>(null);
+    const [ activeModal, setActiveModal ] =  useState<'bell'|'user'|null>(null);
 
     // zustand 테스트용 로컬스토리지 저장 -> GNB에서 관리.
-    const testStore = ()=>{
-        if(localStorage.getItem('accessToken')=='login'){
-            localStorage.setItem('zustand_state',state);
-        }
-    }
+    // const testStore = ()=>{
+    //     if(localStorage.getItem('accessToken')=='login'){
+    //         localStorage.setItem('zustand_state',state);
+    //     }
+    // }
 
     const handleIconClick=(modalType:'bell'|'user')=>{
         setActiveModal(prev=>(prev === modalType ? null : modalType))
     };
 
     useEffect(()=>{
-        testStore()
-        if(type === 'investor' && pathname.startsWith('/founder')){
-            alert('투자자는 창업자 페이지에 접근할 수 없습니다.');
-            // router.push('/investor');
-        } else if ( type === 'founder' && pathname.startsWith('/investor')){
-            alert('창업자는 투자자 페이지에 접근할 수 없습니다.');
-            // router.push('/founder');
-        }
+        // testStore()
+        // if(type === 'investor' && pathname.startsWith('/founder')){
+        //     alert('투자자는 창업자 페이지에 접근할 수 없습니다.');
+        //     // router.push('/investor');
+        // } else if ( type === 'founder' && pathname.startsWith('/investor')){
+        //     alert('창업자는 투자자 페이지에 접근할 수 없습니다.');
+        //     // router.push('/founder');
+        // }
 
         // 외부 클릭 감지 로직
         const handleClickOutside = (event:MouseEvent)=>{
