@@ -13,6 +13,7 @@ import OutlinedButtonComponent from '@/shared/Button/OutlinedButtonComponent';
 import Modal from './components/Modal';
 import { testPresentation } from '../../../constant/testPresentation';
 
+import EditDeleteButton from '@/shared/Button/EditDeleteButton';
 
 const TestData:{name : string, summation : string, companyName : string, serviceName : string} = {
   name : '테스트01-플링크',
@@ -53,6 +54,7 @@ export default function PtPage() {
           iconSrc='/icons/Folder.svg'
           onClick={()=>setIsModalOpen(true)}
         />
+
         {/* <OutlinedButtonComponent 
           scale='m'
           state='default'

@@ -8,7 +8,7 @@ interface AuthState {
     gotoLogout:()=>void;
 }
 
-/* 임시 : localStorage에서 accessToken 확인 후 초기 상태 설정 */
+/* 임시 : localStorage에서 login 확인 후 초기 상태 설정 */
 const initialState:'login'|'logout' = localStorage.getItem('login')?'login':'logout';
 /* 임시 : localStorage에서 type 확인 후 초기 상태 설정 - investor로 설정 */
 const initialType:'investor'|'founder' = localStorage.getItem('type')?'founder':'investor';
@@ -20,7 +20,7 @@ const useAuthStore=create<AuthState>()(
             type:initialType,
             gotoLogin:()=>{
                 set({state:'login'});
-                localStorage.setItem('login_state','login'); // 예제용 토큰 저장
+                localStorage.setItem('login_state','login'); // 로그인 상태 : 로그인으로 변경
             },
             gotoLogout:()=>{
                 set({state:'logout'})

@@ -18,7 +18,7 @@ const CustomColumn = styled.div<CustomColumnProps>`
   flex-direction: column;
   width: ${(props) => props.$width || 'auto'};
   height: ${(props) => props.$height || 'auto'};
-  gap: ${(props) => props.$gap || '30px'};
+  gap: ${(props) => props.$gap || '1.875rem'};
   align-items: ${(props) => props.$alignitems || 'center'};
   justify-content: ${(props) => props.$justifycontent || 'center'};
   margin-top: ${(props) => props.$marginTop || '0'};
