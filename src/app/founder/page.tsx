@@ -22,11 +22,6 @@ const FounderMain=()=>{
     setPage(page); // 클릭한 Pagination 의 숫자로 설정.
   }
 
-  // 임시 : 마운트 될 때마다 localStorage에 accessToken 설정
-  useEffect(()=>{
-    localStorage.setItem('accessToken','login');
-  },[])
-
   return (
   <Container>
     <Title>등록한 프레젠테이션</Title>
