@@ -2,6 +2,7 @@
 
 import { Title4, Title6, Caption3, Caption5 } from "@/app/typography";
 import styled from "@emotion/styled";
+import StatusChip from "../StatusChip";
 
 /* 확장성 고려해서 interface로 선언 */
 interface ContentInfoProps {
@@ -9,7 +10,7 @@ interface ContentInfoProps {
     company : string;
     service_name : string;
     // business_type_display:string;
-    business_progress:string;
+    // business_progress:string;
     type:'investormain' | 'upload'
 }
 
@@ -30,8 +31,8 @@ const ContentInfo:React.FC<ContentInfoProps> = ({
     company, 
     service_name, 
     // business_type_display,
-    business_progress,
-    type
+    // business_progress,
+    type,
 }) =>{
     const NameComponent = typograpyMap[type].name;
     const CaptionComponent = typograpyMap[type].caption;
