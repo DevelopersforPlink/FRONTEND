@@ -137,8 +137,7 @@ function FindIDPage() {
       setCodeInputState("default");
       setErrorMessage(null); // 성공 시에만 에러 메시지 제거
 
-      // 서버에서 받은 temporary_access 저장 (필요한 경우) - 나중에 확인해보고 변수명 둘 중 하나만 사용하기
-      localStorage.setItem('temporary_access', response.temporary_access);
+      // 서버에서 받은 temporary_access를 accessToken에 저장 
       localStorage.setItem('accessToken', response.temporary_access);
     } catch (error: any) {
       // 인증 실패 시
