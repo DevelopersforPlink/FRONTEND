@@ -13,12 +13,15 @@ interface UploadComponentProps {
     name : string;
     companyName : string;
     serviceName : string;
+    is_approve:boolean;
+    // onClick:(id:string)=>void;
+    onClick: (event: React.MouseEvent<HTMLDivElement>) => void; // ✅ 이벤트 타입 변경
 }
 
-const UploadComponent:React.FC<UploadComponentProps> = ({thumbnailSrc,name,companyName,serviceName}) =>{
+const UploadComponent:React.FC<UploadComponentProps> = ({thumbnailSrc, name, companyName, serviceName, is_approve, onClick}) =>{
     return(
-        <Container>
-            <Thumbnail src={thumbnailSrc} type="founder"/>
+        <Container onClick={onClick}>
+            <Thumbnail src={thumbnailSrc} type="founder" is_approve={is_approve}/>
             <Wrapper>
                 <ContentInfo 
                     title={name}
@@ -26,16 +29,6 @@ const UploadComponent:React.FC<UploadComponentProps> = ({thumbnailSrc,name,compa
                     service_name={serviceName}
                     type="upload"
                 />
-                <ButtonsWrapper>
-                    <EditButton>
-                        <Icon src="/icons/Pencil.svg"/>
-                        {/* <PencilIcon /> */}
-                    </EditButton>
-                    <DeleteButton>
-                        <Icon src="/icons/Trash.svg"/>
-                        {/* <TrashIcon /> */}
-                    </DeleteButton>
-                </ButtonsWrapper>
             </Wrapper>
         </Container>
     )

@@ -164,6 +164,7 @@ const Icon = styled.div<{src:string;}>`
         background-color: var(--gray-scale-80);
         transition: all 0.3s;
     }
+    
     :active{
         background-color: var(--gray-scale-80);
         transition: all 0.3s;

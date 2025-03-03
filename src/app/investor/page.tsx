@@ -13,6 +13,8 @@ import Pagination from '@/shared/Pagination';
 import { boxList } from '@/constant/testVideos';
 import { data } from '../../constant/testApiPagination';
 
+// api 연동
+import getInvestorMain from '../../api/get/getInvestorMain';
 
 export default function InvestorMain() {
   const [category, setCategory] = useState<string>('전체'); // 카테고리 선택 default / api 기준 : category 저장

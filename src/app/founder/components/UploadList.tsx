@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import styled from "@emotion/styled";
 import UploadComponent from '@/shared/Box/UploadComponent';
 import EmptyContent from "@/shared/EmptyContent";
@@ -10,6 +11,7 @@ interface UploadItem {
     title : string;
     company : string;
     service_name : string;
+    is_approve:boolean;
 }
 
 interface UploadListProps {
@@ -21,11 +23,17 @@ const UploadList:React.FC<UploadListProps>=({data})=>{
     //     data?.slice(index*3, index*3+3)
     // );
 
+    const router = useRouter();
+
     // data가 null일 경우 안전하게 처리
+    // const itemLists = Array.from(
+    //     { length: data ? Math.ceil(data.length / 3) : 0 }, 
+    //     (_, index) => data ? data.slice(index * 3, index * 3 + 3) : []
+    // );
     const itemLists = Array.from(
-        { length: data ? Math.ceil(data.length / 3) : 0 }, 
-        (_, index) => data ? data.slice(index * 3, index * 3 + 3) : []
-    );
+        { length: data?.length ? Math.ceil(data.length / 3) : 0 },
+        (_, index) => data?.slice(index * 3, index * 3 + 3) ?? []
+      );
 
     return(
         <Container>
@@ -41,6 +49,12 @@ const UploadList:React.FC<UploadListProps>=({data})=>{
                         name={item.title}
                         companyName={item.company}
                         serviceName={item.service_name}
+                        is_approve={item.is_approve}
+                        // onClick={() => router.push(`/founder/${item.id}`)}
+                        onClick={(event) => {
+                            event.stopPropagation(); // ✅ 클릭 이벤트 전파 방지
+                            router.push(`/founder/${item.id}`);
+                          }}
                     />
                 ))}
             </UploadComponentWrapper>
