@@ -11,6 +11,7 @@ import Image from 'next/image';
 import * as Typography from '@/app/typography'
 import patchPwModify from '@/api/patch/patchPwModify';
 import { useRouter } from 'next/navigation';
+import Modal from '@/shared/Modal/Modal';
 
 export default function PasswordChangePage() {
   const router = useRouter();
@@ -53,6 +54,8 @@ export default function PasswordChangePage() {
     setButtonState(buttonState === "pressed" ? "default" : "pressed");
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleModify = async () => {
     const requestData = {
       password,
@@ -61,12 +64,19 @@ export default function PasswordChangePage() {
     try {
       const response = patchPwModify(requestData);
       console.log('비밀번호 변경 성공: ', response);
-      router.push('/auth/login');
+      setIsModalOpen(true); // 성공 시 모달 열기
     } catch (error: any) {
       console.error('에러: ', error.response);
       alert('비밀번호 변경에 실패했습니다.');
     }
   }
+
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+  const handleModalConfirm = () => {
+    router.push('/auth/login');
+    setIsModalOpen(false); 
+  };
 
   return (
     <CustomColumn $gap='2.5rem'>
@@ -133,6 +143,15 @@ export default function PasswordChangePage() {
             비밀번호 변경하기
           </Typography.Button1>
         </FilledButton>
+        {isModalOpen && (
+          <Modal
+            modalText="비밀번호가 변경되었어요"
+            closeModal={toggleModal}
+            modalType="request"
+            onConfirm={handleModalConfirm}
+            customButtonText='로그인 하러가기'
+          />
+        )}
       </CustomColumn>
     </CustomColumn>
   )

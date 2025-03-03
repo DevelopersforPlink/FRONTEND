@@ -7,6 +7,7 @@ import CustomColumn from '../CustomColumn';
 import { Title5 } from '@/app/typography';
 import { useRouter } from "next/navigation";
 import { Label1 } from '@/app/typography';
+import * as Typography from '@/app/typography'
 
 interface ModalProps {
   modalText: string;
@@ -14,7 +15,8 @@ interface ModalProps {
   modalType: 'request' | 'pay' | 'secession';
   onConfirm?: ()=> void;
   children?: React.ReactNode;
-  caption:string | null;
+  caption?:string | null;
+  customButtonText?: string; // 버튼 텍스트를 커스터마이징할 수 있는 prop 추가
 }
 
 const Overlay = styled.div`
@@ -83,7 +85,7 @@ const CircleWrapper = styled.div<{ modalType: 'request' | 'pay' | 'secession'}>`
   ${({ modalType }) => modalType === 'request' && `
     background-color: var(--primary-color-60);
   `}
-  ${({ modalType }) => modalType === 'pay' || 'secession' && `
+  ${({ modalType }) => (modalType === 'pay' || modalType === 'secession') && `
     background-color: var(--sementic-color-notice);
   `}
 `;
@@ -114,7 +116,7 @@ const Caption = styled(Label1)`
   text-align: center;
 `;
 
-const Modal: React.FC<ModalProps> = ({ modalText, closeModal, modalType, onConfirm, caption }) => {
+const Modal: React.FC<ModalProps> = ({ modalText, closeModal, modalType, onConfirm, caption, customButtonText}) => {
   const handleOverlayClick = (e: React.MouseEvent) => {
     // Overlay 클릭 시 모달 닫기
     if (e.target === e.currentTarget) {
@@ -156,10 +158,12 @@ const Modal: React.FC<ModalProps> = ({ modalText, closeModal, modalType, onConfi
             {caption && <Caption>{caption}</Caption>}
             <FilledButton
               scale="l"
-              state="pressed"
+              state="default"
               onClick={handleClick}
             >
-              확인
+              <Typography.Button2>
+                {customButtonText || "확인"} {/* 커스텀 텍스트가 있으면 사용, 없으면 기본값 */}
+              </Typography.Button2>
             </FilledButton>
           </CustomColumn>
         </ContentWrapper>
